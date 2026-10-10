@@ -1,0 +1,18 @@
+# 02 · Sales and Profitability
+
+Case studies on what drives sales value and margin — products, categories, salespeople and discounting.
+
+## Typical business questions
+
+- Which products and categories contribute most to revenue and gross margin?
+- How does discounting affect realised price and margin?
+- How does performance vary by salesperson, region and customer segment?
+- Are there products sold below cost, and how often?
+
+## Primary tables
+
+`sales_order_items`, `sales_orders`, `products`, `product_categories`, `employees`, `customers` — see [schema](../datasets_and_documentation/schema.md).
+
+## Case studies
+
+No case studies published yet.
