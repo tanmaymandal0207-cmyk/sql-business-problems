@@ -1,0 +1,18 @@
+# 03 · Operations and Supply Chain
+
+Case studies on order fulfilment — whether orders ship and arrive on time, what delivery costs, and where returns occur.
+
+## Typical business questions
+
+- What share of orders is delivered by the promised delivery date?
+- Where and for which products do delivery delays concentrate?
+- How does shipping cost vary by destination and order size?
+- Which customers, products or routes account for returns?
+
+## Primary tables
+
+`sales_orders`, `shipments`, `sales_order_items`, `products`, `customers` — see [schema](../datasets_and_documentation/schema.md).
+
+## Case studies
+
+No case studies published yet.
