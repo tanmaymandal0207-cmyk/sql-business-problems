@@ -1,9 +1,15 @@
-# SQL Business Problems
+<p align="center">
+  <img src="images/banner.svg" alt="SQL Business Problems — business questions answered with SQL in Google BigQuery" width="100%">
+</p>
 
 Business problems analysed and answered with SQL — each case study starts from a business question, not from a query.
 
-![SQL](https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-4285F4?logo=googlebigquery&logoColor=white)
-![Status](https://img.shields.io/badge/status-first%20case%20study%20in%20progress-lightgrey)
+<p align="center">
+  <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
+  <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
+  <img src="https://img.shields.io/badge/Case%20studies-in%20preparation-DCE6F2?labelColor=17283B" alt="Case studies: in preparation">
+  <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
+</p>
 
 ---
 
@@ -55,9 +61,10 @@ sql-business-problems/
 ├── 03_operations_and_supply_chain/
 ├── 04_data_quality_and_reconciliation/
 ├── 05_advanced_analytics/
-└── datasets_and_documentation/
-    ├── schema.md
-    └── metric_definitions.md
+├── datasets_and_documentation/
+│   ├── schema.md
+│   └── metric_definitions.md
+└── images/
 ```
 
 ## 5. Technical stack
