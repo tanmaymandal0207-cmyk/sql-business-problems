@@ -17,4 +17,4 @@ Case studies on how revenue is distributed across customers, how it changes over
 
 | # | Case study | Status |
 |---|---|---|
-| 01 | [Customer revenue risk](01_customer_revenue_risk/) | In preparation |
+| 01 | [Customer revenue risk](01_customer_revenue_risk/) | Version 1 query added · findings pending revision |
