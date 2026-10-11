@@ -7,7 +7,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-in%20preparation-DCE6F2?labelColor=17283B" alt="Case studies: in preparation">
+  <img src="https://img.shields.io/badge/Case%20studies-1%20in%20progress-DCE6F2?labelColor=17283B" alt="Case studies: 1 in progress">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -77,9 +77,9 @@ Additional tools will be listed here only when they are used in a published case
 
 | # | Case study | Category | Status |
 |---|---|---|---|
-| 01 | [Customer revenue risk](01_customer_and_revenue/01_customer_revenue_risk/) | Customer and revenue | In preparation |
+| 01 | [Customer revenue risk](01_customer_and_revenue/01_customer_revenue_risk/) | Customer and revenue | Version 1 query added · findings pending revision |
 
-The first case study is being prepared. Case studies are listed as complete only once their SQL, validation and findings have been added to the repository.
+Case studies are listed as complete only once their SQL, validation and findings have been added to the repository.
 
 ## 7. Data and methodology
 
