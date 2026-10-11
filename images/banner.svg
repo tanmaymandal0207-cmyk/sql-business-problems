@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" role="img" aria-labelledby="title desc">
+  <title id="title">SQL Business Problems</title>
+  <desc id="desc">Business questions answered with SQL in Google BigQuery, validated before they are reported.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EAF1F9"/>
+      <stop offset="1" stop-color="#F6F9FC"/>
+    </linearGradient>
+    <clipPath id="card"><rect x="12" y="12" width="1256" height="276" rx="20"/></clipPath>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1B2A3D" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7F9BB8"/>
+    </marker>
+  </defs>
+
+  <!-- Card -->
+  <g filter="url(#shadow)">
+    <rect x="12" y="12" width="1256" height="276" rx="20" fill="url(#bg)" stroke="#D3DEEB"/>
+  </g>
+  <rect x="12" y="12" width="8" height="276" fill="#2F5D8A" clip-path="url(#card)"/>
+
+  <!-- Text block -->
+  <g font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+    <text x="64" y="80" font-size="15" font-weight="600" letter-spacing="3" fill="#3E6A96">GOOGLE BIGQUERY · STANDARD SQL · CASE STUDIES</text>
+    <text x="62" y="138" font-size="48" font-weight="700" fill="#17283B">SQL Business Problems</text>
+    <text x="64" y="178" font-size="19" fill="#4A5868">Business questions answered with SQL, validated before reporting</text>
+    <rect x="64" y="204" width="560" height="36" rx="18" fill="#DCE6F2"/>
+    <text x="84" y="227" font-size="14.5" fill="#3B4C60">Problem → Metrics → SQL → Validation → Findings → Recommendation</text>
+  </g>
+
+  <!-- Query window -->
+  <g>
+    <rect x="770" y="44" width="270" height="200" rx="12" fill="#FFFFFF" stroke="#C9D6E5"/>
+    <path d="M770,56 a12,12 0 0 1 12,-12 h246 a12,12 0 0 1 12,12 v16 h-270 z" fill="#E3EBF5"/>
+    <circle cx="788" cy="58" r="4.5" fill="#E8A3A3"/>
+    <circle cx="803" cy="58" r="4.5" fill="#EBCB8B"/>
+    <circle cx="818" cy="58" r="4.5" fill="#9CC9A8"/>
+    <text x="1026" y="62" text-anchor="end" font-family="Consolas, 'SFMono-Regular', Menlo, 'Courier New', monospace" font-size="11.5" fill="#5D7189">analysis.sql</text>
+
+    <g font-family="Consolas, 'SFMono-Regular', Menlo, 'Courier New', monospace" font-size="12.5">
+      <g fill="#A3B3C5" text-anchor="end">
+        <text x="796" y="98">1</text>
+        <text x="796" y="120">2</text>
+        <text x="796" y="142">3</text>
+        <text x="796" y="164">4</text>
+        <text x="796" y="186">5</text>
+        <text x="796" y="208">6</text>
+        <text x="796" y="230">7</text>
+      </g>
+      <text x="808" y="98" fill="#4A5868"><tspan fill="#2F5D8A" font-weight="700">WITH</tspan> revenue <tspan fill="#2F5D8A" font-weight="700">AS</tspan> (</text>
+      <text x="823" y="120" fill="#4A5868"><tspan fill="#2F5D8A" font-weight="700">SELECT</tspan> customer_id,</text>
+      <text x="838" y="142" fill="#4A5868"><tspan fill="#2F5D8A" font-weight="700">SUM</tspan>(net_value) <tspan fill="#2F5D8A" font-weight="700">AS</tspan> rev</text>
+      <text x="823" y="164" fill="#4A5868"><tspan fill="#2F5D8A" font-weight="700">FROM</tspan> order_lines</text>
+      <text x="823" y="186" fill="#4A5868"><tspan fill="#2F5D8A" font-weight="700">GROUP BY</tspan> 1)</text>
+      <text x="808" y="208" fill="#4A5868"><tspan fill="#2F5D8A" font-weight="700">SELECT</tspan> * <tspan fill="#2F5D8A" font-weight="700">FROM</tspan> revenue</text>
+      <text x="808" y="230" fill="#8A99AB">-- validate, then report</text>
+    </g>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M1046,144 C1060,144 1064,144 1076,144" stroke="#7F9BB8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Result card -->
+  <g>
+    <rect x="1084" y="64" width="150" height="160" rx="12" fill="#FFFFFF" stroke="#C9D6E5"/>
+    <rect x="1098" y="80" width="54" height="8" rx="4" fill="#B9C9DB"/>
+    <rect x="1182" y="80" width="38" height="8" rx="4" fill="#B9C9DB"/>
+    <line x1="1098" y1="98" x2="1220" y2="98" stroke="#E3EBF5"/>
+    <g fill="#DCE6F2">
+      <rect x="1098" y="108" width="62" height="8" rx="4"/>
+      <rect x="1098" y="126" width="48" height="8" rx="4"/>
+      <rect x="1098" y="144" width="56" height="8" rx="4"/>
+      <rect x="1098" y="162" width="40" height="8" rx="4"/>
+    </g>
+    <g fill="#5B85B0">
+      <rect x="1172" y="108" width="48" height="8" rx="4"/>
+      <rect x="1184" y="126" width="36" height="8" rx="4"/>
+      <rect x="1192" y="144" width="28" height="8" rx="4"/>
+      <rect x="1202" y="162" width="18" height="8" rx="4"/>
+    </g>
+    <rect x="1098" y="186" width="122" height="24" rx="12" fill="#E1F0E7"/>
+    <path d="M1110,198 l4,4 l8,-9" stroke="#2E7D5B" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1128" y="202.5" font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" letter-spacing="1.2" fill="#2E7D5B">VALIDATED</text>
+  </g>
+</svg>
