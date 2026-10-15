@@ -4,6 +4,8 @@
 
 Business problems analysed and answered with SQL — each case study starts from a business question, not from a query.
 
+> **New here?** The [Getting Started Guide](GUIDE.md) explains how the repository is organised, how to read a case study and how to run the SQL in BigQuery.
+
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
@@ -55,11 +57,14 @@ Every case study follows the same workflow:
 ```
 sql-business-problems/
 ├── README.md
+├── GUIDE.md
 ├── 01_customer_and_revenue/
 │   └── 01_customer_revenue_risk/
 ├── 02_sales_and_profitability/
 ├── 03_operations_and_supply_chain/
+│   └── 01_late_delivery_root_cause/
 ├── 04_data_quality_and_reconciliation/
+│   └── 01_order_to_cash_reconciliation/
 ├── 05_advanced_analytics/
 ├── datasets_and_documentation/
 │   ├── schema.md
