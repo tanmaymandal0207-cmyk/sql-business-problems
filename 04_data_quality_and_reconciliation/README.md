@@ -15,4 +15,6 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 
 ## Case studies
 
-No case studies published yet.
+| # | Case study | Status |
+|---|---|---|
+| 01 | [Order-to-cash reconciliation](01_order_to_cash_reconciliation/) — does the order payment flag agree with payments received, and how old are open receivables? | Complete |
