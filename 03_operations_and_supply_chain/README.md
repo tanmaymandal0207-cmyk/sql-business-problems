@@ -15,4 +15,6 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 
 ## Case studies
 
-No case studies published yet.
+| # | Case study | Status |
+|---|---|---|
+| 01 | [Late delivery root cause](01_late_delivery_root_cause/) — is lateness caused by dispatch, transit or promise-setting? | Complete |
