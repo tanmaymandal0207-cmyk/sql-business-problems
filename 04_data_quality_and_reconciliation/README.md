@@ -18,3 +18,4 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | # | Case study | Status |
 |---|---|---|
 | 01 | [Order-to-cash reconciliation](01_order_to_cash_reconciliation/) — does the order payment flag agree with payments received, and how old are open receivables? | Complete |
+| 02 | [Data quality scorecard](02_data_quality_scorecard/) — a 29-rule, repeatable scorecard across all tables, ranked by business impact | Complete |
