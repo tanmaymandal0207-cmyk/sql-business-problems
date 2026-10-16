@@ -142,6 +142,11 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Customer revenue risk | None (single query) |
 | Order-to-cash reconciliation | `order_payment_reconciliation` |
 | Late delivery root cause | `city_name_map`, `delivery_performance` |
+| Customer churn early warning | `customer_activity_status` |
+| Discount and margin erosion | `sales_line_margin` |
+| Freight cost-to-serve | `order_cost_to_serve` |
+| Data quality scorecard | `data_quality_results` |
+| ABC-XYZ product classification | `product_abc_xyz` |
 
 ### 5.4 If something does not match
 
