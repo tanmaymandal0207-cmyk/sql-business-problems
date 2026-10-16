@@ -15,4 +15,6 @@ Case studies on what drives sales value and margin — products, categories, sal
 
 ## Case studies
 
-No case studies published yet.
+| # | Case study | Status |
+|---|---|---|
+| 01 | [Discount and margin erosion](01_discount_margin_erosion/) — how much margin do discounts cost, and what would a discount cap recover? | Complete |
