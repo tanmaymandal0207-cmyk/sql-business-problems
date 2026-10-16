@@ -18,3 +18,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | # | Case study | Status |
 |---|---|---|
 | 01 | [Late delivery root cause](01_late_delivery_root_cause/) — is lateness caused by dispatch, transit or promise-setting? | Complete |
+| 02 | [Freight cost-to-serve and minimum order value](02_freight_cost_to_serve/) — do small orders cost more to ship than they earn? | Complete |
