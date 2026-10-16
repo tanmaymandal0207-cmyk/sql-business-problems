@@ -14,4 +14,6 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 
 ## Case studies
 
-No case studies published yet.
+| # | Case study | Status |
+|---|---|---|
+| 01 | [ABC-XYZ product classification](01_abc_xyz_product_classification/) — which stocking policy should each product follow, based on revenue and demand predictability? | Complete |
