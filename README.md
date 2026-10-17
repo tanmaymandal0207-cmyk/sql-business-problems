@@ -117,3 +117,4 @@ For each analysis, the following are documented alongside the SQL:
 ---
 
 **Author:** Tanmay Mandal — Business Analysis, Operations & ERP
+© Tanmay Mandal. All rights reserved. Shared for portfolio viewing only.
