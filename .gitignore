@@ -1,0 +1,16 @@
+# Query exports and local copies of the dataset are not stored in this repo
+*.csv
+*.xlsx
+exports/
+
+# BigQuery / Google Cloud local credentials (never commit)
+*.json.key
+service-account*.json
+.bigqueryrc
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
