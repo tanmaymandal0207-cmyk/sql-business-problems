@@ -8,7 +8,8 @@
 | **Dataset** | `sahyadri_b2b` (Google BigQuery) |
 | **SQL dialect** | BigQuery Standard SQL |
 | **Query** | [`analysis.sql`](analysis.sql) |
-| **Last updated** | 2026-10-11 |
+| **Validation** | [`validation.sql`](validation.sql) |
+| **Last updated** | 2026-10-18 |
 
 ---
 
@@ -86,7 +87,7 @@ The query is built as a sequence of CTEs:
 | Customer revenue reconciles to company revenue | Sum of unfiltered customer net sales vs. `Company_Revenue` (validation block at the end of `analysis.sql`) | Match — ₹95,18,90,079.55 on both sides |
 | Reproducibility | Query re-run independently on the CSV export of `sahyadri_b2b` | 305 customers returned; rank 1 is customer 1042 with net sales of ₹7,04,11,352.22 |
 
-**Limitation of this check:** both sides of the reconciliation use the same line-item formula, so the check confirms that no orders are lost between levels, but it cannot detect issues in the revenue formula itself (see section 10). A broader set of checks — revenue bridge by order status, NULL detection, grain and order-count reconciliation — is planned for version 2.
+**Limitation of this check:** both sides of the reconciliation use the same line-item formula, so the check confirms that no orders are lost between levels, but it cannot detect issues in the revenue formula itself (see section 10). Grain, join, NULL and order-count checks, plus the dataset figures quoted in this README, are now in [`validation.sql`](validation.sql). The revenue bridge by order status is included there as a reference query and becomes part of the version 2 analysis.
 
 ## 8. Findings
 
@@ -122,5 +123,4 @@ _Pending — each recommendation will reference the finding it is based on._
 |---|---|---|
 | `README.md` | Case study documentation (this file) | Version 1 |
 | `analysis.sql` | Primary analysis query, including its reconciliation check | Version 1 — original |
-
-Additional files (for example, a separate validation script) will be listed here when they are added.
+| `validation.sql` | Ten self-contained PASS/FAIL checks: structure, revenue reconciliation and documented dataset figures | Added 2026-10-18 |
