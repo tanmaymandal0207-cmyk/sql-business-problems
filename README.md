@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-7%20complete%20%C2%B7%201%20in%20progress-DCE6F2?labelColor=17283B" alt="Case studies: 7 complete, 1 in progress">
+  <img src="https://img.shields.io/badge/Case%20studies-10%20complete%20%C2%B7%201%20in%20progress-DCE6F2?labelColor=17283B" alt="Case studies: 10 complete, 1 in progress">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -60,9 +60,11 @@ sql-business-problems/
 ├── GUIDE.md
 ├── 01_customer_and_revenue/
 │   ├── 01_customer_revenue_risk/
-│   └── 02_customer_churn_early_warning/
+│   ├── 02_customer_churn_early_warning/
+│   └── 03_revenue_growth_bridge/
 ├── 02_sales_and_profitability/
-│   └── 01_discount_margin_erosion/
+│   ├── 01_discount_margin_erosion/
+│   └── 02_salesperson_scorecard/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   └── 02_freight_cost_to_serve/
@@ -70,7 +72,8 @@ sql-business-problems/
 │   ├── 01_order_to_cash_reconciliation/
 │   └── 02_data_quality_scorecard/
 ├── 05_advanced_analytics/
-│   └── 01_abc_xyz_product_classification/
+│   ├── 01_abc_xyz_product_classification/
+│   └── 02_customer_payment_behaviour/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -95,6 +98,9 @@ Additional tools will be listed here only when they are used in a published case
 | 6 | [Freight cost-to-serve and minimum order value](03_operations_and_supply_chain/02_freight_cost_to_serve/) | Operations and supply chain | Complete |
 | 7 | [Data quality scorecard](04_data_quality_and_reconciliation/02_data_quality_scorecard/) | Data quality and reconciliation | Complete |
 | 8 | [ABC-XYZ product classification](05_advanced_analytics/01_abc_xyz_product_classification/) | Advanced analytics | Complete |
+| 9 | [Revenue growth bridge](01_customer_and_revenue/03_revenue_growth_bridge/) | Customer and revenue | Complete |
+| 10 | [Salesperson performance scorecard](02_sales_and_profitability/02_salesperson_scorecard/) | Sales and profitability | Complete |
+| 11 | [Customer payment behaviour and credit terms](05_advanced_analytics/02_customer_payment_behaviour/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository.
 
@@ -117,4 +123,3 @@ For each analysis, the following are documented alongside the SQL:
 ---
 
 **Author:** Tanmay Mandal — Business Analysis, Operations & ERP
-© Tanmay Mandal. All rights reserved. Shared for portfolio viewing only.
