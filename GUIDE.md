@@ -150,6 +150,8 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Revenue growth bridge | `ytd_revenue_lines` |
 | Salesperson performance scorecard | `salesperson_scorecard` |
 | Customer payment behaviour | `paid_order_timing` |
+| Open order backlog review | `open_order_review` |
+| Customer master de-duplication | `customer_name_keys`, `customer_duplicate_candidates`, `customer_master_map` |
 
 ### 5.4 If something does not match
 
