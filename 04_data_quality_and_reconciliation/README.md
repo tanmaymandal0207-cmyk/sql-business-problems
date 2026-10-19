@@ -19,3 +19,4 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 |---|---|---|
 | 01 | [Order-to-cash reconciliation](01_order_to_cash_reconciliation/) — does the order payment flag agree with payments received, and how old are open receivables? | Complete |
 | 02 | [Data quality scorecard](02_data_quality_scorecard/) — a 29-rule, repeatable scorecard across all tables, ranked by business impact | Complete |
+| 03 | [Customer master de-duplication](03_customer_master_deduplication/) — which customer records are duplicates, and which record should survive? | Complete |
