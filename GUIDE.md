@@ -147,6 +147,9 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Freight cost-to-serve | `order_cost_to_serve` |
 | Data quality scorecard | `data_quality_results` |
 | ABC-XYZ product classification | `product_abc_xyz` |
+| Revenue growth bridge | `ytd_revenue_lines` |
+| Salesperson performance scorecard | `salesperson_scorecard` |
+| Customer payment behaviour | `paid_order_timing` |
 
 ### 5.4 If something does not match
 
