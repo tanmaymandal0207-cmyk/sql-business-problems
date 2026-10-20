@@ -20,3 +20,4 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 01 | [Discount and margin erosion](01_discount_margin_erosion/) — how much margin do discounts cost, and what would a discount cap recover? | Complete |
 | 02 | [Salesperson performance scorecard](02_salesperson_scorecard/) — does a balanced view of margin, discount, cancellations, delivery and collection change who looks best? | Complete |
 | 03 | [Price-volume-mix analysis](03_price_volume_mix/) — how much of revenue growth came from price, volume and product mix? | Complete |
+| 04 | [Cross-sell white-space analysis](04_cross_sell_white_space/) — which categories do customers not buy although their peers do, and what is that worth? | Complete |
