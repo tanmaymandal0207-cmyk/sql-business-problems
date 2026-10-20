@@ -33,6 +33,7 @@ Case studies are grouped by the kind of business problem they solve, not by SQL 
 sql-business-problems/
 ├── README.md                          Project overview and case study index
 ├── GUIDE.md                           This guide
+├── CHANGELOG.md                       Dated record of additions and changes
 ├── 01_customer_and_revenue/           Customer value, concentration, revenue risk
 ├── 02_sales_and_profitability/        Products, pricing, discounts, margin
 ├── 03_operations_and_supply_chain/    Fulfilment, delivery, logistics
@@ -152,6 +153,9 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Customer payment behaviour | `paid_order_timing` |
 | Open order backlog review | `open_order_review` |
 | Customer master de-duplication | `customer_name_keys`, `customer_duplicate_candidates`, `customer_master_map` |
+| Price-volume-mix analysis | `product_price_volume` |
+| Dispatch workload and capacity planning | `daily_dispatch_workload` |
+| RFM customer segmentation | `customer_rfm` |
 
 ### 5.4 If something does not match
 
