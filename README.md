@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-12%20complete%20%C2%B7%201%20in%20progress-DCE6F2?labelColor=17283B" alt="Case studies: 12 complete, 1 in progress">
+  <img src="https://img.shields.io/badge/Case%20studies-15%20complete%20%C2%B7%201%20in%20progress-DCE6F2?labelColor=17283B" alt="Case studies: 15 complete, 1 in progress">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -58,24 +58,28 @@ Every case study follows the same workflow:
 sql-business-problems/
 ├── README.md
 ├── GUIDE.md
+├── CHANGELOG.md
 ├── 01_customer_and_revenue/
 │   ├── 01_customer_revenue_risk/
 │   ├── 02_customer_churn_early_warning/
 │   └── 03_revenue_growth_bridge/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
-│   └── 02_salesperson_scorecard/
+│   ├── 02_salesperson_scorecard/
+│   └── 03_price_volume_mix/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
-│   └── 03_open_order_backlog_review/
+│   ├── 03_open_order_backlog_review/
+│   └── 04_dispatch_workload_planning/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
 │   └── 03_customer_master_deduplication/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
-│   └── 02_customer_payment_behaviour/
+│   ├── 02_customer_payment_behaviour/
+│   └── 03_rfm_customer_segmentation/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -105,8 +109,11 @@ Additional tools will be listed here only when they are used in a published case
 | 11 | [Customer payment behaviour and credit terms](05_advanced_analytics/02_customer_payment_behaviour/) | Advanced analytics | Complete |
 | 12 | [Open order backlog review](03_operations_and_supply_chain/03_open_order_backlog_review/) | Operations and supply chain | Complete |
 | 13 | [Customer master de-duplication](04_data_quality_and_reconciliation/03_customer_master_deduplication/) | Data quality and reconciliation | Complete |
+| 14 | [Price-volume-mix analysis](02_sales_and_profitability/03_price_volume_mix/) | Sales and profitability | Complete |
+| 15 | [Dispatch workload and capacity planning](03_operations_and_supply_chain/04_dispatch_workload_planning/) | Operations and supply chain | Complete |
+| 16 | [RFM customer segmentation](05_advanced_analytics/03_rfm_customer_segmentation/) | Advanced analytics | Complete |
 
-Case studies are listed as complete only once their SQL, validation and findings have been added to the repository.
+Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## 7. Data and methodology
 
