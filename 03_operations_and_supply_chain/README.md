@@ -21,3 +21,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | 02 | [Freight cost-to-serve and minimum order value](02_freight_cost_to_serve/) — do small orders cost more to ship than they earn? | Complete |
 | 03 | [Open order backlog review](03_open_order_backlog_review/) — which open orders at month-end are overdue, stuck in transit, or delivered but never closed? | Complete |
 | 04 | [Dispatch workload and capacity planning](04_dispatch_workload_planning/) — when does dispatch work peak, how much capacity is needed, and does load slow dispatch? | Complete |
+| 05 | [City-wise delivery promise standards](05_promise_date_standards/) — what promise date should each city get, tested on 2026 orders? | Complete |
