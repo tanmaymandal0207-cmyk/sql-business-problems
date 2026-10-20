@@ -1,0 +1,86 @@
+# Changelog
+
+All notable changes to this repository are recorded here, newest first. Dates are in `YYYY-MM-DD` format.
+
+Each entry lists case studies **added**, existing documents **changed**, and **fixes** to earlier work. A case study is listed as added only when its SQL, validation checks and findings are all in place.
+
+---
+
+## 2026-10-20
+
+### Added
+- **Price-volume-mix analysis** ([02_sales_and_profitability/03_price_volume_mix](02_sales_and_profitability/03_price_volume_mix/)). Splits the ₹8.71 crore year-to-date growth into price (+₹1.36 crore), volume (+₹5.08 crore) and mix (+₹2.27 crore). This answers the price-versus-volume question left open by the revenue growth bridge.
+- **Dispatch workload and capacity planning** ([03_operations_and_supply_chain/04_dispatch_workload_planning](03_operations_and_supply_chain/04_dispatch_workload_planning/)). Weekday and monthly workload, capacity at normal, busy and peak levels, and a test of whether heavy order intake slows dispatch. It does not.
+- **RFM customer segmentation** ([05_advanced_analytics/03_rfm_customer_segmentation](05_advanced_analytics/03_rfm_customer_segmentation/)). Eight behaviour segments. 103 Champions hold 78.4 % of 12-month revenue, and 17 "Cannot lose" accounts have gone quiet.
+- `CHANGELOG.md` (this file).
+
+### Changed
+- `metric_definitions.md`: added price-volume-mix, RFM, backlog, workload and de-duplication metrics, and extended the case study key.
+- `README.md`, `GUIDE.md` and the category indexes now list the new case studies.
+
+---
+
+## 2026-10-19
+
+### Added
+- **Revenue growth bridge** ([01_customer_and_revenue/03_revenue_growth_bridge](01_customer_and_revenue/03_revenue_growth_bridge/)). Year-to-date growth of 38.7 %, split by new, growing, declining and lost customers, and by order count versus order size.
+- **Salesperson performance scorecard** ([02_sales_and_profitability/02_salesperson_scorecard](02_sales_and_profitability/02_salesperson_scorecard/)). A balanced ranking across revenue, margin, discount, cancellations, on-time delivery and collection.
+- **Customer payment behaviour and credit terms** ([05_advanced_analytics/02_customer_payment_behaviour](05_advanced_analytics/02_customer_payment_behaviour/)). Days to pay by segment, cash tied up, and a credit terms scenario worth ₹88.2 lakh.
+- **Open order backlog review** ([03_operations_and_supply_chain/03_open_order_backlog_review](03_operations_and_supply_chain/03_open_order_backlog_review/)). Month-end review of 103 open orders. Finds delivered orders never closed and shipments stuck in transit.
+- **Customer master de-duplication** ([04_data_quality_and_reconciliation/03_customer_master_deduplication](04_data_quality_and_reconciliation/03_customer_master_deduplication/)). Name normalisation, match confidence and a reviewable master mapping table.
+
+### Changed
+- `metric_definitions.md`: draft metrics confirmed against the case studies that use them, with a "Used in" column and a case study key.
+- `schema.md`: the duplicate-customer profiling note now reflects the de-duplication results (6 high-confidence pairs, 6 for review).
+
+---
+
+## 2026-10-16
+
+### Added
+- **Customer churn early warning** ([01_customer_and_revenue/02_customer_churn_early_warning](01_customer_and_revenue/02_customer_churn_early_warning/))
+- **Discount and margin erosion** ([02_sales_and_profitability/01_discount_margin_erosion](02_sales_and_profitability/01_discount_margin_erosion/))
+- **Freight cost-to-serve and minimum order value** ([03_operations_and_supply_chain/02_freight_cost_to_serve](03_operations_and_supply_chain/02_freight_cost_to_serve/))
+- **Data quality scorecard** ([04_data_quality_and_reconciliation/02_data_quality_scorecard](04_data_quality_and_reconciliation/02_data_quality_scorecard/)), with 29 rules across 5 quality dimensions
+- **ABC-XYZ product classification** ([05_advanced_analytics/01_abc_xyz_product_classification](05_advanced_analytics/01_abc_xyz_product_classification/))
+
+### Changed
+- `GUIDE.md` now lists the tables each case study creates.
+
+---
+
+## 2026-10-15
+
+### Added
+- **Order-to-cash reconciliation** ([04_data_quality_and_reconciliation/01_order_to_cash_reconciliation](04_data_quality_and_reconciliation/01_order_to_cash_reconciliation/)). Payment-status reconciliation and receivables ageing.
+- **Late delivery root cause** ([03_operations_and_supply_chain/01_late_delivery_root_cause](03_operations_and_supply_chain/01_late_delivery_root_cause/)). An exact split of days late into dispatch, transit and promise, plus a city name mapping table.
+- `GUIDE.md`: getting-started guide covering repository layout, how to read a case study, how to run the SQL in BigQuery, conventions and a glossary.
+
+### Fixed
+- `schema.md`: the "possible duplicate transactions" note was resolved. The 24 matching order headers have different line items, so they are separate orders. The 7 repeated payments are true duplicates.
+- `schema.md`: recorded the evidence for treating a missing discount as 0 %.
+
+---
+
+## 2026-10-11
+
+### Added
+- **Customer revenue risk, version 1** ([01_customer_and_revenue/01_customer_revenue_risk](01_customer_and_revenue/01_customer_revenue_risk/)). Original analysis query with its documentation. Findings are held back until version 2.
+- README banner and badges.
+
+### Known issues (planned for version 2 of Customer revenue risk)
+- Missing discounts make line revenue NULL, so it drops out of totals.
+- Cancelled and returned orders are counted in revenue.
+- The cumulative revenue share (Pareto) view is missing.
+- The table name is written as `Sales_Orders`; BigQuery table names are case-sensitive.
+
+---
+
+## 2026-10-10
+
+### Added
+- Repository created with five problem categories and a documentation folder.
+- `README.md`: project overview, analytical approach and structure.
+- `datasets_and_documentation/schema.md`: tables, keys, relationships and profiling notes for the `sahyadri_b2b` dataset.
+- `datasets_and_documentation/metric_definitions.md`: draft shared metric definitions.
+- Case study documentation template.
