@@ -93,7 +93,7 @@ Findings are written only after validation passes. If a case study shows *Pendin
 
 1. [`schema.md`](datasets_and_documentation/schema.md): the tables and the known data issues every case study has to handle.
 2. [Order-to-cash reconciliation](04_data_quality_and_reconciliation/01_order_to_cash_reconciliation/): the README first, then `analysis.sql` and `validation.sql` side by side.
-3. [Customer revenue risk](01_customer_and_revenue/01_customer_revenue_risk/): an example of a version 1 query with its known issues documented openly.
+3. [Customer revenue risk](01_customer_and_revenue/01_customer_revenue_risk/): an example of how a flawed first version was diagnosed, kept for reference and corrected in version 2.
 
 **Path C — learning by running the queries**
 
@@ -140,7 +140,7 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 
 | Case study | Tables created by `analysis.sql` |
 |---|---|
-| Customer revenue risk | None (single query) |
+| Customer revenue risk | None (single query; run `analysis_v2.sql`) |
 | Order-to-cash reconciliation | `order_payment_reconciliation` |
 | Late delivery root cause | `city_name_map`, `delivery_performance` |
 | Customer churn early warning | `customer_activity_status` |
@@ -156,13 +156,17 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Price-volume-mix analysis | `product_price_volume` |
 | Dispatch workload and capacity planning | `daily_dispatch_workload` |
 | RFM customer segmentation | `customer_rfm` |
+| Cross-sell white-space analysis | `customer_category_spend`, `cross_sell_gaps` |
+| City-wise delivery promise standards | `city_promise_standards` (needs `delivery_performance` from Late delivery root cause) |
+| Revenue cut-off reconciliation | `revenue_recognition_basis` |
+| Baseline revenue forecast | `monthly_revenue`, `monthly_forecasts` |
 
 ### 5.4 If something does not match
 
 | Symptom | Likely cause |
 |---|---|
 | `Not found: Table ...` | The table name differs from the script (check spelling and case), or the dataset is not named `sahyadri_b2b` |
-| `Not found: Table sahyadri_b2b.Sales_Orders` in Customer revenue risk | Version 1 of that query uses `Sales_Orders`; change it to `sales_orders`. This is listed as a known issue in its README. |
+| `Not found: Table sahyadri_b2b.Sales_Orders` in Customer revenue risk | You ran the version 1 query (`analysis.sql`), which uses `Sales_Orders`. Run `analysis_v2.sql` instead. |
 | A validation check shows FAIL | `analysis.sql` was not run first, or it was run against a different version of the data |
 | Totals differ slightly from the README | A column was loaded with a different type; check that dates are `DATE` and amounts are numeric |
 
