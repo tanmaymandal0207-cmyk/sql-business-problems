@@ -19,6 +19,11 @@ Shared definitions for metrics used across case studies. Each case study referen
 | DQ | [Data quality scorecard](../04_data_quality_and_reconciliation/02_data_quality_scorecard/) |
 | AX | [ABC-XYZ product classification](../05_advanced_analytics/01_abc_xyz_product_classification/) |
 | PB | [Customer payment behaviour](../05_advanced_analytics/02_customer_payment_behaviour/) |
+| PV | [Price-volume-mix analysis](../02_sales_and_profitability/03_price_volume_mix/) |
+| OB | [Open order backlog review](../03_operations_and_supply_chain/03_open_order_backlog_review/) |
+| DW | [Dispatch workload and capacity planning](../03_operations_and_supply_chain/04_dispatch_workload_planning/) |
+| MD | [Customer master de-duplication](../04_data_quality_and_reconciliation/03_customer_master_deduplication/) |
+| RF | [RFM customer segmentation](../05_advanced_analytics/03_rfm_customer_segmentation/) |
 
 ---
 
@@ -44,6 +49,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Order revenue | Sum of net line revenue for the order | Order | Confirmed | OC, FC, CH, GB, PB |
 | Customer revenue | Sum of order revenue for the customer within the period | Customer × period | Confirmed | CH, GB |
 | Average order value | Total order revenue ÷ count of distinct orders | Any | Confirmed | GB |
+| Realised price | Revenue ÷ quantity, per product and period (after discount) | Product × period | Confirmed | PV |
+| Price effect | Σ (price CY − price PY) × quantity CY | Product | Confirmed | PV |
+| Quantity effect | Σ (quantity CY − quantity PY) × price PY; split into volume and mix | Product | Confirmed | PV |
 
 ## Margin
 
@@ -62,10 +70,12 @@ Shared definitions for metrics used across case studies. Each case study referen
 |---|---|---|---|---|
 | Active customer | Customer with at least one in-scope order in the period | Customer × period | Confirmed | CH, GB |
 | Last order date | `MAX(order_date)` across in-scope orders | Customer | Confirmed | CH |
-| Recency (days) | `DATE_DIFF(<as-of date>, last_order_date, DAY)` | Customer | Confirmed | CH |
+| Recency (days) | `DATE_DIFF(<as-of date>, last_order_date, DAY)` | Customer | Confirmed | CH, RF |
 | Usual ordering cycle | Median days between consecutive orders (3 or more orders) | Customer | Confirmed | CH |
 | Annual run-rate | Revenue in the 365 days up to and including the last order | Customer | Confirmed | CH |
-| Order frequency | Count of distinct in-scope orders in the period | Customer × period | Confirmed | CH |
+| Order frequency | Count of distinct in-scope orders in the period | Customer × period | Confirmed | CH, RF |
+| RFM scores | Recency, frequency (12 months) and monetary value (12 months), each scored 1–5 with `NTILE(5)` | Customer | Confirmed | RF |
+| Normalised customer name | Lower case, punctuation and legal-form words removed, spaces collapsed | Customer | Confirmed | MD |
 | Revenue share | Customer revenue ÷ total revenue for the same period and scope | Customer × period | Draft | CR (version 1) |
 
 ## Collections
@@ -91,6 +101,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Transit days | Final delivery date − last shipment date | Order | Confirmed | LD |
 | Delivery lead time (days) | `DATE_DIFF(final delivery_date, order_date, DAY)` | Order | Confirmed | LD |
 | Shipping cost per order | `SUM(shipping_cost)` across the order's shipments | Order | Confirmed | FC |
+| Days in transit | As-of date − date of the oldest shipment still In Transit | Order | Confirmed | OB |
+| Shipments per day | Shipment records per calendar day, zero-filled | Day | Confirmed | DW |
+| Seasonality index | Average shipments per day in a month ÷ period average × 100 | Month | Confirmed | DW |
 
 ## Product and demand
 
@@ -114,3 +127,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 |---|---|
 | 2026-10-10 | Initial draft definitions |
 | 2026-10-19 | Confirmed metrics used in 10 case studies. Added a "Used in" column, a case study key, and Customer, Collections, Fulfilment, Product and Data quality metrics. Recorded the NULL-discount convention and its evidence. |
+| 2026-10-20 | Added metrics for price-volume-mix, open order backlog, dispatch workload, customer de-duplication and RFM segmentation. Extended the case study key. |
