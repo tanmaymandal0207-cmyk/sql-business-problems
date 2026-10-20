@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-15%20complete%20%C2%B7%201%20in%20progress-DCE6F2?labelColor=17283B" alt="Case studies: 15 complete, 1 in progress">
+  <img src="https://img.shields.io/badge/Case%20studies-20%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 20 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -66,20 +66,24 @@ sql-business-problems/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
-│   └── 03_price_volume_mix/
+│   ├── 03_price_volume_mix/
+│   └── 04_cross_sell_white_space/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
 │   ├── 03_open_order_backlog_review/
-│   └── 04_dispatch_workload_planning/
+│   ├── 04_dispatch_workload_planning/
+│   └── 05_promise_date_standards/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
-│   └── 03_customer_master_deduplication/
+│   ├── 03_customer_master_deduplication/
+│   └── 04_revenue_cutoff_reconciliation/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
-│   └── 03_rfm_customer_segmentation/
+│   ├── 03_rfm_customer_segmentation/
+│   └── 04_revenue_forecast_baseline/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -96,7 +100,7 @@ Additional tools will be listed here only when they are used in a published case
 
 | # | Case study | Category | Status |
 |---|---|---|---|
-| 1 | [Customer revenue risk](01_customer_and_revenue/01_customer_revenue_risk/) | Customer and revenue | Version 1 query added · findings pending revision |
+| 1 | [Customer revenue risk](01_customer_and_revenue/01_customer_revenue_risk/) | Customer and revenue | Complete (version 2) |
 | 2 | [Order-to-cash reconciliation](04_data_quality_and_reconciliation/01_order_to_cash_reconciliation/) | Data quality and reconciliation | Complete |
 | 3 | [Late delivery root cause](03_operations_and_supply_chain/01_late_delivery_root_cause/) | Operations and supply chain | Complete |
 | 4 | [Customer churn early warning](01_customer_and_revenue/02_customer_churn_early_warning/) | Customer and revenue | Complete |
@@ -112,6 +116,10 @@ Additional tools will be listed here only when they are used in a published case
 | 14 | [Price-volume-mix analysis](02_sales_and_profitability/03_price_volume_mix/) | Sales and profitability | Complete |
 | 15 | [Dispatch workload and capacity planning](03_operations_and_supply_chain/04_dispatch_workload_planning/) | Operations and supply chain | Complete |
 | 16 | [RFM customer segmentation](05_advanced_analytics/03_rfm_customer_segmentation/) | Advanced analytics | Complete |
+| 17 | [Cross-sell white-space analysis](02_sales_and_profitability/04_cross_sell_white_space/) | Sales and profitability | Complete |
+| 18 | [City-wise delivery promise standards](03_operations_and_supply_chain/05_promise_date_standards/) | Operations and supply chain | Complete |
+| 19 | [Revenue cut-off reconciliation](04_data_quality_and_reconciliation/04_revenue_cutoff_reconciliation/) | Data quality and reconciliation | Complete |
+| 20 | [Baseline revenue forecast with backtesting](05_advanced_analytics/04_revenue_forecast_baseline/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 
