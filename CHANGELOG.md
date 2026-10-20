@@ -6,6 +6,21 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-21
+
+### Added
+- **Cross-sell white-space analysis** ([02_sales_and_profitability/04_cross_sell_white_space](02_sales_and_profitability/04_cross_sell_white_space/)). Category penetration by segment. 190 customers have 473 category gaps worth an indicative ₹4.18 crore.
+- **City-wise delivery promise standards** ([03_operations_and_supply_chain/05_promise_date_standards](03_operations_and_supply_chain/05_promise_date_standards/)). Standards set on 2024–2025 deliveries and tested on 2026. An 85 % city standard lifts on-time delivery from 81.6 % to 85.4 % for 0.9 extra days per promise.
+- **Revenue cut-off reconciliation** ([04_data_quality_and_reconciliation/04_revenue_cutoff_reconciliation](04_data_quality_and_reconciliation/04_revenue_cutoff_reconciliation/)). Order-date versus delivery-date revenue. FY2025-26 overstated by ₹1.11 crore; ₹1.07 crore open at the 30 Sep 2026 half-year end.
+- **Baseline revenue forecast with backtesting** ([05_advanced_analytics/04_revenue_forecast_baseline](05_advanced_analytics/04_revenue_forecast_baseline/)). Five methods backtested on Jan–Sep 2026. Q4 2026 forecast of ₹11.10 crore (range ₹9.15 – ₹13.04 crore).
+
+### Changed
+- **Customer revenue risk, version 2** ([01_customer_and_revenue/01_customer_revenue_risk](01_customer_and_revenue/01_customer_revenue_risk/)). Added `analysis_v2.sql` and `validation_v2.sql`, which resolve all four known issues listed on 2026-10-11. Findings published: 23 customers generate 50.7 % of revenue. The original `analysis.sql` is kept unchanged.
+- `metric_definitions.md`: revenue share confirmed; added cumulative share, category penetration, promise standard, cut-off and forecast accuracy metrics.
+- `README.md`, `GUIDE.md` and the category indexes updated. All 20 case studies are now complete.
+
+---
+
 ## 2026-10-20
 
 ### Added
