@@ -8,7 +8,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 
 | Code | Case study |
 |---|---|
-| CR | [Customer revenue risk](../01_customer_and_revenue/01_customer_revenue_risk/) (version 1) |
+| CR | [Customer revenue risk](../01_customer_and_revenue/01_customer_revenue_risk/) (version 2) |
 | CH | [Customer churn early warning](../01_customer_and_revenue/02_customer_churn_early_warning/) |
 | GB | [Revenue growth bridge](../01_customer_and_revenue/03_revenue_growth_bridge/) |
 | DM | [Discount and margin erosion](../02_sales_and_profitability/01_discount_margin_erosion/) |
@@ -24,6 +24,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | DW | [Dispatch workload and capacity planning](../03_operations_and_supply_chain/04_dispatch_workload_planning/) |
 | MD | [Customer master de-duplication](../04_data_quality_and_reconciliation/03_customer_master_deduplication/) |
 | RF | [RFM customer segmentation](../05_advanced_analytics/03_rfm_customer_segmentation/) |
+| WS | [Cross-sell white-space analysis](../02_sales_and_profitability/04_cross_sell_white_space/) |
+| PS | [City-wise delivery promise standards](../03_operations_and_supply_chain/05_promise_date_standards/) |
+| RC | [Revenue cut-off reconciliation](../04_data_quality_and_reconciliation/04_revenue_cutoff_reconciliation/) |
+| FB | [Baseline revenue forecast](../05_advanced_analytics/04_revenue_forecast_baseline/) |
 
 ---
 
@@ -76,7 +80,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Order frequency | Count of distinct in-scope orders in the period | Customer × period | Confirmed | CH, RF |
 | RFM scores | Recency, frequency (12 months) and monetary value (12 months), each scored 1–5 with `NTILE(5)` | Customer | Confirmed | RF |
 | Normalised customer name | Lower case, punctuation and legal-form words removed, spaces collapsed | Customer | Confirmed | MD |
-| Revenue share | Customer revenue ÷ total revenue for the same period and scope | Customer × period | Draft | CR (version 1) |
+| Revenue share | Customer revenue ÷ total revenue for the same period and scope | Customer × period | Confirmed | CR |
+| Cumulative revenue share | Running revenue share, customers ranked by revenue (Pareto) | Customer | Confirmed | CR |
+| Category penetration | Share of a segment's active customers buying a category | Segment × category | Confirmed | WS |
 
 ## Collections
 
@@ -104,6 +110,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Days in transit | As-of date − date of the oldest shipment still In Transit | Order | Confirmed | OB |
 | Shipments per day | Shipment records per calendar day, zero-filled | Day | Confirmed | DW |
 | Seasonality index | Average shipments per day in a month ÷ period average × 100 | Month | Confirmed | DW |
+| Promise standard | Lead time met by s % of a city's training orders (`PERCENTILE_DISC`, rounded up) | City | Confirmed | PS |
 
 ## Product and demand
 
@@ -112,6 +119,15 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Monthly demand | Quantity on in-scope orders by order month, zero-filled | Product × month | Confirmed | AX |
 | Coefficient of variation | Standard deviation ÷ mean of monthly demand | Product | Confirmed | AX |
 | ABC class | Cumulative revenue share: A first 80 %, B next 15 %, C last 5 % | Product | Confirmed | AX |
+
+## Revenue recognition and forecasting
+
+| Metric | Definition | Grain | Status | Used in |
+|---|---|---|---|---|
+| Cut-off difference | Order-date revenue − delivery-date revenue for a period | Month / financial year | Confirmed | RC |
+| Month-end exposure | Revenue ordered on or before a date but delivered after it | Date | Confirmed | RC |
+| MAPE | Mean of \|forecast − actual\| ÷ actual across test months | Method | Confirmed | FB |
+| Forecast bias | Mean of (forecast − actual) ÷ actual; negative = under-forecast | Method | Confirmed | FB |
 
 ## Data quality
 
@@ -128,3 +144,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-10 | Initial draft definitions |
 | 2026-10-19 | Confirmed metrics used in 10 case studies. Added a "Used in" column, a case study key, and Customer, Collections, Fulfilment, Product and Data quality metrics. Recorded the NULL-discount convention and its evidence. |
 | 2026-10-20 | Added metrics for price-volume-mix, open order backlog, dispatch workload, customer de-duplication and RFM segmentation. Extended the case study key. |
+| 2026-10-21 | Confirmed revenue share and added cumulative share (Customer revenue risk version 2). Added category penetration, promise standard, cut-off and forecast accuracy metrics. |
