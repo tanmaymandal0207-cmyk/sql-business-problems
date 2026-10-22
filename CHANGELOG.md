@@ -6,6 +6,22 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-22
+
+### Added
+- **Salesperson relationship risk** ([01_customer_and_revenue/04_salesperson_relationship_risk](01_customer_and_revenue/04_salesperson_relationship_risk/)). 69.7 % of revenue sits with customers where one salesperson holds at least 80 % of the relationship. Accounts that changed salesperson fell 7.1 % while retained accounts grew 35.0 %.
+- **New customer onboarding and activation** ([01_customer_and_revenue/05_new_customer_activation](01_customer_and_revenue/05_new_customer_activation/)). 61 of 82 customers registered since 2024 have bought, and 52 % buy within 90 days. 14 of 39 SMB registrations have never ordered.
+- **SKU rationalisation** ([02_sales_and_profitability/05_sku_rationalisation](02_sales_and_profitability/05_sku_rationalisation/)). 54 products earn 80 % of gross profit. Repricing 30 low-margin sellers to a 10 % margin is worth about ₹61.8 lakh a year. 9 delist candidates have no dependent customer.
+- **Cancellation and return leakage** ([03_operations_and_supply_chain/06_cancellation_return_leakage](03_operations_and_supply_chain/06_cancellation_return_leakage/)). ₹5.23 crore of order value lost over 33 months. A statistical screen of 206 groups finds no segment, category, salesperson or order size that explains it beyond chance. Returns are not linked to late delivery.
+- **Receivables roll-forward reconciliation** ([04_data_quality_and_reconciliation/05_receivables_rollforward](04_data_quality_and_reconciliation/05_receivables_rollforward/)). The receivables account rolls forward in all 33 months and agrees with the order-to-cash ageing to the paisa (₹10.97 crore). DSO rose to 97 days because invoices over 90 days old are not being collected; current invoices are paid in about 46 days.
+- **Customer profitability and the whale curve** ([05_advanced_analytics/05_customer_profitability_whale_curve](05_advanced_analytics/05_customer_profitability_whale_curve/)). An activity-based customer P&L. The whale curve peaks at 106.5 %; 150 customers give back ₹19.6 lakh, and SMB is the only loss-making segment.
+
+### Changed
+- `metric_definitions.md`: added relationship, activation, gross profit, cost-to-serve, receivables and cancellation metrics, and a Statistical testing section.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 26 case studies are now complete.
+
+---
+
 ## 2026-10-21
 
 ### Added
