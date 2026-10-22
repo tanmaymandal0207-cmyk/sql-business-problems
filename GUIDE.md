@@ -160,6 +160,12 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | City-wise delivery promise standards | `city_promise_standards` (needs `delivery_performance` from Late delivery root cause) |
 | Revenue cut-off reconciliation | `revenue_recognition_basis` |
 | Baseline revenue forecast | `monthly_revenue`, `monthly_forecasts` |
+| Salesperson relationship risk | `customer_relationship_coverage`, `salesperson_handover` |
+| New customer onboarding and activation | `new_customer_activation` |
+| SKU rationalisation | `sku_profitability` |
+| Cancellation and return leakage | `order_outcomes`, `cancellation_driver_screen` |
+| Receivables roll-forward reconciliation | `receivables_ledger`, `receivables_month_end` (the tie-out step needs `order_payment_reconciliation` from Order-to-cash reconciliation) |
+| Customer profitability and the whale curve | `customer_profitability` |
 
 ### 5.4 If something does not match
 
@@ -222,3 +228,7 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **On-time delivery** | Delivered on or before the promised delivery date |
 | **Split shipment** | An order sent in more than one shipment |
 | **Days-late decomposition** | Splitting how late an order was into the days added by dispatch, transit and the promise date |
+| **Roll-forward** | Opening balance + additions − reductions = closing balance, proved for each period |
+| **Cost to serve** | Costs caused by serving a customer beyond the product itself: freight, order handling, sales time and credit |
+| **Whale curve** | Cumulative profit by customer, ranked from most to least profitable; it peaks above 100 % when some customers lose money |
+| **z-score** | How many standard errors a group's rate is from the overall rate; used to judge whether a difference could be chance |
