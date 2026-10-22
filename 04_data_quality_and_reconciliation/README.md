@@ -21,3 +21,4 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 02 | [Data quality scorecard](02_data_quality_scorecard/) — a 29-rule, repeatable scorecard across all tables, ranked by business impact | Complete |
 | 03 | [Customer master de-duplication](03_customer_master_deduplication/) — which customer records are duplicates, and which record should survive? | Complete |
 | 04 | [Revenue cut-off reconciliation](04_revenue_cutoff_reconciliation/) — how much does order-date reporting misstate monthly and financial-year revenue? | Complete |
+| 05 | [Receivables roll-forward reconciliation](05_receivables_rollforward/) — does the receivables balance roll forward every month and agree with the ageing? | Complete |
