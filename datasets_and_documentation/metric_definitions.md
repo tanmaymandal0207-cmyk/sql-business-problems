@@ -28,6 +28,12 @@ Shared definitions for metrics used across case studies. Each case study referen
 | PS | [City-wise delivery promise standards](../03_operations_and_supply_chain/05_promise_date_standards/) |
 | RC | [Revenue cut-off reconciliation](../04_data_quality_and_reconciliation/04_revenue_cutoff_reconciliation/) |
 | FB | [Baseline revenue forecast](../05_advanced_analytics/04_revenue_forecast_baseline/) |
+| RR | [Salesperson relationship risk](../01_customer_and_revenue/04_salesperson_relationship_risk/) |
+| NA | [New customer onboarding and activation](../01_customer_and_revenue/05_new_customer_activation/) |
+| SR | [SKU rationalisation](../02_sales_and_profitability/05_sku_rationalisation/) |
+| CL | [Cancellation and return leakage](../03_operations_and_supply_chain/06_cancellation_return_leakage/) |
+| AR | [Receivables roll-forward reconciliation](../04_data_quality_and_reconciliation/05_receivables_rollforward/) |
+| WC | [Customer profitability and the whale curve](../05_advanced_analytics/05_customer_profitability_whale_curve/) |
 
 ---
 
@@ -65,6 +71,11 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Gross margin | Net line revenue − Line cost | Order line | Confirmed | DM, FC, SP |
 | Gross margin % | Gross margin ÷ Net line revenue (lines with a known cost) | Any | Confirmed | DM, FC, SP |
 | Contribution after freight | Gross margin − freight | Order | Confirmed | FC |
+| GP core | Products earning the first 80 % of gross profit, ranked by gross profit | Product | Confirmed | SR |
+| Order handling cost | Operations and Supply Chain & Logistics salaries for the period ÷ all orders placed | Order | Confirmed | WC |
+| Sales effort cost | Salesperson's salary for the period ÷ orders they booked (Head of Sales not allocated) | Order | Confirmed | WC |
+| Cost of credit | Rupees outstanding × days from delivery to payment (or as-of) × cost of capital ÷ 365 | Order | Confirmed | WC |
+| Customer contribution | Gross margin − freight − handling − sales effort − cost of credit | Customer × period | Confirmed | WC |
 
 > `products.unit_cost` is a single current cost per product, not a historical cost at the time of sale. Lines for products with a null `unit_cost` are excluded from margin metrics, and the exclusion is reported.
 
@@ -83,6 +94,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Revenue share | Customer revenue ÷ total revenue for the same period and scope | Customer × period | Confirmed | CR |
 | Cumulative revenue share | Running revenue share, customers ranked by revenue (Pareto) | Customer | Confirmed | CR |
 | Category penetration | Share of a segment's active customers buying a category | Segment × category | Confirmed | WS |
+| Primary salesperson | Employee with the most attributed revenue for the customer in the period (ties to lower ID) | Customer × period | Confirmed | RR |
+| Relationship type | Single-threaded (one salesperson in 24 months), Dominant (primary ≥ 80 %), Shared, Unassigned | Customer | Confirmed | RR |
+| Activation stage | Not yet ordered, only cancelled or returned, one order only, repeat buyer | Customer | Confirmed | NA |
+| Fair-window rate | Share achieving a milestone within n days, among customers observed for at least n days | Any | Confirmed | NA |
 
 ## Collections
 
@@ -94,6 +109,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Days to pay | Final payment date − final delivery date, for fully paid orders | Order | Confirmed | PB |
 | Average cash tied up | Σ (order value × days to pay) ÷ days in the period | Segment | Confirmed | PB |
 | Collection rate | Amount collected ÷ Order revenue | Any | Draft | – |
+| Gross receivables | Sum of positive order balances (invoices − receipts) at a month-end, above ₹0.05 | Month-end | Confirmed | AR |
+| Credit balance | Sum of negative order balances at a month-end, shown as a liability | Month-end | Confirmed | AR |
+| DSO | Gross receivables ÷ invoices in the last 3 months × 91 days | Month-end | Confirmed | AR |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -118,7 +136,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 |---|---|---|---|---|
 | Monthly demand | Quantity on in-scope orders by order month, zero-filled | Product × month | Confirmed | AX |
 | Coefficient of variation | Standard deviation ÷ mean of monthly demand | Product | Confirmed | AX |
-| ABC class | Cumulative revenue share: A first 80 %, B next 15 %, C last 5 % | Product | Confirmed | AX |
+| ABC class | Cumulative revenue share: A first 80 %, B next 15 %, C last 5 % | Product | Confirmed | AX, SR |
+| Cancellation rate | Cancelled orders ÷ closed orders (Delivered, Cancelled, Returned) | Any | Confirmed | CL |
 
 ## Revenue recognition and forecasting
 
@@ -135,6 +154,13 @@ Shared definitions for metrics used across case studies. Each case study referen
 |---|---|---|---|---|
 | Rule pass rate | 1 − records failed ÷ records checked | Rule | Confirmed | DQ |
 
+## Statistical testing
+
+| Metric | Definition | Grain | Status | Used in |
+|---|---|---|---|---|
+| Rate z-score | (group rate − overall rate) ÷ `SQRT(p * (1 - p) / n)`; \|z\| ≥ 2 flagged | Group | Confirmed | CL |
+| Expected by chance | Groups tested × 4.55 %, reported beside groups flagged | Dimension | Confirmed | CL |
+
 ---
 
 ## Change log
@@ -145,3 +171,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-19 | Confirmed metrics used in 10 case studies. Added a "Used in" column, a case study key, and Customer, Collections, Fulfilment, Product and Data quality metrics. Recorded the NULL-discount convention and its evidence. |
 | 2026-10-20 | Added metrics for price-volume-mix, open order backlog, dispatch workload, customer de-duplication and RFM segmentation. Extended the case study key. |
 | 2026-10-21 | Confirmed revenue share and added cumulative share (Customer revenue risk version 2). Added category penetration, promise standard, cut-off and forecast accuracy metrics. |
+| 2026-10-22 | Added relationship, activation, GP core, cost-to-serve, receivables roll-forward and cancellation metrics, and a Statistical testing section. Extended the case study key. |
