@@ -20,3 +20,4 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 02 | [Customer payment behaviour and credit terms](02_customer_payment_behaviour/) — how fast does each segment pay, and what would formal credit terms release in cash? | Complete |
 | 03 | [RFM customer segmentation](03_rfm_customer_segmentation/) — which customers are Champions, which are slipping away, and what should each group get? | Complete |
 | 04 | [Baseline revenue forecast with backtesting](04_revenue_forecast_baseline/) — which simple method forecasts best, and what is the Q4 2026 outlook? | Complete |
+| 05 | [Customer profitability and the whale curve](05_customer_profitability_whale_curve/) — which customers make money after the full cost to serve? | Complete |
