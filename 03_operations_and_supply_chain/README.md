@@ -22,3 +22,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | 03 | [Open order backlog review](03_open_order_backlog_review/) — which open orders at month-end are overdue, stuck in transit, or delivered but never closed? | Complete |
 | 04 | [Dispatch workload and capacity planning](04_dispatch_workload_planning/) — when does dispatch work peak, how much capacity is needed, and does load slow dispatch? | Complete |
 | 05 | [City-wise delivery promise standards](05_promise_date_standards/) — what promise date should each city get, tested on 2026 orders? | Complete |
+| 06 | [Cancellation and return leakage](06_cancellation_return_leakage/) — how much do cancellations and returns cost, and is any group responsible beyond chance? | Complete |
