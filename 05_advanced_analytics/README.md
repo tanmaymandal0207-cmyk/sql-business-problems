@@ -21,3 +21,4 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 03 | [RFM customer segmentation](03_rfm_customer_segmentation/) — which customers are Champions, which are slipping away, and what should each group get? | Complete |
 | 04 | [Baseline revenue forecast with backtesting](04_revenue_forecast_baseline/) — which simple method forecasts best, and what is the Q4 2026 outlook? | Complete |
 | 05 | [Customer profitability and the whale curve](05_customer_profitability_whale_curve/) — which customers make money after the full cost to serve? | Complete |
+| 06 | [Replenishment reorder reminders](06_reorder_reminders/) — which customers are overdue to reorder a product, and does the method work in a backtest? | Complete |
