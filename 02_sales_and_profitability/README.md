@@ -22,3 +22,5 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 03 | [Price-volume-mix analysis](03_price_volume_mix/) — how much of revenue growth came from price, volume and product mix? | Complete |
 | 04 | [Cross-sell white-space analysis](04_cross_sell_white_space/) — which categories do customers not buy although their peers do, and what is that worth? | Complete |
 | 05 | [SKU rationalisation](05_sku_rationalisation/) — which products to protect, reprice or delist on gross profit, and who depends on them? | Complete |
+| 06 | [Discount consistency and price leakage](06_discount_consistency/) — is discount driven by volume or by segment, and who is outside the band? | Complete |
+| 07 | [Period-end sales push](07_period_end_sales_push/) — do orders, discounts and cancellations spike at month, quarter or year-end? | Complete |
