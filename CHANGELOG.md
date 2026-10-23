@@ -6,6 +6,22 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-23
+
+### Added
+- **Regional performance and market coverage** ([01_customer_and_revenue/06_regional_performance](01_customer_and_revenue/06_regional_performance/)). The West earns 31 % of revenue and delivered 46 % of growth, but mostly through two accounts. Central is flat, and East and North have the lowest on-time delivery. 12 states depend on one customer for over 40 % of revenue.
+- **Discount consistency and price leakage** ([02_sales_and_profitability/06_discount_consistency](02_sales_and_profitability/06_discount_consistency/)). Discounts are set by segment, not volume (correlation 0.64 overall, −0.10 to 0.18 within segments). Leakage beyond the segment band is small: ₹5.04 lakh, 1.3 % of discount.
+- **Period-end sales push** ([02_sales_and_profitability/07_period_end_sales_push](02_sales_and_profitability/07_period_end_sales_push/)). No month-end order rush or routine discount creep. Year-end deals closed at 15 % and delivered in April, and quarter-end orders cancel more often (7.1 % against 4.5 %, z = 2.5).
+- **Shipment consolidation opportunity** ([03_operations_and_supply_chain/07_shipment_consolidation](03_operations_and_supply_chain/07_shipment_consolidation/)). A fixed charge of ₹957 per shipment is estimated by regression in SQL. Twice-weekly dispatch would avoid 13.5 % of shipments and save ₹5.3 lakh a year, with less than a day's average wait.
+- **Order anomaly screen** ([04_data_quality_and_reconciliation/06_order_anomaly_screen](04_data_quality_and_reconciliation/06_order_anomaly_screen/)). Four robust rules flag 307 orders. Most are genuine large orders, but the screen points to the ₹31 lakh order behind the largest overdue balance.
+- **Replenishment reorder reminders** ([05_advanced_analytics/06_reorder_reminders](05_advanced_analytics/06_reorder_reminders/)). Product-level reorder cycles with a point-in-time backtest: due pairs were 1.37 times as likely to reorder, and 73 % of reorders were anticipated. 182 pairs worth ₹52 lakh are overdue.
+
+### Changed
+- `metric_definitions.md`: added regional, discount band, period-end, freight model, anomaly and reorder metrics, and z-test and lift definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 32 case studies are now complete.
+
+---
+
 ## 2026-10-22
 
 ### Added
