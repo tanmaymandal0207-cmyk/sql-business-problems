@@ -166,6 +166,12 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Cancellation and return leakage | `order_outcomes`, `cancellation_driver_screen` |
 | Receivables roll-forward reconciliation | `receivables_ledger`, `receivables_month_end` (the tie-out step needs `order_payment_reconciliation` from Order-to-cash reconciliation) |
 | Customer profitability and the whale curve | `customer_profitability` |
+| Regional performance and market coverage | `state_region_map`, `state_performance` |
+| Discount consistency and price leakage | `customer_discount_band` |
+| Period-end sales push | `order_period_position` |
+| Shipment consolidation opportunity | `freight_cost_model`, `shipment_consolidation_base`, `consolidation_scenarios` |
+| Order anomaly screen | `order_line_anomalies`, `order_anomaly_review` |
+| Replenishment reorder reminders | `customer_product_purchases`, `reorder_status`, `reorder_backtest` |
 
 ### 5.4 If something does not match
 
@@ -232,3 +238,5 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Cost to serve** | Costs caused by serving a customer beyond the product itself: freight, order handling, sales time and credit |
 | **Whale curve** | Cumulative profit by customer, ranked from most to least profitable; it peaks above 100 % when some customers lose money |
 | **z-score** | How many standard errors a group's rate is from the overall rate; used to judge whether a difference could be chance |
+| **Backtest** | Testing a method on past data it was not built from, to see how it would have performed |
+| **Median property** | A validation test that at least half the values sit on each side of a reported median |
