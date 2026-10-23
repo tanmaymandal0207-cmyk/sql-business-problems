@@ -34,6 +34,12 @@ Shared definitions for metrics used across case studies. Each case study referen
 | CL | [Cancellation and return leakage](../03_operations_and_supply_chain/06_cancellation_return_leakage/) |
 | AR | [Receivables roll-forward reconciliation](../04_data_quality_and_reconciliation/05_receivables_rollforward/) |
 | WC | [Customer profitability and the whale curve](../05_advanced_analytics/05_customer_profitability_whale_curve/) |
+| RG | [Regional performance and market coverage](../01_customer_and_revenue/06_regional_performance/) |
+| DC | [Discount consistency and price leakage](../02_sales_and_profitability/06_discount_consistency/) |
+| PE | [Period-end sales push](../02_sales_and_profitability/07_period_end_sales_push/) |
+| SC | [Shipment consolidation opportunity](../03_operations_and_supply_chain/07_shipment_consolidation/) |
+| AN | [Order anomaly screen](../04_data_quality_and_reconciliation/06_order_anomaly_screen/) |
+| RM | [Replenishment reorder reminders](../05_advanced_analytics/06_reorder_reminders/) |
 
 ---
 
@@ -62,6 +68,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Realised price | Revenue ÷ quantity, per product and period (after discount) | Product × period | Confirmed | PV |
 | Price effect | Σ (price CY − price PY) × quantity CY | Product | Confirmed | PV |
 | Quantity effect | Σ (quantity CY − quantity PY) × price PY; split into volume and mix | Product | Confirmed | PV |
+| Effective discount | Discount amount ÷ gross value, per customer and period | Customer × period | Confirmed | DC, PE |
+| Discount band | Segment median effective discount ± 2 points; excess = discount beyond the band | Customer | Confirmed | DC |
+| Month position | Last 5 days, first 5 days or mid-month of the order date | Order | Confirmed | PE |
 
 ## Margin
 
@@ -98,6 +107,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Relationship type | Single-threaded (one salesperson in 24 months), Dominant (primary ≥ 80 %), Shared, Unassigned | Customer | Confirmed | RR |
 | Activation stage | Not yet ordered, only cancelled or returned, one order only, repeat buyer | Customer | Confirmed | NA |
 | Fair-window rate | Share achieving a milestone within n days, among customers observed for at least n days | Any | Confirmed | NA |
+| Activation rate | Active customers ÷ registered customers | State / region | Confirmed | RG |
+| Largest customer share | Largest customer's revenue ÷ revenue of the group | State | Confirmed | RG |
+| Reorder cycle | Median gap between purchases of the same product by the same customer | Customer × product | Confirmed | RM |
+| Reorder status | Days since last purchase ÷ median gap: not yet due, due, overdue, lapsed | Customer × product | Confirmed | RM |
 
 ## Collections
 
@@ -129,6 +142,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Shipments per day | Shipment records per calendar day, zero-filled | Day | Confirmed | DW |
 | Seasonality index | Average shipments per day in a month ÷ period average × 100 | Month | Confirmed | DW |
 | Promise standard | Lead time met by s % of a city's training orders (`PERCENTILE_DISC`, rounded up) | City | Confirmed | PS |
+| Fixed freight per shipment | Intercept of a least-squares fit of shipment cost on order value (single-shipment orders) | Company | Confirmed | SC |
+| Shipments avoided | Shipments − dispatches needed when shipments to a destination are combined by schedule | Schedule | Confirmed | SC |
 
 ## Product and demand
 
@@ -153,6 +168,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Metric | Definition | Grain | Status | Used in |
 |---|---|---|---|---|
 | Rule pass rate | 1 − records failed ÷ records checked | Rule | Confirmed | DQ |
+| Anomaly flag | Line quantity, price or order value beyond a multiple of a robust (median) benchmark | Order line | Confirmed | AN |
 
 ## Statistical testing
 
@@ -160,6 +176,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 |---|---|---|---|---|
 | Rate z-score | (group rate − overall rate) ÷ `SQRT(p * (1 - p) / n)`; \|z\| ≥ 2 flagged | Group | Confirmed | CL |
 | Expected by chance | Groups tested × 4.55 %, reported beside groups flagged | Dimension | Confirmed | CL |
+| Two-sample z-test | (mean₁ − mean₂) ÷ `SQRT(var₁/n₁ + var₂/n₂)` | Two groups | Confirmed | PE |
+| Two-proportion z-test | Difference in rates ÷ pooled standard error | Two groups | Confirmed | CL, PE, AN |
+| Lift | Outcome rate in the flagged group ÷ outcome rate in the rest | Method | Confirmed | RM |
 
 ---
 
@@ -172,3 +191,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-20 | Added metrics for price-volume-mix, open order backlog, dispatch workload, customer de-duplication and RFM segmentation. Extended the case study key. |
 | 2026-10-21 | Confirmed revenue share and added cumulative share (Customer revenue risk version 2). Added category penetration, promise standard, cut-off and forecast accuracy metrics. |
 | 2026-10-22 | Added relationship, activation, GP core, cost-to-serve, receivables roll-forward and cancellation metrics, and a Statistical testing section. Extended the case study key. |
+| 2026-10-23 | Added regional, discount band, period-end, freight model, anomaly and reorder-cycle metrics, and z-test and lift definitions. Extended the case study key. |
