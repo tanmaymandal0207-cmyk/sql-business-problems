@@ -24,3 +24,5 @@ Case studies on how revenue is distributed across customers, how it changes over
 | 05 | [New customer onboarding and activation](05_new_customer_activation/) — do new registrations turn into repeat buyers, and where does onboarding stall? | Complete |
 | 06 | [Regional performance and market coverage](06_regional_performance/) — which states and regions to invest in, defend, develop or review? | Complete |
 | 07 | [Customer lifetime value](07_customer_lifetime_value/) — what is each customer's expected future margin, and what is a second order worth? | Complete |
+| 08 | [Revenue concentration trend](08_revenue_concentration_trend/) — is the business becoming more or less dependent on a few customers, by HHI, effective customers and Gini? | Complete |
+| 09 | [Reactivated customers](09_reactivated_customers/) — how many lapsed customers come back, what are they worth, and do they stay? | Complete |
