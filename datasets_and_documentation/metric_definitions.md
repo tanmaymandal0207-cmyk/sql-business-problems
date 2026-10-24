@@ -40,6 +40,13 @@ Shared definitions for metrics used across case studies. Each case study referen
 | SC | [Shipment consolidation opportunity](../03_operations_and_supply_chain/07_shipment_consolidation/) |
 | AN | [Order anomaly screen](../04_data_quality_and_reconciliation/06_order_anomaly_screen/) |
 | RM | [Replenishment reorder reminders](../05_advanced_analytics/06_reorder_reminders/) |
+| LV | [Customer lifetime value](../01_customer_and_revenue/07_customer_lifetime_value/) |
+| MB | [Market basket affinity](../02_sales_and_profitability/08_market_basket_affinity/) |
+| SS | [Safety stock and reorder points](../03_operations_and_supply_chain/08_safety_stock_reorder_points/) |
+| PC | [Statistical process control](../03_operations_and_supply_chain/09_statistical_process_control/) |
+| BF | [Benford's law forensic test](../04_data_quality_and_reconciliation/07_benford_forensic_test/) |
+| KM | [Time-to-reorder survival analysis](../05_advanced_analytics/07_time_to_reorder_survival/) |
+| MK | [Customer state transitions (Markov chain)](../05_advanced_analytics/08_customer_state_markov/) |
 
 ---
 
@@ -111,6 +118,11 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Largest customer share | Largest customer's revenue ÷ revenue of the group | State | Confirmed | RG |
 | Reorder cycle | Median gap between purchases of the same product by the same customer | Customer × product | Confirmed | RM |
 | Reorder status | Days since last purchase ÷ median gap: not yet due, due, overdue, lapsed | Customer × product | Confirmed | RM |
+| Annual retention | Share of one year's active customers who buy again the next year; Laplace-smoothed (retained + 1) ÷ (n + 2) | Frequency band | Confirmed | LV |
+| Customer lifetime value | Annual margin × Σₜ₌₁…₅ (r ÷ (1 + d))ᵗ, d = 12 % | Customer | Confirmed | LV |
+| Survival S(t) | Kaplan–Meier probability of no reorder by day t, with right-censoring | Segment | Confirmed | KM |
+| Customer state | High, Low, Silent 1–3 quarters, Lost, by quarter | Customer × quarter | Confirmed | MK |
+| Transition probability | Transitions from state i to j ÷ all transitions from i | State pair | Confirmed | MK |
 
 ## Collections
 
@@ -144,6 +156,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Promise standard | Lead time met by s % of a city's training orders (`PERCENTILE_DISC`, rounded up) | City | Confirmed | PS |
 | Fixed freight per shipment | Intercept of a least-squares fit of shipment cost on order value (single-shipment orders) | Company | Confirmed | SC |
 | Shipments avoided | Shipments − dispatches needed when shipments to a destination are combined by schedule | Schedule | Confirmed | SC |
+| Safety stock | z × √(L × s² + d² × σL²), weekly demand mean d and std dev s, lead time L | Product | Confirmed | SS |
+| Reorder point | d × L + safety stock | Product | Confirmed | SS |
+| p-chart limits | p̄ ± 3 √(p̄ (1 − p̄) ÷ n), with Western Electric rules R1, R2, R4 | Week | Confirmed | PC |
 
 ## Product and demand
 
@@ -169,6 +184,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 |---|---|---|---|---|
 | Rule pass rate | 1 − records failed ÷ records checked | Rule | Confirmed | DQ |
 | Anomaly flag | Line quantity, price or order value beyond a multiple of a robust (median) benchmark | Order line | Confirmed | AN |
+| Benford MAD | Mean absolute deviation of leading-digit shares from log₁₀(1 + 1/d), judged on Nigrini thresholds | Population | Confirmed | BF |
 
 ## Statistical testing
 
@@ -178,7 +194,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Expected by chance | Groups tested × 4.55 %, reported beside groups flagged | Dimension | Confirmed | CL |
 | Two-sample z-test | (mean₁ − mean₂) ÷ `SQRT(var₁/n₁ + var₂/n₂)` | Two groups | Confirmed | PE |
 | Two-proportion z-test | Difference in rates ÷ pooled standard error | Two groups | Confirmed | CL, PE, AN |
-| Lift | Outcome rate in the flagged group ÷ outcome rate in the rest | Method | Confirmed | RM |
+| Lift | Outcome rate in the flagged group ÷ outcome rate in the rest | Method | Confirmed | RM, MB |
+| Chi-square (2 × 2) | N (ad − bc)² ÷ ((a + b)(c + d)(a + c)(b + d)), with Bonferroni correction | Pair | Confirmed | MB |
+| Greenwood interval | Var[S(t)] = S(t)² Σ d ÷ (n (n − d)) | Survival curve | Confirmed | KM |
 
 ---
 
@@ -192,3 +210,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-21 | Confirmed revenue share and added cumulative share (Customer revenue risk version 2). Added category penetration, promise standard, cut-off and forecast accuracy metrics. |
 | 2026-10-22 | Added relationship, activation, GP core, cost-to-serve, receivables roll-forward and cancellation metrics, and a Statistical testing section. Extended the case study key. |
 | 2026-10-23 | Added regional, discount band, period-end, freight model, anomaly and reorder-cycle metrics, and z-test and lift definitions. Extended the case study key. |
+| 2026-10-24 | Added CLV, survival, Markov state, safety stock, control chart, Benford and chi-square metrics. Extended the case study key. |
