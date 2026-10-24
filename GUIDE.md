@@ -172,6 +172,13 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Shipment consolidation opportunity | `freight_cost_model`, `shipment_consolidation_base`, `consolidation_scenarios` |
 | Order anomaly screen | `order_line_anomalies`, `order_anomaly_review` |
 | Replenishment reorder reminders | `customer_product_purchases`, `reorder_status`, `reorder_backtest` |
+| Customer lifetime value | `clv_retention_bands`, `customer_lifetime_value` |
+| Market basket affinity | `basket_items`, `basket_pair_stats`, `basket_pair_results` |
+| Safety stock and reorder points | `weekly_product_demand`, `safety_stock_policy`, `safety_stock_backtest` |
+| Statistical process control | `spc_weekly`, `spc_chart`, `spc_signals` |
+| Benford's law forensic test | `benford_values`, `benford_first_digit`, `benford_first_two` |
+| Time-to-reorder survival analysis | `reorder_spells`, `reorder_survival_curve`, `reorder_survival_daily` |
+| Customer state transitions (Markov chain) | `customer_quarter_state`, `state_transitions`, `markov_projection` (the script uses a `WHILE` loop, so run it as one script) |
 
 ### 5.4 If something does not match
 
@@ -240,3 +247,6 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **z-score** | How many standard errors a group's rate is from the overall rate; used to judge whether a difference could be chance |
 | **Backtest** | Testing a method on past data it was not built from, to see how it would have performed |
 | **Median property** | A validation test that at least half the values sit on each side of a reported median |
+| **Censoring** | An observation that has not ended yet (a customer who has not reordered by the as-of date); survival analysis uses it instead of dropping it |
+| **Control limits** | The range a stable process stays within about 99.7 % of the time; points outside suggest a real change |
+| **Bonferroni correction** | Dividing the significance level by the number of tests, so that testing many pairs does not create false findings |
