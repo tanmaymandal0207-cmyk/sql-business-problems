@@ -23,3 +23,4 @@ Case studies on how revenue is distributed across customers, how it changes over
 | 04 | [Salesperson relationship risk](04_salesperson_relationship_risk/) — how much revenue depends on one salesperson, and what happens when an account changes hands? | Complete |
 | 05 | [New customer onboarding and activation](05_new_customer_activation/) — do new registrations turn into repeat buyers, and where does onboarding stall? | Complete |
 | 06 | [Regional performance and market coverage](06_regional_performance/) — which states and regions to invest in, defend, develop or review? | Complete |
+| 07 | [Customer lifetime value](07_customer_lifetime_value/) — what is each customer's expected future margin, and what is a second order worth? | Complete |
