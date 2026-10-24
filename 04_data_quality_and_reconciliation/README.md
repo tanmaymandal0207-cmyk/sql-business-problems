@@ -23,3 +23,4 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 04 | [Revenue cut-off reconciliation](04_revenue_cutoff_reconciliation/) — how much does order-date reporting misstate monthly and financial-year revenue? | Complete |
 | 05 | [Receivables roll-forward reconciliation](05_receivables_rollforward/) — does the receivables balance roll forward every month and agree with the ageing? | Complete |
 | 06 | [Order anomaly screen](06_order_anomaly_screen/) — which order lines are unusual, and are they errors or genuine large orders? | Complete |
+| 07 | [Benford's law forensic test](07_benford_forensic_test/) — do payment and order amounts behave like genuine data, and where do they not? | Complete |
