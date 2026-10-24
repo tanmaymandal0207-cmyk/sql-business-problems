@@ -6,6 +6,23 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-25
+
+### Added
+- **Revenue concentration trend** ([01_customer_and_revenue/08_revenue_concentration_trend](01_customer_and_revenue/08_revenue_concentration_trend/)). Quarterly and rolling 12-month HHI, effective customers and Gini. Concentration fell to 162 HHI points in March 2026 and rose to 200 by September. The Q3 2026 spike (one customer at 18.4 %) halves without its single largest order. Distributors are the most concentrated segment, with about 13 effective customers.
+- **Reactivated customers** ([01_customer_and_revenue/09_reactivated_customers](01_customer_and_revenue/09_reactivated_customers/)). 230 returns after 180+ days of silence, now about twice as many as new customers. Returners buy 23 % more than before they lapsed but are fragile: 75.9 % reorder within 180 days, against 97.5 % after a regular repeat order.
+- **Salesperson ramp-up** ([02_sales_and_profitability/09_salesperson_ramp_up](02_sales_and_profitability/09_salesperson_ramp_up/)). Every new joiner placed a first order after 30–32 days and was at peer level from month 3, because 85–99 % of their revenue came from handed-over customers. Plan for the September 2026 joiners: about ₹1.06 crore each in six months.
+- **Split shipment drivers** ([03_operations_and_supply_chain/10_split_shipment_drivers](03_operations_and_supply_chain/10_split_shipment_drivers/)). No single-line order is ever split, and no category, size, segment or product drives splits beyond chance. The first part is on time as often as a single shipment; the second part makes splits a quarter of all late orders.
+- **Ship-to vs bill-to reconciliation** ([04_data_quality_and_reconciliation/08_ship_to_bill_to_reconciliation](04_data_quality_and_reconciliation/08_ship_to_bill_to_reconciliation/)). 447 of 1,020 raw city mismatches are naming only; seven master records cause 204 of them. 224 shipments go to another state, mostly one-off destinations for tax review. Three missing customer cities can be filled from delivery history.
+- **Cost of a late delivery** ([05_advanced_analytics/09_cost_of_late_delivery](05_advanced_analytics/09_cost_of_late_delivery/)). Within the same customer, lateness has no effect on reorder (the pooled 2.8-point gap is customer mix) but delays payment by 6.4 days (paired t = 5.8). The financing cost is about ₹1.4 lakh a year.
+- **Customer momentum** ([05_advanced_analytics/10_customer_momentum](05_advanced_analytics/10_customer_momentum/)). Per-customer regression slopes with t-statistics and an out-of-sample back-test. Only 13 of 251 customers have a significant trend; growing customers kept growing, but declining customers recovered (+49.5 %). Recent revenue level predicts next year far better (ρ = 0.77) than trend (ρ = 0.12).
+
+### Changed
+- `metric_definitions.md`: added HHI, effective customers, Gini, reactivation, ramp index, product lift z-score, ship-to match types, within-customer (paired) difference and regression momentum definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 46 case studies are now complete.
+
+---
+
 ## 2026-10-24
 
 ### Added

@@ -179,6 +179,13 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Benford's law forensic test | `benford_values`, `benford_first_digit`, `benford_first_two` |
 | Time-to-reorder survival analysis | `reorder_spells`, `reorder_survival_curve`, `reorder_survival_daily` |
 | Customer state transitions (Markov chain) | `customer_quarter_state`, `state_transitions`, `markov_projection` (the script uses a `WHILE` loop, so run it as one script) |
+| Revenue concentration trend | `concentration_periods`, `concentration_measures` |
+| Reactivated customers | `customer_order_gaps`, `reactivation_events` |
+| Salesperson ramp-up | `rep_monthly`, `rep_ramp` |
+| Split shipment drivers | `order_fulfilment`, `split_product_lift` |
+| Ship-to vs bill-to reconciliation | `city_alias_map`, `city_state_lookup`, `ship_bill_reconciliation` |
+| Cost of a late delivery | `delivery_outcomes`, `late_delivery_paired` |
+| Customer momentum | `customer_monthly_revenue`, `customer_momentum` |
 
 ### 5.4 If something does not match
 
@@ -250,3 +257,10 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Censoring** | An observation that has not ended yet (a customer who has not reordered by the as-of date); survival analysis uses it instead of dropping it |
 | **Control limits** | The range a stable process stays within about 99.7 % of the time; points outside suggest a real change |
 | **Bonferroni correction** | Dividing the significance level by the number of tests, so that testing many pairs does not create false findings |
+| **HHI (Herfindahl-Hirschman Index)** | The sum of squared revenue shares; higher means revenue depends on fewer customers |
+| **Effective customers** | 1 ÷ HHI: how many equal-sized customers would give the same concentration |
+| **Reactivation** | An order from a customer who had been silent for more than 180 days |
+| **Within-customer (paired) comparison** | Comparing each customer with itself (for example its late orders against its on-time orders), so that differences between customers cannot explain the result |
+| **Customer mix effect** | A difference between groups that comes from which customers are in each group, not from the factor being studied |
+| **t-statistic of a slope** | The trend divided by its standard error; around 2 or more suggests a trend that is unlikely to be noise |
+| **Mean reversion** | The tendency of unusually high or low values to move back towards normal in the next period |
