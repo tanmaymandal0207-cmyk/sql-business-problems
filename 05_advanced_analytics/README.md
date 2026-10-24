@@ -24,3 +24,5 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 06 | [Replenishment reorder reminders](06_reorder_reminders/) — which customers are overdue to reorder a product, and does the method work in a backtest? | Complete |
 | 07 | [Time-to-reorder survival analysis](07_time_to_reorder_survival/) — how likely is a silent customer to return, and when is a customer really lost? | Complete |
 | 08 | [Customer state transitions (Markov chain)](08_customer_state_markov/) — where is the customer base heading, and what is a win-back programme worth? | Complete |
+| 09 | [Cost of a late delivery](09_cost_of_late_delivery/) — does lateness slow payment or lose repeat business, within the same customer? | Complete |
+| 10 | [Customer momentum](10_customer_momentum/) — which customers have a statistically significant revenue trend, and does it predict next year? | Complete |
