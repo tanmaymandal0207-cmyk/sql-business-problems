@@ -6,6 +6,23 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-24
+
+### Added
+- **Customer lifetime value** ([01_customer_and_revenue/07_customer_lifetime_value](01_customer_and_revenue/07_customer_lifetime_value/)). Retention-based CLV with Laplace smoothing and confidence intervals. The base is worth ₹20.71 crore of margin over five years. One-order customers retain at 36 % against 94 % for repeat buyers, so a second order is worth about ₹9,800.
+- **Market basket affinity with significance testing** ([02_sales_and_profitability/08_market_basket_affinity](02_sales_and_profitability/08_market_basket_affinity/)). Chi-square tests with Bonferroni correction. Of 411 product pairs, 68 look significant uncorrected but only 2 survive, and 1 is actionable.
+- **Safety stock and reorder points** ([03_operations_and_supply_chain/08_safety_stock_reorder_points](03_operations_and_supply_chain/08_safety_stock_reorder_points/)). Service-level safety stock with lead-time variance, EOQ and a backtest. ₹3.25 crore of safety stock; ABC service levels save ₹20.8 lakh against a uniform 98 %. Regular products hit target once demand growth is allowed for, and 66 % of products are too lumpy for the method.
+- **Statistical process control** ([03_operations_and_supply_chain/09_statistical_process_control](03_operations_and_supply_chain/09_statistical_process_control/)). p-charts with Western Electric rules. Both processes are stable: a simple target rule raised 61 alarms where SPC found none on the bad side. The only signal is a 10-week improvement in mid-2026.
+- **Benford's law forensic test** ([04_data_quality_and_reconciliation/07_benford_forensic_test](04_data_quality_and_reconciliation/07_benford_forensic_test/)). All three amount populations conform closely. Subgroup testing exposes 543 "RTGS" receipts below the ₹2 lakh RTGS minimum (₹3.71 crore), which points to a mislabelled payment method.
+- **Time-to-reorder survival analysis** ([05_advanced_analytics/07_time_to_reorder_survival](05_advanced_analytics/07_time_to_reorder_survival/)). Kaplan–Meier curves with censoring and Greenwood intervals. After 90 days of silence, 76 % of customers still return within six months, and the tipping point is about 270 days.
+- **Customer state transitions (Markov chain)** ([05_advanced_analytics/08_customer_state_markov](05_advanced_analytics/08_customer_state_markov/)). A quarterly transition matrix projected with a BigQuery `WHILE` loop, with an out-of-time backtest and a win-back scenario worth about ₹1 crore a year.
+
+### Changed
+- `metric_definitions.md`: added CLV, survival, Markov, safety stock, control chart, Benford and chi-square definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 39 case studies are now complete.
+
+---
+
 ## 2026-10-23
 
 ### Added
