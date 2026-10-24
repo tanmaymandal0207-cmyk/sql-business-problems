@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-32%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 32 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-39%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 39 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -65,7 +65,8 @@ sql-business-problems/
 │   ├── 03_revenue_growth_bridge/
 │   ├── 04_salesperson_relationship_risk/
 │   ├── 05_new_customer_activation/
-│   └── 06_regional_performance/
+│   ├── 06_regional_performance/
+│   └── 07_customer_lifetime_value/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -73,7 +74,8 @@ sql-business-problems/
 │   ├── 04_cross_sell_white_space/
 │   ├── 05_sku_rationalisation/
 │   ├── 06_discount_consistency/
-│   └── 07_period_end_sales_push/
+│   ├── 07_period_end_sales_push/
+│   └── 08_market_basket_affinity/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -81,21 +83,26 @@ sql-business-problems/
 │   ├── 04_dispatch_workload_planning/
 │   ├── 05_promise_date_standards/
 │   ├── 06_cancellation_return_leakage/
-│   └── 07_shipment_consolidation/
+│   ├── 07_shipment_consolidation/
+│   ├── 08_safety_stock_reorder_points/
+│   └── 09_statistical_process_control/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
 │   ├── 03_customer_master_deduplication/
 │   ├── 04_revenue_cutoff_reconciliation/
 │   ├── 05_receivables_rollforward/
-│   └── 06_order_anomaly_screen/
+│   ├── 06_order_anomaly_screen/
+│   └── 07_benford_forensic_test/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
 │   ├── 03_rfm_customer_segmentation/
 │   ├── 04_revenue_forecast_baseline/
 │   ├── 05_customer_profitability_whale_curve/
-│   └── 06_reorder_reminders/
+│   ├── 06_reorder_reminders/
+│   ├── 07_time_to_reorder_survival/
+│   └── 08_customer_state_markov/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -144,6 +151,13 @@ Additional tools will be listed here only when they are used in a published case
 | 30 | [Shipment consolidation opportunity](03_operations_and_supply_chain/07_shipment_consolidation/) | Operations and supply chain | Complete |
 | 31 | [Order anomaly screen](04_data_quality_and_reconciliation/06_order_anomaly_screen/) | Data quality and reconciliation | Complete |
 | 32 | [Replenishment reorder reminders](05_advanced_analytics/06_reorder_reminders/) | Advanced analytics | Complete |
+| 33 | [Customer lifetime value](01_customer_and_revenue/07_customer_lifetime_value/) | Customer and revenue | Complete |
+| 34 | [Market basket affinity with significance testing](02_sales_and_profitability/08_market_basket_affinity/) | Sales and profitability | Complete |
+| 35 | [Safety stock and reorder points](03_operations_and_supply_chain/08_safety_stock_reorder_points/) | Operations and supply chain | Complete |
+| 36 | [Statistical process control](03_operations_and_supply_chain/09_statistical_process_control/) | Operations and supply chain | Complete |
+| 37 | [Benford's law forensic test](04_data_quality_and_reconciliation/07_benford_forensic_test/) | Data quality and reconciliation | Complete |
+| 38 | [Time-to-reorder survival analysis](05_advanced_analytics/07_time_to_reorder_survival/) | Advanced analytics | Complete |
+| 39 | [Customer state transitions (Markov chain)](05_advanced_analytics/08_customer_state_markov/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 
