@@ -47,6 +47,13 @@ Shared definitions for metrics used across case studies. Each case study referen
 | BF | [Benford's law forensic test](../04_data_quality_and_reconciliation/07_benford_forensic_test/) |
 | KM | [Time-to-reorder survival analysis](../05_advanced_analytics/07_time_to_reorder_survival/) |
 | MK | [Customer state transitions (Markov chain)](../05_advanced_analytics/08_customer_state_markov/) |
+| CT | [Revenue concentration trend](../01_customer_and_revenue/08_revenue_concentration_trend/) |
+| RA | [Reactivated customers](../01_customer_and_revenue/09_reactivated_customers/) |
+| RU | [Salesperson ramp-up](../02_sales_and_profitability/09_salesperson_ramp_up/) |
+| SD | [Split shipment drivers](../03_operations_and_supply_chain/10_split_shipment_drivers/) |
+| ST | [Ship-to vs bill-to reconciliation](../04_data_quality_and_reconciliation/08_ship_to_bill_to_reconciliation/) |
+| LC | [Cost of a late delivery](../05_advanced_analytics/09_cost_of_late_delivery/) |
+| MO | [Customer momentum](../05_advanced_analytics/10_customer_momentum/) |
 
 ---
 
@@ -123,6 +130,13 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Survival S(t) | Kaplan–Meier probability of no reorder by day t, with right-censoring | Segment | Confirmed | KM |
 | Customer state | High, Low, Silent 1–3 quarters, Lost, by quarter | Customer × quarter | Confirmed | MK |
 | Transition probability | Transitions from state i to j ÷ all transitions from i | State pair | Confirmed | MK |
+| HHI | Σ sᵢ² over customer revenue shares in the period; reported × 10,000 as points | Period | Confirmed | CT |
+| Effective customers | 1 ÷ HHI: number of equal-sized customers giving the same concentration | Period | Confirmed | CT |
+| Gini coefficient | 2 Σ(i · xᵢ) ÷ (n Σxᵢ) − (n + 1) ÷ n, customers sorted ascending | Period | Confirmed | CT |
+| Return (reactivation) | An order placed more than 180 days after the customer's previous in-scope order | Order | Confirmed | RA |
+| Stayed after return | Another in-scope order within 180 days of the return order; returns observed for 180 days only | Return | Confirmed | RA |
+| Revenue momentum | Least-squares slope of zero-filled monthly revenue, `COVAR_POP(x, y) / VAR_POP(x)`; trend % = slope × 12 ÷ mean month | Customer × 12 months | Confirmed | MO |
+| Momentum class | Growing if slope t ≥ 2, Declining if t ≤ −2, t = r √(n − 2) ÷ √(1 − r²); fewer than 3 active months not classified | Customer × 12 months | Confirmed | MO |
 
 ## Collections
 
@@ -155,6 +169,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Seasonality index | Average shipments per day in a month ÷ period average × 100 | Month | Confirmed | DW |
 | Promise standard | Lead time met by s % of a city's training orders (`PERCENTILE_DISC`, rounded up) | City | Confirmed | PS |
 | Fixed freight per shipment | Intercept of a least-squares fit of shipment cost on order value (single-shipment orders) | Company | Confirmed | SC |
+| Split order | Order with two shipment rows (none has more than two) | Order | Confirmed | SD |
+| First / final part late | First or last shipment's delivery after the promised date | Order | Confirmed | SD, LC |
+| Extra freight per split | Average freight of split minus single-shipment orders with the same line count | Line-count band | Confirmed | SD |
 | Shipments avoided | Shipments − dispatches needed when shipments to a destination are combined by schedule | Schedule | Confirmed | SC |
 | Safety stock | z × √(L × s² + d² × σL²), weekly demand mean d and std dev s, lead time L | Product | Confirmed | SS |
 | Reorder point | d × L + safety stock | Product | Confirmed | SS |
@@ -185,6 +202,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Rule pass rate | 1 − records failed ÷ records checked | Rule | Confirmed | DQ |
 | Anomaly flag | Line quantity, price or order value beyond a multiple of a robust (median) benchmark | Order line | Confirmed | AN |
 | Benford MAD | Mean absolute deviation of leading-digit shares from log₁₀(1 + 1/d), judged on Nigrini thresholds | Population | Confirmed | BF |
+| Ship-to match type | Exact, case/spacing only, city alias only, different city same state, different city other state, no billing city | Shipment | Confirmed | ST |
+| Recurring destination | Same customer shipped to the same non-billing city 3 or more times | Customer × city | Confirmed | ST |
 
 ## Statistical testing
 
@@ -193,10 +212,15 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Rate z-score | (group rate − overall rate) ÷ `SQRT(p * (1 - p) / n)`; \|z\| ≥ 2 flagged | Group | Confirmed | CL |
 | Expected by chance | Groups tested × 4.55 %, reported beside groups flagged | Dimension | Confirmed | CL |
 | Two-sample z-test | (mean₁ − mean₂) ÷ `SQRT(var₁/n₁ + var₂/n₂)` | Two groups | Confirmed | PE |
-| Two-proportion z-test | Difference in rates ÷ pooled standard error | Two groups | Confirmed | CL, PE, AN |
-| Lift | Outcome rate in the flagged group ÷ outcome rate in the rest | Method | Confirmed | RM, MB |
+| Two-proportion z-test | Difference in rates ÷ pooled standard error | Two groups | Confirmed | CL, PE, AN, RA, LC |
+| Lift | Outcome rate in the flagged group ÷ outcome rate in the rest | Method | Confirmed | RM, MB, SD |
 | Chi-square (2 × 2) | N (ad − bc)² ÷ ((a + b)(c + d)(a + c)(b + d)), with Bonferroni correction | Pair | Confirmed | MB |
 | Greenwood interval | Var[S(t)] = S(t)² Σ d ÷ (n (n − d)) | Survival curve | Confirmed | KM |
+| Revenue (ramp) index | Joiner's revenue ÷ average of benchmark peers in the same calendar month; 3-month version uses sum ÷ sum | Salesperson × month | Confirmed | RU |
+| Product split lift z-score | (split rate of orders with the product − base rate) ÷ √(base (1 − base) ÷ n); \|z\| ≥ 3 for 100+ tests | Product | Confirmed | SD |
+| Within-customer (paired) difference | Per customer, late-order mean − on-time-order mean; averaged across customers with paired t = mean ÷ (sd ÷ √n) | Customer | Confirmed | LC |
+| Welch t-test | (mean₁ − mean₂) ÷ √(s₁²/n₁ + s₂²/n₂) | Two groups | Confirmed | LC |
+| Spearman ρ | `CORR` of `RANK()` values (ties share a rank) | Population | Confirmed | MO |
 
 ---
 
@@ -211,3 +235,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-22 | Added relationship, activation, GP core, cost-to-serve, receivables roll-forward and cancellation metrics, and a Statistical testing section. Extended the case study key. |
 | 2026-10-23 | Added regional, discount band, period-end, freight model, anomaly and reorder-cycle metrics, and z-test and lift definitions. Extended the case study key. |
 | 2026-10-24 | Added CLV, survival, Markov state, safety stock, control chart, Benford and chi-square metrics. Extended the case study key. |
+| 2026-10-25 | Added concentration (HHI, effective customers, Gini), reactivation, ramp index, split shipment, ship-to match, paired difference, Welch t, regression momentum and Spearman definitions. Extended the case study key. |
