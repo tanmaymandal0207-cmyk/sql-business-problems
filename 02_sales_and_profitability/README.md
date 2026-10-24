@@ -25,3 +25,4 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 06 | [Discount consistency and price leakage](06_discount_consistency/) — is discount driven by volume or by segment, and who is outside the band? | Complete |
 | 07 | [Period-end sales push](07_period_end_sales_push/) — do orders, discounts and cancellations spike at month, quarter or year-end? | Complete |
 | 08 | [Market basket affinity with significance testing](08_market_basket_affinity/) — which products are really bought together, after correcting for multiple tests? | Complete |
+| 09 | [Salesperson ramp-up](09_salesperson_ramp_up/) — how fast do new salespeople reach peer productivity, and is it built on handed-over accounts? | Complete |
