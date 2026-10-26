@@ -28,3 +28,4 @@ Case studies on how revenue is distributed across customers, how it changes over
 | 09 | [Reactivated customers](09_reactivated_customers/) — how many lapsed customers come back, what are they worth, and do they stay? | Complete |
 | 10 | [Industry vertical scorecard](10_industry_vertical_scorecard/) — which industries grow, earn margin and keep customers, once single-customer growth and segment mix are removed? | Complete |
 | 11 | [Net and gross revenue retention](11_net_revenue_retention/) — how much of last year's customer revenue is kept, and how much of NRR is price and a few accounts? | Complete |
+| 12 | [Customer health score](12_customer_health_score/) — which churn signals actually work, tested with a point-in-time back-test and AUC? | Complete |
