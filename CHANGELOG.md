@@ -6,6 +6,24 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-26 (second batch)
+
+### Added
+- **Customer health score** ([01_customer_and_revenue/12_customer_health_score](01_customer_and_revenue/12_customer_health_score/)). A point-in-time back-test of seven churn signals with AUC computed in SQL. Late deliveries, unpaid invoices and cancellations rank customers backwards (AUC 0.32–0.39) because they measure activity. A three-signal activity score (AUC 0.886) catches 69 % of leavers in its bottom fifth, against 48 % for the proposed seven-signal score.
+- **Gross margin bridge** ([02_sales_and_profitability/11_gross_margin_bridge](02_sales_and_profitability/11_gross_margin_bridge/)). An exact product × segment bridge: margin rose from ₹3.03 to ₹6.21 crore and from 10.0 % to 15.5 %, two thirds from list price. With one current unit cost, supplier inflation of 6.2 % would cancel the whole price effect.
+- **Warehouse slotting by pick frequency** ([03_operations_and_supply_chain/12_warehouse_slotting](03_operations_and_supply_chain/12_warehouse_slotting/)). Only 45 of 90 pick-A products are revenue-A. Slotting by picks instead of revenue cuts walking by about 13 % under the stated zone model; 80 products change zone.
+- **Monetary unit sampling for the receivables audit** ([04_data_quality_and_reconciliation/10_monetary_unit_sampling](04_data_quality_and_reconciliation/10_monetary_unit_sampling/)). PPS sample design, selection and Poisson evaluation in SQL, re-drawn with 20 random starts. Three Unpaid-but-paid orders (₹4.37 lakh) give a 36.5 % chance that the sample rejects; the upper limit covered the truth in 20 of 20 samples.
+- **Order splitting test** ([04_data_quality_and_reconciliation/11_order_splitting_test](04_data_quality_and_reconciliation/11_order_splitting_test/)). A pre-policy baseline: no bunching below round amounts, and fewer same-day orders than chance predicts. One large same-product, same-day pair at the financial year end is listed for review.
+- **k-means customer segmentation** ([05_advanced_analytics/13_kmeans_customer_segmentation](05_advanced_analytics/13_kmeans_customer_segmentation/)). k-means written as a BigQuery `WHILE` loop finds four behaviour groups that explain 70 % of behavioural variation, against 45 % for the official segments. Distributor and Enterprise behave alike; Mid-Market and SMB overlap.
+- **Intermittent demand forecasting** ([05_advanced_analytics/14_intermittent_demand_forecasting](05_advanced_analytics/14_intermittent_demand_forecasting/)). Croston and SBA in closed form with a rolling-origin back-test. 85 % of products are lumpy or intermittent weekly; Croston or SBA is best for 171 of 186 products, but SBA under-forecasts by 7.8 % while demand grows.
+- **Late payment scorecard** ([05_advanced_analytics/15_late_payment_scorecard](05_advanced_analytics/15_late_payment_scorecard/)). Weight of evidence and information value with a time-based hold-out. Segment alone (test AUC 0.743) beats the five-characteristic scorecard (0.730): customer history adds nothing within a segment. Enterprise orders are 67 % late and 59 % of late orders.
+
+### Changed
+- `metric_definitions.md`: added AUC, activity score, margin bridge effects, pick ABC and travel model, MUS design and evaluation, bunching ratio, coincidence model, k-means and R², ADI / CV² and Croston / SBA, WoE and IV definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 61 case studies are now complete.
+
+---
+
 ## 2026-10-26
 
 ### Added

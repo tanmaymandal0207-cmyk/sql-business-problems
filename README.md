@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-53%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 53 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-61%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 61 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -70,7 +70,8 @@ sql-business-problems/
 │   ├── 08_revenue_concentration_trend/
 │   ├── 09_reactivated_customers/
 │   ├── 10_industry_vertical_scorecard/
-│   └── 11_net_revenue_retention/
+│   ├── 11_net_revenue_retention/
+│   └── 12_customer_health_score/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -81,7 +82,8 @@ sql-business-problems/
 │   ├── 07_period_end_sales_push/
 │   ├── 08_market_basket_affinity/
 │   ├── 09_salesperson_ramp_up/
-│   └── 10_sales_force_cost_efficiency/
+│   ├── 10_sales_force_cost_efficiency/
+│   └── 11_gross_margin_bridge/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -93,7 +95,8 @@ sql-business-problems/
 │   ├── 08_safety_stock_reorder_points/
 │   ├── 09_statistical_process_control/
 │   ├── 10_split_shipment_drivers/
-│   └── 11_dispatch_holds/
+│   ├── 11_dispatch_holds/
+│   └── 12_warehouse_slotting/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -103,7 +106,9 @@ sql-business-problems/
 │   ├── 06_order_anomaly_screen/
 │   ├── 07_benford_forensic_test/
 │   ├── 08_ship_to_bill_to_reconciliation/
-│   └── 09_freight_invoice_audit/
+│   ├── 09_freight_invoice_audit/
+│   ├── 10_monetary_unit_sampling/
+│   └── 11_order_splitting_test/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
@@ -116,7 +121,10 @@ sql-business-problems/
 │   ├── 09_cost_of_late_delivery/
 │   ├── 10_customer_momentum/
 │   ├── 11_discount_volume_response/
-│   └── 12_category_breadth_retention/
+│   ├── 12_category_breadth_retention/
+│   ├── 13_kmeans_customer_segmentation/
+│   ├── 14_intermittent_demand_forecasting/
+│   └── 15_late_payment_scorecard/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -186,6 +194,14 @@ Additional tools will be listed here only when they are used in a published case
 | 51 | [Freight invoice audit](04_data_quality_and_reconciliation/09_freight_invoice_audit/) | Data quality and reconciliation | Complete |
 | 52 | [Does discount buy volume?](05_advanced_analytics/11_discount_volume_response/) | Advanced analytics | Complete |
 | 53 | [Category breadth and retention](05_advanced_analytics/12_category_breadth_retention/) | Advanced analytics | Complete |
+| 54 | [Customer health score](01_customer_and_revenue/12_customer_health_score/) | Customer and revenue | Complete |
+| 55 | [Gross margin bridge](02_sales_and_profitability/11_gross_margin_bridge/) | Sales and profitability | Complete |
+| 56 | [Warehouse slotting by pick frequency](03_operations_and_supply_chain/12_warehouse_slotting/) | Operations and supply chain | Complete |
+| 57 | [Monetary unit sampling for the receivables audit](04_data_quality_and_reconciliation/10_monetary_unit_sampling/) | Data quality and reconciliation | Complete |
+| 58 | [Order splitting test](04_data_quality_and_reconciliation/11_order_splitting_test/) | Data quality and reconciliation | Complete |
+| 59 | [k-means customer segmentation](05_advanced_analytics/13_kmeans_customer_segmentation/) | Advanced analytics | Complete |
+| 60 | [Intermittent demand forecasting (Croston and SBA)](05_advanced_analytics/14_intermittent_demand_forecasting/) | Advanced analytics | Complete |
+| 61 | [Late payment scorecard](05_advanced_analytics/15_late_payment_scorecard/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

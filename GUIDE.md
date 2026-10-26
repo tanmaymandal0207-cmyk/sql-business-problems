@@ -193,6 +193,14 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Freight invoice audit | `city_alias_map` (only if missing), `freight_audit_base`, `freight_rate_card`, `freight_audit` |
 | Does discount buy volume? | `discount_response_lines`, `discount_response_estimates` |
 | Category breadth and retention | `breadth_panel`, `breadth_within_band` |
+| Customer health score | `health_signals`, `health_scores`, `health_auc` |
+| Gross margin bridge | `margin_bridge_cells`, `margin_bridge` |
+| Warehouse slotting by pick frequency | `slotting_products` |
+| Monetary unit sampling | `mus_population`, `mus_design`, `mus_selection`, `mus_evaluation` |
+| Order splitting test | `split_test_orders`, `split_test_bunching` |
+| k-means customer segmentation | `km_features`, `km_centroids`, `km_assign`, `km_new_assign`, `km_log`, `km_customers` (the script uses a `WHILE` loop, so run it as one script) |
+| Intermittent demand forecasting | `idf_weekly`, `idf_pattern`, `idf_states`, `idf_backtest` |
+| Late payment scorecard | `lps_orders`, `lps_woe`, `lps_scores`, `lps_auc` |
 
 ### 5.4 If something does not match
 
@@ -276,3 +284,10 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Fixed effects** | Comparing each customer (or customer × product) only with itself, by removing its own average, so stable differences between customers cannot drive the result |
 | **Over-dispersion** | More variation between groups than chance would produce; a ratio near 1 means no group is singled out |
 | **Mantel–Haenszel estimate** | A weighted average of differences measured within comparable groups (strata) |
+| **AUC** | Area under the ROC curve: the probability that a model ranks a randomly chosen "good" case above a "bad" one; 0.5 is no better than chance |
+| **Look-ahead** | Using information that would not have been known at the time of the prediction; point-in-time features avoid it |
+| **Monetary unit sampling (MUS)** | Audit sampling in which every rupee has an equal chance of selection, so larger items are more likely to be tested |
+| **k-means** | A clustering algorithm that alternates assigning points to the nearest centre and moving each centre to the mean of its points |
+| **Croston's method** | A forecast for intermittent demand that smooths the size of non-zero demands and the gap between them separately |
+| **Weight of evidence (WoE)** | ln(share of goods ÷ share of bads) in a bin; the building block of a credit scorecard |
+| **Information value (IV)** | A summary of how well a characteristic separates goods from bads, built from WoE |
