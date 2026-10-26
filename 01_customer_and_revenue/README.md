@@ -26,3 +26,5 @@ Case studies on how revenue is distributed across customers, how it changes over
 | 07 | [Customer lifetime value](07_customer_lifetime_value/) — what is each customer's expected future margin, and what is a second order worth? | Complete |
 | 08 | [Revenue concentration trend](08_revenue_concentration_trend/) — is the business becoming more or less dependent on a few customers, by HHI, effective customers and Gini? | Complete |
 | 09 | [Reactivated customers](09_reactivated_customers/) — how many lapsed customers come back, what are they worth, and do they stay? | Complete |
+| 10 | [Industry vertical scorecard](10_industry_vertical_scorecard/) — which industries grow, earn margin and keep customers, once single-customer growth and segment mix are removed? | Complete |
+| 11 | [Net and gross revenue retention](11_net_revenue_retention/) — how much of last year's customer revenue is kept, and how much of NRR is price and a few accounts? | Complete |
