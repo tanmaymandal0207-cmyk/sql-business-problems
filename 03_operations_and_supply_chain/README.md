@@ -27,3 +27,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | 08 | [Safety stock and reorder points](08_safety_stock_reorder_points/) — what safety stock, reorder point and order quantity should each product have, and would it have worked? | Complete |
 | 09 | [Statistical process control](09_statistical_process_control/) — which weekly swings in late delivery and cancellations are real, and which are noise? | Complete |
 | 10 | [Split shipment drivers](10_split_shipment_drivers/) — what causes split shipments, and how much lateness and freight do they add? | Complete |
+| 11 | [Dispatch holds](11_dispatch_holds/) — why does one order in nine wait 1–3 weeks before dispatch, and what does it cost in lateness? | Complete |
