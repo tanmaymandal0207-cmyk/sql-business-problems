@@ -26,3 +26,5 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 07 | [Benford's law forensic test](07_benford_forensic_test/) — do payment and order amounts behave like genuine data, and where do they not? | Complete |
 | 08 | [Ship-to vs bill-to reconciliation](08_ship_to_bill_to_reconciliation/) — which delivery-city mismatches are naming only, and which cross a state border? | Complete |
 | 09 | [Freight invoice audit](09_freight_invoice_audit/) — are carriers charging consistently against a rate card inferred from the charges? | Complete |
+| 10 | [Monetary unit sampling](10_monetary_unit_sampling/) — what will the auditors' sample of payment statuses find, and how often is MUS right? | Complete |
+| 11 | [Order splitting test](11_order_splitting_test/) — is there any sign of orders split or sized to stay under approval limits? | Complete |
