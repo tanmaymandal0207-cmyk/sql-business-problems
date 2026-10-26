@@ -54,6 +54,13 @@ Shared definitions for metrics used across case studies. Each case study referen
 | ST | [Ship-to vs bill-to reconciliation](../04_data_quality_and_reconciliation/08_ship_to_bill_to_reconciliation/) |
 | LC | [Cost of a late delivery](../05_advanced_analytics/09_cost_of_late_delivery/) |
 | MO | [Customer momentum](../05_advanced_analytics/10_customer_momentum/) |
+| IV | [Industry vertical scorecard](../01_customer_and_revenue/10_industry_vertical_scorecard/) |
+| NR | [Net and gross revenue retention](../01_customer_and_revenue/11_net_revenue_retention/) |
+| SE | [Sales force cost efficiency](../02_sales_and_profitability/10_sales_force_cost_efficiency/) |
+| DH | [Dispatch holds](../03_operations_and_supply_chain/11_dispatch_holds/) |
+| FA | [Freight invoice audit](../04_data_quality_and_reconciliation/09_freight_invoice_audit/) |
+| DV | [Does discount buy volume?](../05_advanced_analytics/11_discount_volume_response/) |
+| CB | [Category breadth and retention](../05_advanced_analytics/12_category_breadth_retention/) |
 
 ---
 
@@ -99,6 +106,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Sales effort cost | Salesperson's salary for the period ÷ orders they booked (Head of Sales not allocated) | Order | Confirmed | WC |
 | Cost of credit | Rupees outstanding × days from delivery to payment (or as-of) × cost of capital ÷ 365 | Order | Confirmed | WC |
 | Customer contribution | Gross margin − freight − handling − sales effort − cost of credit | Customer × period | Confirmed | WC |
+| Mix-expected margin | Σ segment costed revenue × company margin % of that segment; margin vs mix = actual − expected | Industry | Confirmed | IV |
+| GP return | Gross profit ÷ salary cost (salary pro-rated from hire date) | Salesperson | Confirmed | SE |
+| Cost of sales | Salary cost ÷ revenue | Salesperson / role | Confirmed | SE |
 
 > `products.unit_cost` is a single current cost per product, not a historical cost at the time of sale. Lines for products with a null `unit_cost` are excluded from margin metrics, and the exclusion is reported.
 
@@ -137,6 +147,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Stayed after return | Another in-scope order within 180 days of the return order; returns observed for 180 days only | Return | Confirmed | RA |
 | Revenue momentum | Least-squares slope of zero-filled monthly revenue, `COVAR_POP(x, y) / VAR_POP(x)`; trend % = slope × 12 ÷ mean month | Customer × 12 months | Confirmed | MO |
 | Momentum class | Growing if slope t ≥ 2, Declining if t ≤ −2, t = r √(n − 2) ÷ √(1 − r²); fewer than 3 active months not classified | Customer × 12 months | Confirmed | MO |
+| NRR | Σ current 12-month revenue of base customers ÷ Σ their base 12-month revenue (year before) | Quarter end | Confirmed | NR |
+| GRR | Σ LEAST(base, current) ÷ Σ base = 1 − (churn + contraction) ÷ base | Quarter end | Confirmed | NR |
+| Constant-price NRR | NRR on quantity × list price × (1 − discount %), removing price increases | Quarter end | Confirmed | NR |
+| Category breadth | Distinct product categories bought in a half-year | Customer × half-year | Confirmed | CB |
 
 ## Collections
 
@@ -176,6 +190,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Safety stock | z × √(L × s² + d² × σL²), weekly demand mean d and std dev s, lead time L | Product | Confirmed | SS |
 | Reorder point | d × L + safety stock | Product | Confirmed | SS |
 | p-chart limits | p̄ ± 3 √(p̄ (1 − p̄) ÷ n), with Western Electric rules R1, R2, R4 | Week | Confirmed | PC |
+| Dispatch days | First shipment date − order date; held order = 7+ days | Order | Confirmed | DH |
+| Inferred rate card | Per destination: freight = fixed charge + variable rate × consignment value, least squares on single-shipment orders up to ₹10 lakh; pooled card for cities with < 30 | City | Confirmed | FA |
+| Freight variance % | (charged − card) ÷ card; ±15 % tolerance | Shipment | Confirmed | FA |
 
 ## Product and demand
 
@@ -212,7 +229,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Rate z-score | (group rate − overall rate) ÷ `SQRT(p * (1 - p) / n)`; \|z\| ≥ 2 flagged | Group | Confirmed | CL |
 | Expected by chance | Groups tested × 4.55 %, reported beside groups flagged | Dimension | Confirmed | CL |
 | Two-sample z-test | (mean₁ − mean₂) ÷ `SQRT(var₁/n₁ + var₂/n₂)` | Two groups | Confirmed | PE |
-| Two-proportion z-test | Difference in rates ÷ pooled standard error | Two groups | Confirmed | CL, PE, AN, RA, LC |
+| Two-proportion z-test | Difference in rates ÷ pooled standard error | Two groups | Confirmed | CL, PE, AN, RA, LC, DH |
 | Lift | Outcome rate in the flagged group ÷ outcome rate in the rest | Method | Confirmed | RM, MB, SD |
 | Chi-square (2 × 2) | N (ad − bc)² ÷ ((a + b)(c + d)(a + c)(b + d)), with Bonferroni correction | Pair | Confirmed | MB |
 | Greenwood interval | Var[S(t)] = S(t)² Σ d ÷ (n (n − d)) | Survival curve | Confirmed | KM |
@@ -221,6 +238,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Within-customer (paired) difference | Per customer, late-order mean − on-time-order mean; averaged across customers with paired t = mean ÷ (sd ÷ √n) | Customer | Confirmed | LC |
 | Welch t-test | (mean₁ − mean₂) ÷ √(s₁²/n₁ + s₂²/n₂) | Two groups | Confirmed | LC |
 | Spearman ρ | `CORR` of `RANK()` values (ties share a rank) | Population | Confirmed | MO |
+| Over-dispersion ratio | Σ n (p_g − p)² ÷ Σ p (1 − p) across groups; about 1 = no group singled out | Group set | Confirmed | DH |
+| Fixed-effects slope | Σ d′ y′ ÷ Σ d′², with d and y demeaned within customer × product; df = n − pairs − 1 | Model | Confirmed | DV |
+| Break-even volume response | m ÷ (m − 0.01) − 1, m = unit margin as a share of pre-discount price | Company | Confirmed | DV |
+| Mantel–Haenszel difference | Σ w (p_broad − p_narrow) ÷ Σ w, w = n_b n_n ÷ (n_b + n_n) | Strata | Confirmed | CB |
 
 ---
 
@@ -236,3 +257,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-23 | Added regional, discount band, period-end, freight model, anomaly and reorder-cycle metrics, and z-test and lift definitions. Extended the case study key. |
 | 2026-10-24 | Added CLV, survival, Markov state, safety stock, control chart, Benford and chi-square metrics. Extended the case study key. |
 | 2026-10-25 | Added concentration (HHI, effective customers, Gini), reactivation, ramp index, split shipment, ship-to match, paired difference, Welch t, regression momentum and Spearman definitions. Extended the case study key. |
+| 2026-10-26 | Added mix-expected margin, GP return, cost of sales, NRR, GRR, constant-price NRR, category breadth, dispatch days, inferred rate card, freight variance, over-dispersion, fixed-effects slope, break-even response and Mantel–Haenszel definitions. Extended the case study key. |
