@@ -61,6 +61,14 @@ Shared definitions for metrics used across case studies. Each case study referen
 | FA | [Freight invoice audit](../04_data_quality_and_reconciliation/09_freight_invoice_audit/) |
 | DV | [Does discount buy volume?](../05_advanced_analytics/11_discount_volume_response/) |
 | CB | [Category breadth and retention](../05_advanced_analytics/12_category_breadth_retention/) |
+| HS | [Customer health score](../01_customer_and_revenue/12_customer_health_score/) |
+| MG | [Gross margin bridge](../02_sales_and_profitability/11_gross_margin_bridge/) |
+| SL | [Warehouse slotting](../03_operations_and_supply_chain/12_warehouse_slotting/) |
+| MU | [Monetary unit sampling](../04_data_quality_and_reconciliation/10_monetary_unit_sampling/) |
+| OS | [Order splitting test](../04_data_quality_and_reconciliation/11_order_splitting_test/) |
+| KC | [k-means customer segmentation](../05_advanced_analytics/13_kmeans_customer_segmentation/) |
+| ID | [Intermittent demand forecasting](../05_advanced_analytics/14_intermittent_demand_forecasting/) |
+| LP | [Late payment scorecard](../05_advanced_analytics/15_late_payment_scorecard/) |
 
 ---
 
@@ -109,6 +117,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Mix-expected margin | Σ segment costed revenue × company margin % of that segment; margin vs mix = actual − expected | Industry | Confirmed | IV |
 | GP return | Gross profit ÷ salary cost (salary pro-rated from hire date) | Salesperson | Confirmed | SE |
 | Cost of sales | Salary cost ÷ revenue | Salesperson / role | Confirmed | SE |
+| Margin bridge effects | Product × segment cells, m = P (1 − d) − c: volume = Δ total units × prior margin per unit; mix = Σ Δq × m₀ − volume; price = Σ q₁ (P₁ − P₀)(1 − d₀); discount = Σ q₁ P₁ (d₀ − d₁); new and lost cells separate. Effects sum exactly to the continuing-cell margin change; both periods use current unit cost | Product × segment | Confirmed | MG |
 
 > `products.unit_cost` is a single current cost per product, not a historical cost at the time of sale. Lines for products with a null `unit_cost` are excluded from margin metrics, and the exclusion is reported.
 
@@ -151,6 +160,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | GRR | Σ LEAST(base, current) ÷ Σ base = 1 − (churn + contraction) ÷ base | Quarter end | Confirmed | NR |
 | Constant-price NRR | NRR on quantity × list price × (1 − discount %), removing price increases | Quarter end | Confirmed | NR |
 | Category breadth | Distinct product categories bought in a half-year | Customer × half-year | Confirmed | CB |
+| Activity score | Average of recency, frequency and category-breadth percentile points (0–100, 100 = healthiest) at a snapshot date | Customer × snapshot | Confirmed | HS |
+| k-means cluster | Nearest of k = 4 centroids on five standardised behaviour features, iterated to a fixed point | Customer | Confirmed | KC |
+| Grouping R² | 1 − within-group sum of squares ÷ total sum of squares on standardised features | Grouping | Confirmed | KC |
 
 ## Collections
 
@@ -165,6 +177,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Gross receivables | Sum of positive order balances (invoices − receipts) at a month-end, above ₹0.05 | Month-end | Confirmed | AR |
 | Credit balance | Sum of negative order balances at a month-end, shown as a liability | Month-end | Confirmed | AR |
 | DSO | Gross receivables ÷ invoices in the last 3 months × 91 days | Month-end | Confirmed | AR |
+| Late payment (60-day) | Order not fully paid within 60 days of final delivery | Order | Confirmed | LP |
+| Weight of evidence | ln(share of on-time in bin ÷ share of late in bin), 0.5 added to counts; points = ROUND(28.85 × WoE) | Characteristic bin | Confirmed | LP |
+| Information value | Σ (share on-time − share late) × WoE; < 0.02 not useful, 0.02–0.10 weak, 0.10–0.30 medium, > 0.30 strong | Characteristic | Confirmed | LP |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -193,6 +208,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Dispatch days | First shipment date − order date; held order = 7+ days | Order | Confirmed | DH |
 | Inferred rate card | Per destination: freight = fixed charge + variable rate × consignment value, least squares on single-shipment orders up to ₹10 lakh; pooled card for cities with < 30 | City | Confirmed | FA |
 | Freight variance % | (charged − card) ÷ card; ±15 % tolerance | Shipment | Confirmed | FA |
+| Pick ABC | Products ranked by pick lines (order lines): A first 80 % of picks, B next 15 %, C last 5 % | Product | Confirmed | SL |
+| Pick travel | Picks × 2 × zone distance; zones hold the top 20 %, next 30 % and remaining products at 10, 25 and 45 m (parameters) | Product | Confirmed | SL |
 
 ## Product and demand
 
@@ -202,6 +219,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Coefficient of variation | Standard deviation ÷ mean of monthly demand | Product | Confirmed | AX |
 | ABC class | Cumulative revenue share: A first 80 %, B next 15 %, C last 5 % | Product | Confirmed | AX, SR |
 | Cancellation rate | Cancelled orders ÷ closed orders (Delivered, Cancelled, Returned) | Any | Confirmed | CL |
+| ADI / CV² | Weeks ÷ weeks with demand; squared coefficient of variation of non-zero weekly demand. Pattern cut-offs 1.32 and 0.49 (Syntetos–Boylan) | Product | Confirmed | ID |
+| Croston / SBA forecast | Smoothed demand size ÷ smoothed interval, updated only in weeks with demand (α = 0.1); SBA = (1 − α/2) × Croston | Product × week | Confirmed | ID |
+| WAPE | Σ \|forecast − actual\| ÷ Σ actual | Method | Confirmed | ID |
 
 ## Revenue recognition and forecasting
 
@@ -221,6 +241,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Benford MAD | Mean absolute deviation of leading-digit shares from log₁₀(1 + 1/d), judged on Nigrini thresholds | Population | Confirmed | BF |
 | Ship-to match type | Exact, case/spacing only, city alias only, different city same state, different city other state, no billing city | Shipment | Confirmed | ST |
 | Recurring destination | Same customer shipped to the same non-billing city 3 or more times | Customer × city | Confirmed | ST |
+| MUS sample size and interval | n = ⌈book value × reliability factor ÷ tolerable misstatement⌉ (factor 3.0 at 95 %, no expected error); J = book value ÷ n | Population | Confirmed | MU |
+| MUS upper misstatement limit | J × (3.0 + Σ ranked taintings × incremental Poisson factor) + top-stratum misstatement | Sample | Confirmed | MU |
+| Bunching ratio | Orders in [0.95 t, t) ÷ orders in [t, 1.05 t); z against log ratios at control points | Threshold | Confirmed | OS |
+| Expected same-day pairs | Σ customers C(n, 2) × Σ days (share of orders on day)² | Population | Confirmed | OS |
 
 ## Statistical testing
 
@@ -242,6 +266,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Fixed-effects slope | Σ d′ y′ ÷ Σ d′², with d and y demeaned within customer × product; df = n − pairs − 1 | Model | Confirmed | DV |
 | Break-even volume response | m ÷ (m − 0.01) − 1, m = unit margin as a share of pre-discount price | Company | Confirmed | DV |
 | Mantel–Haenszel difference | Σ w (p_broad − p_narrow) ÷ Σ w, w = n_b n_n ÷ (n_b + n_n) | Strata | Confirmed | CB |
+| AUC | Probability that a randomly chosen good case (retained customer, on-time order) scores above a bad one (Mann–Whitney with average ranks); Gini = 2 × AUC − 1 | Score | Confirmed | HS, LP |
 
 ---
 
@@ -258,3 +283,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-24 | Added CLV, survival, Markov state, safety stock, control chart, Benford and chi-square metrics. Extended the case study key. |
 | 2026-10-25 | Added concentration (HHI, effective customers, Gini), reactivation, ramp index, split shipment, ship-to match, paired difference, Welch t, regression momentum and Spearman definitions. Extended the case study key. |
 | 2026-10-26 | Added mix-expected margin, GP return, cost of sales, NRR, GRR, constant-price NRR, category breadth, dispatch days, inferred rate card, freight variance, over-dispersion, fixed-effects slope, break-even response and Mantel–Haenszel definitions. Extended the case study key. |
+| 2026-10-26 (second batch) | Added margin bridge effects, activity score, k-means cluster, grouping R², 60-day late payment, weight of evidence, information value, pick ABC, pick travel, ADI / CV², Croston / SBA, WAPE, MUS sample size, interval and upper limit, bunching ratio, expected same-day pairs and AUC definitions. Extended the case study key. |
