@@ -28,3 +28,6 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 10 | [Customer momentum](10_customer_momentum/) — which customers have a statistically significant revenue trend, and does it predict next year? | Complete |
 | 11 | [Does discount buy volume?](11_discount_volume_response/) — within the same customer and product, does a bigger discount bring enough extra units to pay for itself? | Complete |
 | 12 | [Category breadth and retention](12_category_breadth_retention/) — do customers who buy more categories stay longer once purchase frequency is held constant? | Complete |
+| 13 | [k-means customer segmentation](13_kmeans_customer_segmentation/) — what behaviour groups does k-means (written in SQL) find, and do the official segments match? | Complete |
+| 14 | [Intermittent demand forecasting](14_intermittent_demand_forecasting/) — do Croston and SBA forecast lumpy weekly demand better than moving averages? | Complete |
+| 15 | [Late payment scorecard](15_late_payment_scorecard/) — which characteristics predict late payment, and does a points scorecard beat the segment rule? | Complete |
