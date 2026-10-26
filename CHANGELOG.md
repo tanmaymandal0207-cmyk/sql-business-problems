@@ -6,6 +6,24 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-26
+
+### Added
+- **Industry vertical scorecard** ([01_customer_and_revenue/10_industry_vertical_scorecard](01_customer_and_revenue/10_industry_vertical_scorecard/)). Growth, margin, retention and payment speed for 15 industry groups. Several industries' growth rests on one customer (Textiles turns from +17.4 % to −7.5 % without it), and industry margins are within 2 points of what segment mix predicts. Construction is the only industry with broad, fast growth.
+- **Net and gross revenue retention** ([01_customer_and_revenue/11_net_revenue_retention](01_customer_and_revenue/11_net_revenue_retention/)). Rolling NRR rose from 102.7 % to 126.6 % in 2026, but GRR is 77–85 %, constant-price NRR was below 100 % until mid-2026, and NRR is 111.8 % without the top five expanders. The leak is contraction, not churn.
+- **Sales force cost efficiency** ([02_sales_and_profitability/10_sales_force_cost_efficiency](02_sales_and_profitability/10_sales_force_cost_efficiency/)). The team returns ₹3.3 of gross profit per rupee of salary; executives 4.9, managers 3.4. Four people are below a 3.0 break-even, and pay correlates only 0.47 with gross profit.
+- **Dispatch holds** ([03_operations_and_supply_chain/11_dispatch_holds](03_operations_and_supply_chain/11_dispatch_holds/)). 11.7 % of orders wait 7–22 days before dispatch in a flat, separate queue. Holds are not linked to credit, order size, segment, salesperson or customer, but cause 51.7 % of late orders; releasing them normally would cut the late rate from 18.3 % to 10.0 %.
+- **Freight invoice audit** ([04_data_quality_and_reconciliation/09_freight_invoice_audit](04_data_quality_and_reconciliation/09_freight_invoice_audit/)). Rate cards inferred by regression (fixed charge by destination + about 0.6 % of value) explain about 98 % of charges. 99 % of charges are within ±15 %; no rate creep; very large consignments appear capped at about ₹25,000; ₹3.38 lakh of freight is probably unrecorded.
+- **Does discount buy volume?** ([05_advanced_analytics/11_discount_volume_response](05_advanced_analytics/11_discount_volume_response/)). Pooled, one discount point goes with 5.9 % more units; within the same customer and product, only 0.97 %. Break-even needs 10.5 %, so each extra point costs about 8.6 % of line gross profit.
+- **Category breadth and retention** ([05_advanced_analytics/12_category_breadth_retention](05_advanced_analytics/12_category_breadth_retention/)). The raw 36-point retention gap shrinks to +6.4 points (z = 2.59) once purchase frequency is held constant, and the effect is concentrated in occasional buyers (+13.7 points for one-order customers).
+
+### Changed
+- `metric_definitions.md`: added industry, mix-expected margin, NRR, GRR, constant-price NRR, GP return, dispatch hold, over-dispersion, inferred rate card, fixed-effects slope, break-even response and Mantel–Haenszel definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 53 case studies are now complete.
+- The freight invoice audit reuses `city_alias_map` with `CREATE TABLE IF NOT EXISTS`, so it does not overwrite the table created by the ship-to vs bill-to reconciliation.
+
+---
+
 ## 2026-10-25
 
 ### Added

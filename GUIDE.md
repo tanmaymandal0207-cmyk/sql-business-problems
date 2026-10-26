@@ -186,6 +186,13 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Ship-to vs bill-to reconciliation | `city_alias_map`, `city_state_lookup`, `ship_bill_reconciliation` |
 | Cost of a late delivery | `delivery_outcomes`, `late_delivery_paired` |
 | Customer momentum | `customer_monthly_revenue`, `customer_momentum` |
+| Industry vertical scorecard | `industry_customer_period`, `industry_scorecard` |
+| Net and gross revenue retention | `revenue_retention_customers`, `revenue_retention_quarterly` |
+| Sales force cost efficiency | `sales_cost_efficiency` |
+| Dispatch holds | `dispatch_holds`, `dispatch_hold_groups` |
+| Freight invoice audit | `city_alias_map` (only if missing), `freight_audit_base`, `freight_rate_card`, `freight_audit` |
+| Does discount buy volume? | `discount_response_lines`, `discount_response_estimates` |
+| Category breadth and retention | `breadth_panel`, `breadth_within_band` |
 
 ### 5.4 If something does not match
 
@@ -264,3 +271,8 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Customer mix effect** | A difference between groups that comes from which customers are in each group, not from the factor being studied |
 | **t-statistic of a slope** | The trend divided by its standard error; around 2 or more suggests a trend that is unlikely to be noise |
 | **Mean reversion** | The tendency of unusually high or low values to move back towards normal in the next period |
+| **NRR / GRR** | Net and gross revenue retention: this year's revenue from last year's customers ÷ last year's revenue, with (NRR) or without (GRR) their growth |
+| **Mix-expected value** | What a group would score if each of its sub-groups performed at the company average; the gap to actual is the group's own effect |
+| **Fixed effects** | Comparing each customer (or customer × product) only with itself, by removing its own average, so stable differences between customers cannot drive the result |
+| **Over-dispersion** | More variation between groups than chance would produce; a ratio near 1 means no group is singled out |
+| **Mantel–Haenszel estimate** | A weighted average of differences measured within comparable groups (strata) |
