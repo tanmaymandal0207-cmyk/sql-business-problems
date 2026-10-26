@@ -26,3 +26,5 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 08 | [Customer state transitions (Markov chain)](08_customer_state_markov/) — where is the customer base heading, and what is a win-back programme worth? | Complete |
 | 09 | [Cost of a late delivery](09_cost_of_late_delivery/) — does lateness slow payment or lose repeat business, within the same customer? | Complete |
 | 10 | [Customer momentum](10_customer_momentum/) — which customers have a statistically significant revenue trend, and does it predict next year? | Complete |
+| 11 | [Does discount buy volume?](11_discount_volume_response/) — within the same customer and product, does a bigger discount bring enough extra units to pay for itself? | Complete |
+| 12 | [Category breadth and retention](12_category_breadth_retention/) — do customers who buy more categories stay longer once purchase frequency is held constant? | Complete |
