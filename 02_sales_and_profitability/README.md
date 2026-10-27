@@ -28,3 +28,5 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 09 | [Salesperson ramp-up](09_salesperson_ramp_up/) — how fast do new salespeople reach peer productivity, and is it built on handed-over accounts? | Complete |
 | 10 | [Sales force cost efficiency](10_sales_force_cost_efficiency/) — how much gross profit does each salesperson and role return per rupee of salary? | Complete |
 | 11 | [Gross margin bridge](11_gross_margin_bridge/) — how much of the margin change came from volume, mix, price and discount, and what if costs rose? | Complete |
+| 12 | [January price increase and price discipline](12_price_increase_and_price_discipline/) — did the increases reach every product, did customers buy ahead, and do invoice prices follow the list? | Complete |
+| 13 | [Salesperson ranking stability](13_salesperson_ranking_stability/) — how much of the scorecard ranking survives a bootstrap of each person's customers? | Complete |
