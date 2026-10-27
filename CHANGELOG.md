@@ -6,6 +6,21 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-28
+
+### Added
+- **Key-account selection and regression to the mean** ([01_customer_and_revenue/14_key_account_regression_to_mean](01_customer_and_revenue/14_key_account_regression_to_mean/)). In both year pairs the top decile grew least (−8.8 % against +18.3 % for the rest; +27.6 % against +37.6 %); log-log slopes 0.68 and 0.80. Last year's revenue still picks the best key-account list (52.4 % of next year's revenue against 58.3 % with hindsight), but uniform targets leave key accounts short.
+- **Sales commission plan simulation** ([02_sales_and_profitability/14_commission_plan_simulation](02_sales_and_profitability/14_commission_plan_simulation/)). Four budget-neutral plans (₹77.47 lakh) on 12 months of orders. Revenue and GP plans pay similar people similar amounts, but the GP plan makes a ₹100 discount cost the salesperson ₹13 instead of ₹2. Last-year quotas reward weak prior years.
+- **Weekend and holiday postings test** ([04_data_quality_and_reconciliation/14_weekend_holiday_postings](04_data_quality_and_reconciliation/14_weekend_holiday_postings/)). Order dates follow the six-day business calendar; dispatch dates are "order date + N calendar days" (chi-square 6.6), and 413 cheque and DD receipts worth ₹2.49 crore are dated on Sundays or national holidays.
+- **Logistic regression churn model** ([05_advanced_analytics/18_logistic_regression_churn](05_advanced_analytics/18_logistic_regression_churn/)). Gradient descent in a BigQuery `WHILE` loop, converged to a gradient below 0.0001. Test AUC 0.932 against 0.926 for the activity score, with 86 % of churners in the riskiest fifth against 77 %. Order count does almost all the work; the test year under-forecast losses by 13 % because single-order churn rose.
+- **Empirical Bayes for operational rates** ([03_operations_and_supply_chain/14_empirical_bayes_rates](03_operations_and_supply_chain/14_empirical_bayes_rates/)). Cancellations by customer, salesperson and product and returns by city show no real variation; every customer's credible cancellation rate is the 5.4 % average. Late delivery varies for real, mostly by destination: seven cities are reliably worse.
+
+### Changed
+- `metric_definitions.md`: added budget-neutral commission rate, annualised quota, log-log persistence slope, logistic churn probability, weekday number, calendar-blind expectation, heterogeneity Q and τ², and credible rate definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 74 case studies are now complete.
+
+---
+
 ## 2026-10-27
 
 ### Added

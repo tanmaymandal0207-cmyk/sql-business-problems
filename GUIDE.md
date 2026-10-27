@@ -209,6 +209,11 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Data drift monitoring | `dd_observations`, `dd_cuts`, `dd_binned`, `dd_psi` |
 | Collaborative filtering recommender | `rec_purchases`, `rec_similarity`, `rec_scores`, `rec_customer_eval` |
 | Monte Carlo collections forecast | `mc_snapshot_items`, `mc_settings`, `mc_pool`, `mc_replicates`, `mc_results` |
+| Key-account selection and regression to the mean | `ka_customer_years`, `ka_pairs`, `ka_selection` |
+| Sales commission plan simulation | `cp_base`, `cp_plans` |
+| Weekend and holiday postings test | `cal_days`, `cal_events`, `cal_weekday`, `cal_dispatch_model` |
+| Logistic regression churn model | `lr_features`, `lr_scaling`, `lr_design`, `lr_coefficients`, `lr_scores`, `lr_auc` (the script uses a `WHILE` loop of 600 iterations, so run it as one script and allow several minutes) |
+| Empirical Bayes for operational rates | `eb_counts`, `eb_measures`, `eb_members` |
 
 ### 5.4 If something does not match
 
@@ -308,3 +313,10 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Collaborative filtering** | Recommending products bought by customers with similar purchase histories |
 | **Monte Carlo simulation** | Repeating a random draw many times to build a distribution of possible outcomes and read a range from it |
 | **Coverage (of a forecast range)** | How often the actual result fell inside the forecast range in a back-test; an 80 % range should hold about 80 % of the time |
+| **Regression to the mean** | Unusually high or low results tend to be followed by results closer to average, so last year's top performers usually grow less |
+| **Budget-neutral** | Plan options scaled to cost the same in total, so a comparison shows only who gains and who loses |
+| **Logistic regression** | A model that turns a weighted sum of features into a probability between 0 and 1 |
+| **Gradient descent** | Fitting a model by repeatedly moving its coefficients a small step in the direction that reduces the error |
+| **Calibration** | Whether predicted probabilities match what actually happens (for example, 30 % predicted risk → about 30 % churn) |
+| **Empirical Bayes shrinkage** | Pulling each small group's rate towards the overall rate in proportion to how unreliable it is, using the real spread between groups estimated from the data |
+| **Heterogeneity (Q) test** | Whether groups differ more than chance alone would produce |

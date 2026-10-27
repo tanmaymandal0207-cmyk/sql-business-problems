@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-69%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 69 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-74%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 74 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -72,7 +72,8 @@ sql-business-problems/
 │   ├── 10_industry_vertical_scorecard/
 │   ├── 11_net_revenue_retention/
 │   ├── 12_customer_health_score/
-│   └── 13_cross_sell_stickiness/
+│   ├── 13_cross_sell_stickiness/
+│   └── 14_key_account_regression_to_mean/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -86,7 +87,8 @@ sql-business-problems/
 │   ├── 10_sales_force_cost_efficiency/
 │   ├── 11_gross_margin_bridge/
 │   ├── 12_price_increase_and_price_discipline/
-│   └── 13_salesperson_ranking_stability/
+│   ├── 13_salesperson_ranking_stability/
+│   └── 14_commission_plan_simulation/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -100,7 +102,8 @@ sql-business-problems/
 │   ├── 10_split_shipment_drivers/
 │   ├── 11_dispatch_holds/
 │   ├── 12_warehouse_slotting/
-│   └── 13_key_account_service_equity/
+│   ├── 13_key_account_service_equity/
+│   └── 14_empirical_bayes_rates/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -114,7 +117,8 @@ sql-business-problems/
 │   ├── 10_monetary_unit_sampling/
 │   ├── 11_order_splitting_test/
 │   ├── 12_order_to_cash_process_mining/
-│   └── 13_data_drift_monitoring/
+│   ├── 13_data_drift_monitoring/
+│   └── 14_weekend_holiday_postings/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
@@ -132,7 +136,8 @@ sql-business-problems/
 │   ├── 14_intermittent_demand_forecasting/
 │   ├── 15_late_payment_scorecard/
 │   ├── 16_collaborative_filtering_recommender/
-│   └── 17_monte_carlo_collections_forecast/
+│   ├── 17_monte_carlo_collections_forecast/
+│   └── 18_logistic_regression_churn/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -218,6 +223,11 @@ Additional tools will be listed here only when they are used in a published case
 | 67 | [Data drift monitoring (PSI)](04_data_quality_and_reconciliation/13_data_drift_monitoring/) | Data quality and reconciliation | Complete |
 | 68 | [Collaborative filtering vs best sellers](05_advanced_analytics/16_collaborative_filtering_recommender/) | Advanced analytics | Complete |
 | 69 | [Monte Carlo collections forecast](05_advanced_analytics/17_monte_carlo_collections_forecast/) | Advanced analytics | Complete |
+| 70 | [Key-account selection and regression to the mean](01_customer_and_revenue/14_key_account_regression_to_mean/) | Customer and revenue | Complete |
+| 71 | [Sales commission plan simulation](02_sales_and_profitability/14_commission_plan_simulation/) | Sales and profitability | Complete |
+| 72 | [Weekend and holiday postings test](04_data_quality_and_reconciliation/14_weekend_holiday_postings/) | Data quality and reconciliation | Complete |
+| 73 | [Logistic regression churn model, trained in SQL](05_advanced_analytics/18_logistic_regression_churn/) | Advanced analytics | Complete |
+| 74 | [Real differences or noise? Empirical Bayes for operational rates](03_operations_and_supply_chain/14_empirical_bayes_rates/) | Operations and supply chain | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 
