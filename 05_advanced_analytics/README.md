@@ -33,3 +33,4 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 15 | [Late payment scorecard](15_late_payment_scorecard/) — which characteristics predict late payment, and does a points scorecard beat the segment rule? | Complete |
 | 16 | [Collaborative filtering recommender](16_collaborative_filtering_recommender/) — does a "customers like you" recommender beat a best-seller list in a back-test? | Complete |
 | 17 | [Monte Carlo collections forecast](17_monte_carlo_collections_forecast/) — how much of the open book will be collected in 30, 60 and 90 days, as a tested range? | Complete |
+| 18 | [Logistic regression churn model](18_logistic_regression_churn/) — can a churn model be trained in BigQuery, and does it beat the activity score? | Complete |
