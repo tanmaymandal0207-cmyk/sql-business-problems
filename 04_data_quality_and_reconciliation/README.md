@@ -28,3 +28,5 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 09 | [Freight invoice audit](09_freight_invoice_audit/) — are carriers charging consistently against a rate card inferred from the charges? | Complete |
 | 10 | [Monetary unit sampling](10_monetary_unit_sampling/) — what will the auditors' sample of payment statuses find, and how often is MUS right? | Complete |
 | 11 | [Order splitting test](11_order_splitting_test/) — is there any sign of orders split or sized to stay under approval limits? | Complete |
+| 12 | [Order-to-cash process mining](12_order_to_cash_process_mining/) — which paths do orders really take from order to cash, where does the time go, and which deviations are errors? | Complete |
+| 13 | [Data drift monitoring](13_data_drift_monitoring/) — which monthly shifts in the data are real, which are expected, and what alert rule should the refresh use? | Complete |
