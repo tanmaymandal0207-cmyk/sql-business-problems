@@ -69,6 +69,14 @@ Shared definitions for metrics used across case studies. Each case study referen
 | KC | [k-means customer segmentation](../05_advanced_analytics/13_kmeans_customer_segmentation/) |
 | ID | [Intermittent demand forecasting](../05_advanced_analytics/14_intermittent_demand_forecasting/) |
 | LP | [Late payment scorecard](../05_advanced_analytics/15_late_payment_scorecard/) |
+| XS | [Cross-sell stickiness](../01_customer_and_revenue/13_cross_sell_stickiness/) |
+| PI | [January price increase and price discipline](../02_sales_and_profitability/12_price_increase_and_price_discipline/) |
+| RS | [Salesperson ranking stability](../02_sales_and_profitability/13_salesperson_ranking_stability/) |
+| KA | [Key-account service equity](../03_operations_and_supply_chain/13_key_account_service_equity/) |
+| PM | [Order-to-cash process mining](../04_data_quality_and_reconciliation/12_order_to_cash_process_mining/) |
+| DD | [Data drift monitoring](../04_data_quality_and_reconciliation/13_data_drift_monitoring/) |
+| CF | [Collaborative filtering recommender](../05_advanced_analytics/16_collaborative_filtering_recommender/) |
+| MC | [Monte Carlo collections forecast](../05_advanced_analytics/17_monte_carlo_collections_forecast/) |
 
 ---
 
@@ -98,6 +106,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Price effect | Σ (price CY − price PY) × quantity CY | Product | Confirmed | PV |
 | Quantity effect | Σ (quantity CY − quantity PY) × price PY; split into volume and mix | Product | Confirmed | PV |
 | Effective discount | Discount amount ÷ gross value, per customer and period | Customer × period | Confirmed | DC, PE |
+| Price factor | Median of unit_price ÷ selling_price in a calendar year; list in force = selling_price × factor | Year | Confirmed | PI, DD |
+| Price deviation | unit_price ÷ list in force − 1 (invoice price before discount) | Order line | Confirmed | PI |
 | Discount band | Segment median effective discount ± 2 points; excess = discount beyond the band | Customer | Confirmed | DC |
 | Month position | Last 5 days, first 5 days or mid-month of the order date | Order | Confirmed | PE |
 
@@ -163,6 +173,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Activity score | Average of recency, frequency and category-breadth percentile points (0–100, 100 = healthiest) at a snapshot date | Customer × snapshot | Confirmed | HS |
 | k-means cluster | Nearest of k = 4 centroids on five standardised behaviour features, iterated to a fixed point | Customer | Confirmed | KC |
 | Grouping R² | 1 − within-group sum of squares ÷ total sum of squares on standardised features | Grouping | Confirmed | KC |
+| Cross-sell trial | A customer's first purchase of a category, 90+ days after its first order; repeat = another order of the category within 365 days | Customer × category | Confirmed | XS |
+| Observed ÷ expected (indirect standardisation) | Observed count ÷ Σ over members of the rate of their stratum (e.g. ordering-frequency band) | Group | Confirmed | XS |
 
 ## Collections
 
@@ -180,6 +192,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Late payment (60-day) | Order not fully paid within 60 days of final delivery | Order | Confirmed | LP |
 | Weight of evidence | ln(share of on-time in bin ÷ share of late in bin), 0.5 added to counts; points = ROUND(28.85 × WoE) | Characteristic bin | Confirmed | LP |
 | Information value | Σ (share on-time − share late) × WoE; < 0.02 not useful, 0.02–0.10 weak, 0.10–0.30 medium, > 0.30 strong | Characteristic | Confirmed | LP |
+| Fully paid date | Date of the payment that takes cumulative receipts to the order value (within ₹0.05) | Order | Confirmed | PM, MC |
+| Collected share (h days) | Payments in the next h days ÷ outstanding at the snapshot, capped at 100 % | Open item × month-end | Confirmed | MC |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -210,6 +224,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Freight variance % | (charged − card) ÷ card; ±15 % tolerance | Shipment | Confirmed | FA |
 | Pick ABC | Products ranked by pick lines (order lines): A first 80 % of picks, B next 15 %, C last 5 % | Product | Confirmed | SL |
 | Pick travel | Picks × 2 × zone distance; zones hold the top 20 %, next 30 % and remaining products at 10, 25 and 45 m (parameters) | Product | Confirmed | SL |
+| Common service standard | 80th percentile of lead time (order to final delivery) in the destination city, the same for every customer | City | Confirmed | KA |
+| Lead time vs city | Lead time − average lead time of all orders to the same city | Order | Confirmed | KA |
 
 ## Product and demand
 
@@ -231,6 +247,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Month-end exposure | Revenue ordered on or before a date but delivered after it | Date | Confirmed | RC |
 | MAPE | Mean of \|forecast − actual\| ÷ actual across test months | Method | Confirmed | FB |
 | Forecast bias | Mean of (forecast − actual) ÷ actual; negative = under-forecast | Method | Confirmed | FB |
+| Monte Carlo range | P10–P90 of simulated totals; coverage = share of back-tests whose actual falls inside | Forecast | Confirmed | MC |
+| Precision@K | Hits among the top K recommendations ÷ K, averaged over customers; hit = bought in the test period | Method | Confirmed | CF |
 
 ## Data quality
 
@@ -245,6 +263,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | MUS upper misstatement limit | J × (3.0 + Σ ranked taintings × incremental Poisson factor) + top-stratum misstatement | Sample | Confirmed | MU |
 | Bunching ratio | Orders in [0.95 t, t) ÷ orders in [t, 1.05 t); z against log ratios at control points | Threshold | Confirmed | OS |
 | Expected same-day pairs | Σ customers C(n, 2) × Σ days (share of orders on day)² | Population | Confirmed | OS |
+| Event log / variant | One row per order, dispatch, delivery and payment event; variant = the ordered sequence of an order's activities | Event / order | Confirmed | PM |
+| Population stability index (PSI) | Σ (a − e) ln(a ÷ e) over bins, shares smoothed by 0.5 per bin; noise test: n N ÷ (n + N) × PSI ≈ χ²(bins − 1) with n, N in orders | Field × month | Confirmed | DD |
 
 ## Statistical testing
 
@@ -267,6 +287,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Break-even volume response | m ÷ (m − 0.01) − 1, m = unit margin as a share of pre-discount price | Company | Confirmed | DV |
 | Mantel–Haenszel difference | Σ w (p_broad − p_narrow) ÷ Σ w, w = n_b n_n ÷ (n_b + n_n) | Strata | Confirmed | CB |
 | AUC | Probability that a randomly chosen good case (retained customer, on-time order) scores above a bad one (Mann–Whitney with average ranks); Gini = 2 × AUC − 1 | Score | Confirmed | HS, LP |
+| Bootstrap rank interval | 5th–95th percentile of a rank across cluster-bootstrap replicates; a pair is distinguishable when one is better in 95 %+ of replicates | Salesperson × metric | Confirmed | RS |
+| Cosine similarity | Customers who bought both ÷ √(customers of i × customers of j) | Product pair | Confirmed | CF |
 
 ---
 
@@ -284,3 +306,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-25 | Added concentration (HHI, effective customers, Gini), reactivation, ramp index, split shipment, ship-to match, paired difference, Welch t, regression momentum and Spearman definitions. Extended the case study key. |
 | 2026-10-26 | Added mix-expected margin, GP return, cost of sales, NRR, GRR, constant-price NRR, category breadth, dispatch days, inferred rate card, freight variance, over-dispersion, fixed-effects slope, break-even response and Mantel–Haenszel definitions. Extended the case study key. |
 | 2026-10-26 (second batch) | Added margin bridge effects, activity score, k-means cluster, grouping R², 60-day late payment, weight of evidence, information value, pick ABC, pick travel, ADI / CV², Croston / SBA, WAPE, MUS sample size, interval and upper limit, bunching ratio, expected same-day pairs and AUC definitions. Extended the case study key. |
+| 2026-10-27 | Added cross-sell trial, observed ÷ expected, price factor and deviation, bootstrap rank interval, common service standard, lead time vs city, event log and variant, fully paid date, PSI, cosine similarity, precision@K, collected share and Monte Carlo range definitions. Extended the case study key. |
