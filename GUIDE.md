@@ -201,6 +201,14 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | k-means customer segmentation | `km_features`, `km_centroids`, `km_assign`, `km_new_assign`, `km_log`, `km_customers` (the script uses a `WHILE` loop, so run it as one script) |
 | Intermittent demand forecasting | `idf_weekly`, `idf_pattern`, `idf_states`, `idf_backtest` |
 | Late payment scorecard | `lps_orders`, `lps_woe`, `lps_scores`, `lps_auc` |
+| Cross-sell stickiness | `xs_trials`, `xs_category` |
+| January price increase and price discipline | `pi_lines`, `pi_product_steps`, `pi_dispersion`, `pi_repeat_purchases` |
+| Salesperson ranking stability | `rs_clusters`, `rs_replicates`, `rs_long`, `rs_intervals`, `rs_pairs` |
+| Key-account service equity | `sq_orders` |
+| Order-to-cash process mining | `pm_events`, `pm_cases`, `pm_variants` |
+| Data drift monitoring | `dd_observations`, `dd_cuts`, `dd_binned`, `dd_psi` |
+| Collaborative filtering recommender | `rec_purchases`, `rec_similarity`, `rec_scores`, `rec_customer_eval` |
+| Monte Carlo collections forecast | `mc_snapshot_items`, `mc_settings`, `mc_pool`, `mc_replicates`, `mc_results` |
 
 ### 5.4 If something does not match
 
@@ -291,3 +299,12 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Croston's method** | A forecast for intermittent demand that smooths the size of non-zero demands and the gap between them separately |
 | **Weight of evidence (WoE)** | ln(share of goods ÷ share of bads) in a bin; the building block of a credit scorecard |
 | **Information value (IV)** | A summary of how well a characteristic separates goods from bads, built from WoE |
+| **Indirect standardisation** | Comparing a group's observed count with what the overall rates would predict for its own mix of members (observed ÷ expected) |
+| **Bootstrap** | Re-drawing the data with replacement many times to see how much a result could change by chance |
+| **Cluster bootstrap** | A bootstrap that re-draws whole groups (for example a customer's orders together) because records in a group are not independent |
+| **Event log** | One row per business event (order, dispatch, delivery, payment) with its case and date; the input to process mining |
+| **Process variant** | The exact sequence of activities one case went through; process mining counts how many cases follow each variant |
+| **Population stability index (PSI)** | A measure of how far a distribution has moved from a reference period; about 0.1 is a moderate shift and 0.25 a major one |
+| **Collaborative filtering** | Recommending products bought by customers with similar purchase histories |
+| **Monte Carlo simulation** | Repeating a random draw many times to build a distribution of possible outcomes and read a range from it |
+| **Coverage (of a forecast range)** | How often the actual result fell inside the forecast range in a back-test; an 80 % range should hold about 80 % of the time |

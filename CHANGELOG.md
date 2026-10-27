@@ -6,6 +6,24 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-27
+
+### Added
+- **Cross-sell stickiness** ([01_customer_and_revenue/13_cross_sell_stickiness](01_customer_and_revenue/13_cross_sell_stickiness/)). 946 category trials by existing customers, indirectly standardised for ordering frequency. Valves & Fittings and Industrial Safety Equipment repeat 30 % more often than expected; Power Transmission 17 % less. Capital categories still bring large follow-on value. 28 recent sticky trials have not repeated.
+- **January price increase and price discipline** ([02_sales_and_profitability/12_price_increase_and_price_discipline](02_sales_and_profitability/12_price_increase_and_price_discipline/)). The +5.55 % and +5.32 % increases reached all 186 products on 1 January and customers did not buy ahead in December. Invoice prices are spread evenly within ±3 % of the list (₹77.9 lakh below, ₹80.7 lakh above), with no customer, salesperson or product pattern.
+- **Salesperson ranking stability** ([02_sales_and_profitability/13_salesperson_ranking_stability](02_sales_and_profitability/13_salesperson_ranking_stability/)). A 500-replicate cluster bootstrap of the scorecard. Only 19 of 120 pairs can be told apart on the balanced rank; the top-ranked salesperson could be 1st to 11th. Cancellation rate and overdue receivable % separate fewer than 8 % of pairs; one bottom result is robust.
+- **Key-account service equity** ([03_operations_and_supply_chain/13_key_account_service_equity](03_operations_and_supply_chain/13_key_account_service_equity/)). Enterprise on-time of 86.9 % against 79.0 % comes from promises 3 days longer, not faster service: against a common city standard both are 81 %, and dispatch speed is identical.
+- **Order-to-cash process mining** ([04_data_quality_and_reconciliation/12_order_to_cash_process_mining](04_data_quality_and_reconciliation/12_order_to_cash_process_mining/)). A 40,565-event log with 43 variants, 8 of which cover 95 % of orders. Fulfilment takes 8–9 days and cash 45; three instalments double the time to cash. Advance payment is applied only to SMB and some Distributors. 24 orders show true process errors.
+- **Data drift monitoring** ([04_data_quality_and_reconciliation/13_data_drift_monitoring](04_data_quality_and_reconciliation/13_data_drift_monitoring/)). PSI with an order-based noise test for 15 fields over 21 months. Only three fields alert, all explained (price increase, two immature status fields); line-level testing would have raised 8 false alarms. Thresholds by monitoring period are given.
+- **Collaborative filtering vs best sellers** ([05_advanced_analytics/16_collaborative_filtering_recommender](05_advanced_analytics/16_collaborative_filtering_recommender/)). An item-based recommender built and back-tested in SQL scores 31.7 % precision@5 against 33.8 % for a simple best-seller gap list (random: 8.3 %). Purchase structure beyond popularity is too weak for personalisation to help.
+- **Monte Carlo collections forecast** ([05_advanced_analytics/17_monte_carlo_collections_forecast](05_advanced_analytics/17_monte_carlo_collections_forecast/)). A two-level bootstrap over 28 month-end snapshots. Back-test error 5.3 %, range coverage 11 of 15. Nothing older than 180 days is ever collected: 46 % of the ₹10.96 crore book. Central 90-day forecast ₹4.54 crore.
+
+### Changed
+- `metric_definitions.md`: added indirect standardisation (O/E), price factor and price deviation, bootstrap rank interval and distinguishable pair, common service standard, event log, variant and fully paid date, PSI and its noise test, cosine similarity and precision@K, and Monte Carlo range and coverage definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 69 case studies are now complete.
+
+---
+
 ## 2026-10-26 (second batch)
 
 ### Added
