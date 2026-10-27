@@ -29,3 +29,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | 10 | [Split shipment drivers](10_split_shipment_drivers/) — what causes split shipments, and how much lateness and freight do they add? | Complete |
 | 11 | [Dispatch holds](11_dispatch_holds/) — why does one order in nine wait 1–3 weeks before dispatch, and what does it cost in lateness? | Complete |
 | 12 | [Warehouse slotting by pick frequency](12_warehouse_slotting/) — which products belong nearest the dispatch bay, and how much walking would it save? | Complete |
+| 13 | [Key-account service equity](13_key_account_service_equity/) — do Enterprise customers get faster delivery, or just longer promises? | Complete |
