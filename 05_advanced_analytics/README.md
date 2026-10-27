@@ -31,3 +31,5 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 13 | [k-means customer segmentation](13_kmeans_customer_segmentation/) — what behaviour groups does k-means (written in SQL) find, and do the official segments match? | Complete |
 | 14 | [Intermittent demand forecasting](14_intermittent_demand_forecasting/) — do Croston and SBA forecast lumpy weekly demand better than moving averages? | Complete |
 | 15 | [Late payment scorecard](15_late_payment_scorecard/) — which characteristics predict late payment, and does a points scorecard beat the segment rule? | Complete |
+| 16 | [Collaborative filtering recommender](16_collaborative_filtering_recommender/) — does a "customers like you" recommender beat a best-seller list in a back-test? | Complete |
+| 17 | [Monte Carlo collections forecast](17_monte_carlo_collections_forecast/) — how much of the open book will be collected in 30, 60 and 90 days, as a tested range? | Complete |
