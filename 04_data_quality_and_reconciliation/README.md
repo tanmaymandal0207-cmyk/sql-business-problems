@@ -30,3 +30,4 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 11 | [Order splitting test](11_order_splitting_test/) — is there any sign of orders split or sized to stay under approval limits? | Complete |
 | 12 | [Order-to-cash process mining](12_order_to_cash_process_mining/) — which paths do orders really take from order to cash, where does the time go, and which deviations are errors? | Complete |
 | 13 | [Data drift monitoring](13_data_drift_monitoring/) — which monthly shifts in the data are real, which are expected, and what alert rule should the refresh use? | Complete |
+| 14 | [Weekend and holiday postings test](14_weekend_holiday_postings/) — which transaction dates follow the business calendar, and which cheques are dated on non-banking days? | Complete |
