@@ -77,6 +77,11 @@ Shared definitions for metrics used across case studies. Each case study referen
 | DD | [Data drift monitoring](../04_data_quality_and_reconciliation/13_data_drift_monitoring/) |
 | CF | [Collaborative filtering recommender](../05_advanced_analytics/16_collaborative_filtering_recommender/) |
 | MC | [Monte Carlo collections forecast](../05_advanced_analytics/17_monte_carlo_collections_forecast/) |
+| KR | [Key-account selection and regression to the mean](../01_customer_and_revenue/14_key_account_regression_to_mean/) |
+| CM | [Sales commission plan simulation](../02_sales_and_profitability/14_commission_plan_simulation/) |
+| WH | [Weekend and holiday postings test](../04_data_quality_and_reconciliation/14_weekend_holiday_postings/) |
+| LR | [Logistic regression churn model](../05_advanced_analytics/18_logistic_regression_churn/) |
+| EB | [Empirical Bayes for operational rates](../03_operations_and_supply_chain/14_empirical_bayes_rates/) |
 
 ---
 
@@ -108,6 +113,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Effective discount | Discount amount ÷ gross value, per customer and period | Customer × period | Confirmed | DC, PE |
 | Price factor | Median of unit_price ÷ selling_price in a calendar year; list in force = selling_price × factor | Year | Confirmed | PI, DD |
 | Price deviation | unit_price ÷ list in force − 1 (invoice price before discount) | Order line | Confirmed | PI |
+| Budget-neutral commission rate | Plan rate solved so that total payout = 2 % of team net revenue (e.g. GP plan rate = budget ÷ team GP) | Plan | Confirmed | CM |
+| Quota (annualised) | Prior-12-month revenue × 12 ÷ months employed × 1.10 | Salesperson | Confirmed | CM |
 | Discount band | Segment median effective discount ± 2 points; excess = discount beyond the band | Customer | Confirmed | DC |
 | Month position | Last 5 days, first 5 days or mid-month of the order date | Order | Confirmed | PE |
 
@@ -175,6 +182,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Grouping R² | 1 − within-group sum of squares ÷ total sum of squares on standardised features | Grouping | Confirmed | KC |
 | Cross-sell trial | A customer's first purchase of a category, 90+ days after its first order; repeat = another order of the category within 365 days | Customer × category | Confirmed | XS |
 | Observed ÷ expected (indirect standardisation) | Observed count ÷ Σ over members of the rate of their stratum (e.g. ordering-frequency band) | Group | Confirmed | XS |
+| Log-log persistence slope | Least-squares slope of ln(revenue year 2) on ln(revenue year 1); below 1 = regression to the mean | Customer pair | Confirmed | KR |
+| Churn probability (logistic) | 1 ÷ (1 + e^−(b₀ + Σ bⱼxⱼ)) on standardised point-in-time features, fitted by gradient descent | Customer × snapshot | Confirmed | LR |
 
 ## Collections
 
@@ -226,6 +235,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Pick travel | Picks × 2 × zone distance; zones hold the top 20 %, next 30 % and remaining products at 10, 25 and 45 m (parameters) | Product | Confirmed | SL |
 | Common service standard | 80th percentile of lead time (order to final delivery) in the destination city, the same for every customer | City | Confirmed | KA |
 | Lead time vs city | Lead time − average lead time of all orders to the same city | Order | Confirmed | KA |
+| Weekday number | MOD(DATE_DIFF(date, DATE '1900-01-07', DAY), 7): 0 = Sunday … 6 = Saturday | Date | Confirmed | WH |
 
 ## Product and demand
 
@@ -265,6 +275,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Expected same-day pairs | Σ customers C(n, 2) × Σ days (share of orders on day)² | Population | Confirmed | OS |
 | Event log / variant | One row per order, dispatch, delivery and payment event; variant = the ordered sequence of an order's activities | Event / order | Confirmed | PM |
 | Population stability index (PSI) | Σ (a − e) ln(a ÷ e) over bins, shares smoothed by 0.5 per bin; noise test: n N ÷ (n + N) × PSI ≈ χ²(bins − 1) with n, N in orders | Field × month | Confirmed | DD |
+| Calendar-blind expectation | Events × days of a type ÷ all days in the event's first-to-last span; tested with chi-square across weekdays | Event type × weekday | Confirmed | WH |
 
 ## Statistical testing
 
@@ -289,6 +300,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | AUC | Probability that a randomly chosen good case (retained customer, on-time order) scores above a bad one (Mann–Whitney with average ranks); Gini = 2 × AUC − 1 | Score | Confirmed | HS, LP |
 | Bootstrap rank interval | 5th–95th percentile of a rank across cluster-bootstrap replicates; a pair is distinguishable when one is better in 95 %+ of replicates | Salesperson × metric | Confirmed | RS |
 | Cosine similarity | Customers who bought both ÷ √(customers of i × customers of j) | Product pair | Confirmed | CF |
+| Heterogeneity Q and τ² | Q = Σ n (r − p)² ÷ (p (1 − p)); τ² = max(0, (Q − (K − 1)) ÷ (Σw − Σw² ÷ Σw)), w = n ÷ (p (1 − p)) | Measure | Confirmed | EB |
+| Credible (shrunk) rate | B p + (1 − B) r, B = (p (1 − p) ÷ n) ÷ (p (1 − p) ÷ n + τ²) | Member | Confirmed | EB |
 
 ---
 
@@ -307,3 +320,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-26 | Added mix-expected margin, GP return, cost of sales, NRR, GRR, constant-price NRR, category breadth, dispatch days, inferred rate card, freight variance, over-dispersion, fixed-effects slope, break-even response and Mantel–Haenszel definitions. Extended the case study key. |
 | 2026-10-26 (second batch) | Added margin bridge effects, activity score, k-means cluster, grouping R², 60-day late payment, weight of evidence, information value, pick ABC, pick travel, ADI / CV², Croston / SBA, WAPE, MUS sample size, interval and upper limit, bunching ratio, expected same-day pairs and AUC definitions. Extended the case study key. |
 | 2026-10-27 | Added cross-sell trial, observed ÷ expected, price factor and deviation, bootstrap rank interval, common service standard, lead time vs city, event log and variant, fully paid date, PSI, cosine similarity, precision@K, collected share and Monte Carlo range definitions. Extended the case study key. |
+| 2026-10-28 | Added budget-neutral commission rate, annualised quota, log-log persistence slope, logistic churn probability, weekday number, calendar-blind expectation, heterogeneity Q and τ², and credible (shrunk) rate definitions. Extended the case study key. |
