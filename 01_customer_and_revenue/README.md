@@ -30,3 +30,4 @@ Case studies on how revenue is distributed across customers, how it changes over
 | 11 | [Net and gross revenue retention](11_net_revenue_retention/) — how much of last year's customer revenue is kept, and how much of NRR is price and a few accounts? | Complete |
 | 12 | [Customer health score](12_customer_health_score/) — which churn signals actually work, tested with a point-in-time back-test and AUC? | Complete |
 | 13 | [Cross-sell stickiness](13_cross_sell_stickiness/) — which categories, once tried, are bought again, after allowing for how often the customer orders? | Complete |
+| 14 | [Key-account selection and regression to the mean](14_key_account_regression_to_mean/) — how stable is the top of the customer list, and why do big accounts miss uniform growth targets? | Complete |
