@@ -31,3 +31,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | 12 | [Warehouse slotting by pick frequency](12_warehouse_slotting/) — which products belong nearest the dispatch bay, and how much walking would it save? | Complete |
 | 13 | [Key-account service equity](13_key_account_service_equity/) — do Enterprise customers get faster delivery, or just longer promises? | Complete |
 | 14 | [Empirical Bayes for operational rates](14_empirical_bayes_rates/) — which cancellation, return and late-delivery rankings show real differences, and which are noise? | Complete |
+| 15 | [Dispatch queue discipline](15_dispatch_queue_discipline/) — are orders dispatched first come, first served, and what would strict FIFO change for waits and on-time delivery? | Complete |
