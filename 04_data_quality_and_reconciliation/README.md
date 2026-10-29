@@ -31,3 +31,4 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 12 | [Order-to-cash process mining](12_order_to_cash_process_mining/) — which paths do orders really take from order to cash, where does the time go, and which deviations are errors? | Complete |
 | 13 | [Data drift monitoring](13_data_drift_monitoring/) — which monthly shifts in the data are real, which are expected, and what alert rule should the refresh use? | Complete |
 | 14 | [Weekend and holiday postings test](14_weekend_holiday_postings/) — which transaction dates follow the business calendar, and which cheques are dated on non-banking days? | Complete |
+| 15 | [Cash application matching](15_cash_application_matching/) — how many receipts can rules match to invoices from customer, date and amount alone, and why do the rest fail? | Complete |
