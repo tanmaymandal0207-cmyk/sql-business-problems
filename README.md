@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-74%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 74 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-79%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 79 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -73,7 +73,8 @@ sql-business-problems/
 │   ├── 11_net_revenue_retention/
 │   ├── 12_customer_health_score/
 │   ├── 13_cross_sell_stickiness/
-│   └── 14_key_account_regression_to_mean/
+│   ├── 14_key_account_regression_to_mean/
+│   └── 15_revenue_driver_tree/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -103,7 +104,8 @@ sql-business-problems/
 │   ├── 11_dispatch_holds/
 │   ├── 12_warehouse_slotting/
 │   ├── 13_key_account_service_equity/
-│   └── 14_empirical_bayes_rates/
+│   ├── 14_empirical_bayes_rates/
+│   └── 15_dispatch_queue_discipline/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -118,7 +120,8 @@ sql-business-problems/
 │   ├── 11_order_splitting_test/
 │   ├── 12_order_to_cash_process_mining/
 │   ├── 13_data_drift_monitoring/
-│   └── 14_weekend_holiday_postings/
+│   ├── 14_weekend_holiday_postings/
+│   └── 15_cash_application_matching/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
@@ -137,7 +140,9 @@ sql-business-problems/
 │   ├── 15_late_payment_scorecard/
 │   ├── 16_collaborative_filtering_recommender/
 │   ├── 17_monte_carlo_collections_forecast/
-│   └── 18_logistic_regression_churn/
+│   ├── 18_logistic_regression_churn/
+│   ├── 19_expected_credit_loss_provision/
+│   └── 20_kpi_change_point_detection/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -228,6 +233,11 @@ Additional tools will be listed here only when they are used in a published case
 | 72 | [Weekend and holiday postings test](04_data_quality_and_reconciliation/14_weekend_holiday_postings/) | Data quality and reconciliation | Complete |
 | 73 | [Logistic regression churn model, trained in SQL](05_advanced_analytics/18_logistic_regression_churn/) | Advanced analytics | Complete |
 | 74 | [Real differences or noise? Empirical Bayes for operational rates](03_operations_and_supply_chain/14_empirical_bayes_rates/) | Operations and supply chain | Complete |
+| 75 | [Revenue driver tree (LMDI decomposition)](01_customer_and_revenue/15_revenue_driver_tree/) | Customer and revenue | Complete |
+| 76 | [Dispatch queue discipline: is it first come, first served?](03_operations_and_supply_chain/15_dispatch_queue_discipline/) | Operations and supply chain | Complete |
+| 77 | [Cash application matching](04_data_quality_and_reconciliation/15_cash_application_matching/) | Data quality and reconciliation | Complete |
+| 78 | [Expected credit loss: a roll-rate provision matrix](05_advanced_analytics/19_expected_credit_loss_provision/) | Advanced analytics | Complete |
+| 79 | [KPI change-point detection](05_advanced_analytics/20_kpi_change_point_detection/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

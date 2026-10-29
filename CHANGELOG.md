@@ -6,6 +6,21 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-29
+
+### Added
+- **Revenue driver tree** ([01_customer_and_revenue/15_revenue_driver_tree](01_customer_and_revenue/15_revenue_driver_tree/)). An exact LMDI decomposition of January–September revenue into five drivers. Customers × frequency added about ₹4 crore in both years; basket value swung from −₹203 lakh in 2025 to +₹430 lakh in 2026, driven by product mix (−8.1 %, +8.0 %) rather than the +5.4 % price increases. Lines per order stayed at 2.8.
+- **Dispatch queue discipline** ([03_operations_and_supply_chain/15_dispatch_queue_discipline](03_operations_and_supply_chain/15_dispatch_queue_discipline/)). 638,635 order pairs: an order placed a day earlier is dispatched later 27.0 % of the time, exactly what random timing gives (26.9 %), and no segment jumps the queue. Strict FIFO at the same daily capacity would cut the longest wait from 22 to 7 days and late deliveries by 17 %.
+- **Cash application matching** ([04_data_quality_and_reconciliation/15_cash_application_matching](04_data_quality_and_reconciliation/15_cash_application_matching/)). Two exact rules match 74.5 % of 10,568 receipts (85.7 % of value) from customer, date and amount alone, with no wrong matches. Every failure is a part payment, a short payment or one of the 7 duplicates; an invoice reference on part payments would raise the rate to 98.2 %. Defaulting to the oldest invoice would be wrong 85 % of the time.
+- **Expected credit loss provision** ([05_advanced_analytics/19_expected_credit_loss_provision](05_advanced_analytics/19_expected_credit_loss_provision/)). A roll-rate matrix on calendar-month buckets: nothing is collected after bucket 6, and new invoices carry a 7.6 % loss rate (SMB 16.8 %). Provision at 30 Sep 2026 ₹6.22 crore (56.7 % of the book), of which ₹5.08 crore is already in default. In a 15-month back-test, all history to date beat a trailing 12-month window (mean absolute error 6.1 % against 13.4 % from July 2025).
+- **KPI change-point detection** ([05_advanced_analytics/20_kpi_change_point_detection](05_advanced_analytics/20_kpi_change_point_detection/)). Exhaustive one- and two-shift search with BIC and a 500-permutation test on 10 monthly KPIs. The method finds the January 2025 and 2026 price steps exactly; orders and customers grow steadily (17.1 % and 13.8 % a year); discount, cancellation, return and late rates and dispatch lag have never changed, and their monthly swings are binomial noise.
+
+### Changed
+- `metric_definitions.md`: added driver tree, LMDI-I effect, overtaken pair, FIFO dispatch slot, cash application rule, open balance before a receipt, calendar-month age bucket, roll rate, loss rate and ECL provision, change-point BIC, shift permutation p-value and binomial dispersion test definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 79 case studies are now complete.
+
+---
+
 ## 2026-10-28
 
 ### Added
