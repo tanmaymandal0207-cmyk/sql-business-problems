@@ -82,6 +82,11 @@ Shared definitions for metrics used across case studies. Each case study referen
 | WH | [Weekend and holiday postings test](../04_data_quality_and_reconciliation/14_weekend_holiday_postings/) |
 | LR | [Logistic regression churn model](../05_advanced_analytics/18_logistic_regression_churn/) |
 | EB | [Empirical Bayes for operational rates](../03_operations_and_supply_chain/14_empirical_bayes_rates/) |
+| DT | [Revenue driver tree](../01_customer_and_revenue/15_revenue_driver_tree/) |
+| FQ | [Dispatch queue discipline](../03_operations_and_supply_chain/15_dispatch_queue_discipline/) |
+| CA | [Cash application matching](../04_data_quality_and_reconciliation/15_cash_application_matching/) |
+| EC | [Expected credit loss provision](../05_advanced_analytics/19_expected_credit_loss_provision/) |
+| CP | [KPI change-point detection](../05_advanced_analytics/20_kpi_change_point_detection/) |
 
 ---
 
@@ -117,6 +122,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Quota (annualised) | Prior-12-month revenue × 12 ÷ months employed × 1.10 | Salesperson | Confirmed | CM |
 | Discount band | Segment median effective discount ± 2 points; excess = discount beyond the band | Customer | Confirmed | DC |
 | Month position | Last 5 days, first 5 days or mid-month of the order date | Order | Confirmed | PE |
+| Driver tree | Revenue = customers × orders per customer × lines per order × units per line × revenue per unit | Company or segment × year | Confirmed | DT |
+| LMDI-I effect | L(R₁, R₀) × ln(x₁ ÷ x₀), L(a, b) = (a − b) ÷ (ln a − ln b); the effects add up exactly to R₁ − R₀ | Driver × period | Confirmed | DT |
 
 ## Margin
 
@@ -203,6 +210,11 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Information value | Σ (share on-time − share late) × WoE; < 0.02 not useful, 0.02–0.10 weak, 0.10–0.30 medium, > 0.30 strong | Characteristic | Confirmed | LP |
 | Fully paid date | Date of the payment that takes cumulative receipts to the order value (within ₹0.05) | Order | Confirmed | PM, MC |
 | Collected share (h days) | Payments in the next h days ÷ outstanding at the snapshot, capped at 100 % | Open item × month-end | Confirmed | MC |
+| Cash application rule | R1 amount = full value of exactly one open invoice; R2 no invoice fits and amount = open balance of exactly one; else ambiguous or no match (tolerance ₹0.05) | Receipt | Confirmed | CA |
+| Open balance before a receipt | Order value − payments on the order dated earlier (same date: lower payment id) | Receipt × open invoice | Confirmed | CA |
+| Age bucket (calendar months) | Year × 12 + month of the month-end − the same for the delivery date, capped at 6 | Open item × month-end | Confirmed | EC |
+| Roll rate | Balance still open one month later ÷ balance in the bucket | Bucket × reporting date | Confirmed | EC |
+| Loss rate and ECL provision | Loss rate = product of roll rates from the bucket to bucket 5 (bucket 6+ = 100 %); provision = outstanding × loss rate | Open item × reporting date | Confirmed | EC |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -236,6 +248,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Common service standard | 80th percentile of lead time (order to final delivery) in the destination city, the same for every customer | City | Confirmed | KA |
 | Lead time vs city | Lead time − average lead time of all orders to the same city | Order | Confirmed | KA |
 | Weekday number | MOD(DATE_DIFF(date, DATE '1900-01-07', DAY), 7): 0 = Sunday … 6 = Saturday | Date | Confirmed | WH |
+| Overtaken pair | Two orders placed 1–7 days apart where the earlier is dispatched on a later date; expected if random = P(L₁ − L₂ > gap) | Order pair | Confirmed | FQ |
+| FIFO dispatch slot | The k-th earliest order receives the k-th earliest actual dispatch date (never before its order date) | Order | Confirmed | FQ |
 
 ## Product and demand
 
@@ -302,6 +316,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Cosine similarity | Customers who bought both ÷ √(customers of i × customers of j) | Product pair | Confirmed | CF |
 | Heterogeneity Q and τ² | Q = Σ n (r − p)² ÷ (p (1 − p)); τ² = max(0, (Q − (K − 1)) ÷ (Σw − Σw² ÷ Σw)), w = n ÷ (p (1 − p)) | Measure | Confirmed | EB |
 | Credible (shrunk) rate | B p + (1 − B) r, B = (p (1 − p) ÷ n) ÷ (p (1 − p) ÷ n + τ²) | Member | Confirmed | EB |
+| Change-point model BIC | n ln(SSE ÷ n) + p ln(n); p = 1 no change, 2 trend, 3 one shift, 5 two shifts; levels of 3+ months | KPI | Confirmed | CP |
+| Shift permutation p-value | (1 + reorderings whose best one-shift R² ≥ observed) ÷ (1 + 500) | KPI | Confirmed | CP |
+| Binomial dispersion test | Σ (x − n p̄)² ÷ (n p̄ (1 − p̄)) against the Wilson–Hilferty 95 % critical value for months − 1 df | Rate KPI | Confirmed | CP |
 
 ---
 
@@ -321,3 +338,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-26 (second batch) | Added margin bridge effects, activity score, k-means cluster, grouping R², 60-day late payment, weight of evidence, information value, pick ABC, pick travel, ADI / CV², Croston / SBA, WAPE, MUS sample size, interval and upper limit, bunching ratio, expected same-day pairs and AUC definitions. Extended the case study key. |
 | 2026-10-27 | Added cross-sell trial, observed ÷ expected, price factor and deviation, bootstrap rank interval, common service standard, lead time vs city, event log and variant, fully paid date, PSI, cosine similarity, precision@K, collected share and Monte Carlo range definitions. Extended the case study key. |
 | 2026-10-28 | Added budget-neutral commission rate, annualised quota, log-log persistence slope, logistic churn probability, weekday number, calendar-blind expectation, heterogeneity Q and τ², and credible (shrunk) rate definitions. Extended the case study key. |
+| 2026-10-29 | Added driver tree, LMDI-I effect, overtaken pair, FIFO dispatch slot, cash application rule, open balance before a receipt, calendar-month age bucket, roll rate, loss rate and ECL provision, change-point BIC, shift permutation p-value and binomial dispersion test definitions. Extended the case study key. |
