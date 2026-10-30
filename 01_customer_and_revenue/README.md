@@ -32,3 +32,5 @@ Case studies on how revenue is distributed across customers, how it changes over
 | 13 | [Cross-sell stickiness](13_cross_sell_stickiness/) — which categories, once tried, are bought again, after allowing for how often the customer orders? | Complete |
 | 14 | [Key-account selection and regression to the mean](14_key_account_regression_to_mean/) — how stable is the top of the customer list, and why do big accounts miss uniform growth targets? | Complete |
 | 15 | [Revenue driver tree](15_revenue_driver_tree/) — which of five drivers (customers, frequency, lines, units, revenue per unit) explain growth in 2025 and 2026, by an exact LMDI decomposition? | Complete |
+| 16 | [Gateway categories](16_gateway_categories/) — does the category of a customer's first order predict its value, once segment and first-order size are held constant? | Complete |
+| 17 | [Customer credit limits](17_customer_credit_limits/) — which credit limit or overdue-hold rule would have blocked the orders that were never paid? | Complete |
