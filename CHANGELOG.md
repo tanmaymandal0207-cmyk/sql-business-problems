@@ -6,6 +6,23 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-30
+
+### Added
+- **Gateway categories** ([01_customer_and_revenue/16_gateway_categories](01_customer_and_revenue/16_gateway_categories/)). Raw first-year revenue ranges from ₹2.5 to ₹14.8 lakh by first-order category, but with segment and first-order size held constant no category differs from chance (1,000 stratified shuffles, p = 0.33–0.83). First-order size predicts value: median first-year revenue ₹5.81 lakh in the top third against ₹0.71 lakh in the bottom third.
+- **Customer credit limits** ([01_customer_and_revenue/17_customer_credit_limits](01_customer_and_revenue/17_customer_credit_limits/)). 83 % of 2026 orders come from customers with a balance unpaid for more than 90 days. Five rules back-tested on 2,100 orders: an overdue hold blocks 81.5 % of orders to catch 94 % of losses (lift 1.11), history limits do worse than random (0.80), and the best signal, past losses, has a lift of 1.40 and catches 6.9 %.
+- **Revenue volatility drivers** ([02_sales_and_profitability/15_revenue_volatility_drivers](02_sales_and_profitability/15_revenue_volatility_drivers/)). Trend and the March (+63 %) and December (+29 %) peaks explain 72 % of monthly variance; the remaining 13.7 % swing is no larger than the 15.4 % chance alone produces with orders this uneven. 2 % of orders (₹5 lakh+) carry 21.9 % of revenue and explain about half of the big misses.
+- **Salesperson category specialisation** ([02_sales_and_profitability/16_salesperson_category_specialisation](02_sales_and_profitability/16_salesperson_category_specialisation/)). Every salesperson's category mix matches random allocation of orders (team p = 0.26; 0.65 within customers), and focus does not bring lower discounts. 75 % of customers, with 98 % of revenue, buy from all three proposed product lines.
+- **Little's Law backlog planning** ([03_operations_and_supply_chain/16_littles_law_backlog_planning](03_operations_and_supply_chain/16_littles_law_backlog_planning/)). L = λW holds within 2 % for the dispatch queue every year; the in-transit stage only holds once 63 never-closed shipments (oldest 997 days, 15.6 % of transit days) are removed. 2027 at today's speed: 52 orders waiting on an average day; dispatch must fall from 4.0 to 3.4 days to hold today's level.
+- **Hierarchical forecast reconciliation** ([05_advanced_analytics/21_hierarchical_forecast_reconciliation](05_advanced_analytics/21_hierarchical_forecast_reconciliation/)). Exponential smoothing in SQL for 10 categories and the total over 21 months: the combined forecast is best at the total (18.0 % MAPE), top-down wins at category level (25.5 % WAPE) only because Pumps' tuned model over-fitted large orders.
+- **Order timing regularity** ([05_advanced_analytics/22_order_timing_regularity](05_advanced_analytics/22_order_timing_regularity/)). 217 of 256 frequent customers order at random times (CV 0.91 against 0.92 for random histories); being "due" does not raise the chance of an order, but ordering rate predicts it within 5 points. 26 regular customers (twice chance) do follow a cycle: 66 % just after an order, 84 % when due.
+
+### Changed
+- `metric_definitions.md`: added gateway category, stratified permutation effect, credit exposure, old unpaid balance, lift vs random, revenue identity and variance split, irreducible swing, specialisation index, Little's Law stage count, smoothing forecast and top-down share, gap CV and the random-ordering prediction.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 86 case studies are now complete.
+
+---
+
 ## 2026-10-29
 
 ### Added

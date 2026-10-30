@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-79%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 79 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-86%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 86 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -74,7 +74,9 @@ sql-business-problems/
 │   ├── 12_customer_health_score/
 │   ├── 13_cross_sell_stickiness/
 │   ├── 14_key_account_regression_to_mean/
-│   └── 15_revenue_driver_tree/
+│   ├── 15_revenue_driver_tree/
+│   ├── 16_gateway_categories/
+│   └── 17_customer_credit_limits/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -89,7 +91,9 @@ sql-business-problems/
 │   ├── 11_gross_margin_bridge/
 │   ├── 12_price_increase_and_price_discipline/
 │   ├── 13_salesperson_ranking_stability/
-│   └── 14_commission_plan_simulation/
+│   ├── 14_commission_plan_simulation/
+│   ├── 15_revenue_volatility_drivers/
+│   └── 16_salesperson_category_specialisation/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -105,7 +109,8 @@ sql-business-problems/
 │   ├── 12_warehouse_slotting/
 │   ├── 13_key_account_service_equity/
 │   ├── 14_empirical_bayes_rates/
-│   └── 15_dispatch_queue_discipline/
+│   ├── 15_dispatch_queue_discipline/
+│   └── 16_littles_law_backlog_planning/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -142,7 +147,9 @@ sql-business-problems/
 │   ├── 17_monte_carlo_collections_forecast/
 │   ├── 18_logistic_regression_churn/
 │   ├── 19_expected_credit_loss_provision/
-│   └── 20_kpi_change_point_detection/
+│   ├── 20_kpi_change_point_detection/
+│   ├── 21_hierarchical_forecast_reconciliation/
+│   └── 22_order_timing_regularity/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -238,6 +245,13 @@ Additional tools will be listed here only when they are used in a published case
 | 77 | [Cash application matching](04_data_quality_and_reconciliation/15_cash_application_matching/) | Data quality and reconciliation | Complete |
 | 78 | [Expected credit loss: a roll-rate provision matrix](05_advanced_analytics/19_expected_credit_loss_provision/) | Advanced analytics | Complete |
 | 79 | [KPI change-point detection](05_advanced_analytics/20_kpi_change_point_detection/) | Advanced analytics | Complete |
+| 80 | [Gateway categories: does the first order predict customer value?](01_customer_and_revenue/16_gateway_categories/) | Customer and revenue | Complete |
+| 81 | [Customer credit limits: which rule would have stopped the losses?](01_customer_and_revenue/17_customer_credit_limits/) | Customer and revenue | Complete |
+| 82 | [Revenue volatility: how much of a monthly miss is predictable?](02_sales_and_profitability/15_revenue_volatility_drivers/) | Sales and profitability | Complete |
+| 83 | [Salesperson category specialisation](02_sales_and_profitability/16_salesperson_category_specialisation/) | Sales and profitability | Complete |
+| 84 | [Little's Law: backlog, throughput and lead time](03_operations_and_supply_chain/16_littles_law_backlog_planning/) | Operations and supply chain | Complete |
+| 85 | [Hierarchical forecast reconciliation](05_advanced_analytics/21_hierarchical_forecast_reconciliation/) | Advanced analytics | Complete |
+| 86 | [Order timing: clockwork or random?](05_advanced_analytics/22_order_timing_regularity/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

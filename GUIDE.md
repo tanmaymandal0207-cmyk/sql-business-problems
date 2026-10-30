@@ -219,6 +219,13 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Cash application matching | `ca_receipts`, `ca_candidates`, `ca_matches` |
 | Expected credit loss provision | `ecl_snapshots`, `ecl_transitions`, `ecl_matrix`, `ecl_provision` |
 | KPI change-point detection | `chp_series`, `chp_prefix`, `chp_segments`, `chp_models`, `chp_permutation_stats` |
+| Gateway categories | `gw_customers`, `gw_scored`, `gw_permutation_stats` |
+| Customer credit limits | `cl_orders`, `cl_limits`, `cl_backtest` |
+| Revenue volatility drivers | `rv_orders`, `rv_months`, `rv_components`, `rv_bootstrap` |
+| Salesperson category specialisation | `sp_lines`, `sp_order_categories`, `sp_shuffles`, `sp_index` |
+| Little's Law backlog planning | `ll_orders`, `ll_daily`, `ll_yearly` |
+| Hierarchical forecast reconciliation | `hf_series`, `hf_ses`, `hf_alpha`, `hf_forecasts` |
+| Order timing regularity | `ot_days`, `ot_customers`, `ot_simulated_cv`, `ot_regularity`, `ot_snapshots` |
 
 ### 5.4 If something does not match
 
@@ -334,3 +341,11 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Change point** | A month after which a KPI settles at a different level |
 | **BIC (Bayesian information criterion)** | A score that rewards a model for fitting well but penalises it for each extra parameter; the lowest score wins |
 | **Permutation test** | Shuffling the data many times to see how often a result as strong as the real one appears by chance |
+| **Confounder** | Something that drives both the factor being studied and the outcome (for example customer size behind both first-order category and spend) |
+| **Credit exposure** | What a customer owes, plus the order being placed, at the moment of a credit check |
+| **Lift vs random** | How much better a rule picks out bad cases than picking the same number at random; 1.0 means no better |
+| **Irreducible noise** | Variation that would remain even with a perfect forecast of demand, because individual orders arrive and vary in size by chance |
+| **Little's Law** | Average number of items in a process = arrival rate × average time each spends in it |
+| **Top-down / bottom-up forecast** | Forecasting a total and splitting it by shares, or forecasting each part and adding them up |
+| **Exponential smoothing** | A forecast that is a weighted average of past values, with weights falling off the further back they go |
+| **Coefficient of variation (CV)** | Standard deviation ÷ mean; for gaps between orders, near 0 means a fixed cycle and near 1 random timing |
