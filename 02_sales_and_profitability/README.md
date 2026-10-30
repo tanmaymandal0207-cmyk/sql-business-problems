@@ -31,3 +31,5 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 12 | [January price increase and price discipline](12_price_increase_and_price_discipline/) — did the increases reach every product, did customers buy ahead, and do invoice prices follow the list? | Complete |
 | 13 | [Salesperson ranking stability](13_salesperson_ranking_stability/) — how much of the scorecard ranking survives a bootstrap of each person's customers? | Complete |
 | 14 | [Commission plan simulation](14_commission_plan_simulation/) — what would four budget-neutral commission plans have paid, and what behaviour does each reward? | Complete |
+| 15 | [Revenue volatility drivers](15_revenue_volatility_drivers/) — how much of a monthly revenue miss is trend and season, order count, order size or chance? | Complete |
+| 16 | [Salesperson category specialisation](16_salesperson_category_specialisation/) — do salespeople specialise in categories beyond random allocation, and would a product-line split help? | Complete |
