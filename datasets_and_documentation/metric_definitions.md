@@ -87,6 +87,13 @@ Shared definitions for metrics used across case studies. Each case study referen
 | CA | [Cash application matching](../04_data_quality_and_reconciliation/15_cash_application_matching/) |
 | EC | [Expected credit loss provision](../05_advanced_analytics/19_expected_credit_loss_provision/) |
 | CP | [KPI change-point detection](../05_advanced_analytics/20_kpi_change_point_detection/) |
+| GW | [Gateway categories](../01_customer_and_revenue/16_gateway_categories/) |
+| LM | [Customer credit limits](../01_customer_and_revenue/17_customer_credit_limits/) |
+| RV | [Revenue volatility drivers](../02_sales_and_profitability/15_revenue_volatility_drivers/) |
+| CS | [Salesperson category specialisation](../02_sales_and_profitability/16_salesperson_category_specialisation/) |
+| LL | [Little's Law backlog planning](../03_operations_and_supply_chain/16_littles_law_backlog_planning/) |
+| HF | [Hierarchical forecast reconciliation](../05_advanced_analytics/21_hierarchical_forecast_reconciliation/) |
+| OT | [Order timing regularity](../05_advanced_analytics/22_order_timing_regularity/) |
 
 ---
 
@@ -124,6 +131,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Month position | Last 5 days, first 5 days or mid-month of the order date | Order | Confirmed | PE |
 | Driver tree | Revenue = customers × orders per customer × lines per order × units per line × revenue per unit | Company or segment × year | Confirmed | DT |
 | LMDI-I effect | L(R₁, R₀) × ln(x₁ ÷ x₀), L(a, b) = (a − b) ÷ (ln a − ln b); the effects add up exactly to R₁ − R₀ | Driver × period | Confirmed | DT |
+| Revenue identity and variance split | ln R = ln N + ln S (orders × average order value); var(swing R) = var(swing N) + var(swing S) + 2 cov, where swing = ln y − (trend + March and December effects) | Month | Confirmed | RV |
+| Irreducible swing | √(1 ÷ N + s²), s = SD of ln average order value over 300 random redraws of the month's N orders from the same year | Month | Confirmed | RV |
+| Specialisation index | 0.5 × Σ \|salesperson's category revenue share − company share\|, compared with shuffles of salesperson labels across orders and within customers | Salesperson | Confirmed | CS |
 
 ## Margin
 
@@ -191,6 +201,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Observed ÷ expected (indirect standardisation) | Observed count ÷ Σ over members of the rate of their stratum (e.g. ordering-frequency band) | Group | Confirmed | XS |
 | Log-log persistence slope | Least-squares slope of ln(revenue year 2) on ln(revenue year 1); below 1 = regression to the mean | Customer pair | Confirmed | KR |
 | Churn probability (logistic) | 1 ÷ (1 + e^−(b₀ + Σ bⱼxⱼ)) on standardised point-in-time features, fitted by gradient descent | Customer × snapshot | Confirmed | LR |
+| Gateway category | The category with the largest net value on a customer's first valid order | Customer | Confirmed | GW |
+| Stratified permutation effect | Category mean of (outcome − segment × size-cell mean), tested against 1,000 shuffles of labels within cells | Category | Confirmed | GW |
+| Gap CV and random benchmark | SD ÷ mean of gaps between a customer's order days, against 200 histories with the same orders at random positions between first and last order | Customer | Confirmed | OT |
+| Random-ordering prediction | 1 − e^(−30 ÷ average gap so far): chance of an order in 30 days if the customer orders at random at its usual rate | Customer × month-end | Confirmed | OT |
 
 ## Collections
 
@@ -215,6 +229,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Age bucket (calendar months) | Year × 12 + month of the month-end − the same for the delivery date, capped at 6 | Open item × month-end | Confirmed | EC |
 | Roll rate | Balance still open one month later ÷ balance in the bucket | Bucket × reporting date | Confirmed | EC |
 | Loss rate and ECL provision | Loss rate = product of roll rates from the bucket to bucket 5 (bucket 6+ = 100 %); provision = outstanding × loss rate | Open item × reporting date | Confirmed | EC |
+| Credit exposure at an order | Earlier valid orders' value − payments on them up to the order date + the new order | Order | Confirmed | LM |
+| Lift vs random (credit rule) | (losses caught ÷ good business blocked) ÷ (all losses ÷ all good business) | Rule | Confirmed | LM |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -250,6 +266,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Weekday number | MOD(DATE_DIFF(date, DATE '1900-01-07', DAY), 7): 0 = Sunday … 6 = Saturday | Date | Confirmed | WH |
 | Overtaken pair | Two orders placed 1–7 days apart where the earlier is dispatched on a later date; expected if random = P(L₁ − L₂ > gap) | Order pair | Confirmed | FQ |
 | FIFO dispatch slot | The k-th earliest order receives the k-th earliest actual dispatch date (never before its order date) | Order | Confirmed | FQ |
+| Little's Law stage count | Daily number in a stage = entries to date − exits to date; average over a period = entries per day × average days in stage (up to boundary effects) | Stage × day | Confirmed | LL |
 
 ## Product and demand
 
@@ -273,6 +290,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Forecast bias | Mean of (forecast − actual) ÷ actual; negative = under-forecast | Method | Confirmed | FB |
 | Monte Carlo range | P10–P90 of simulated totals; coverage = share of back-tests whose actual falls inside | Forecast | Confirmed | MC |
 | Precision@K | Hits among the top K recommendations ÷ K, averaged over customers; hit = bought in the test period | Method | Confirmed | CF |
+| Exponential smoothing forecast | F(t) = α y(t−1) + (1 − α) F(t−1), F(2) = y(1); α from 0.1–0.9 chosen on 2024 | Series × month | Confirmed | HF |
+| Top-down category forecast | Total forecast × the category's share of the previous 12 months; combined = average of bottom-up and top-down | Category × month | Confirmed | HF |
 
 ## Data quality
 
@@ -339,3 +358,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-27 | Added cross-sell trial, observed ÷ expected, price factor and deviation, bootstrap rank interval, common service standard, lead time vs city, event log and variant, fully paid date, PSI, cosine similarity, precision@K, collected share and Monte Carlo range definitions. Extended the case study key. |
 | 2026-10-28 | Added budget-neutral commission rate, annualised quota, log-log persistence slope, logistic churn probability, weekday number, calendar-blind expectation, heterogeneity Q and τ², and credible (shrunk) rate definitions. Extended the case study key. |
 | 2026-10-29 | Added driver tree, LMDI-I effect, overtaken pair, FIFO dispatch slot, cash application rule, open balance before a receipt, calendar-month age bucket, roll rate, loss rate and ECL provision, change-point BIC, shift permutation p-value and binomial dispersion test definitions. Extended the case study key. |
+| 2026-10-30 | Added revenue identity and variance split, irreducible swing, specialisation index, gateway category, stratified permutation effect, gap CV and random benchmark, random-ordering prediction, credit exposure, lift vs random, Little's Law stage count, exponential smoothing and top-down category forecast definitions. Extended the case study key. |
