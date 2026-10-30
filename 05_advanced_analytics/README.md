@@ -36,3 +36,5 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 18 | [Logistic regression churn model](18_logistic_regression_churn/) — can a churn model be trained in BigQuery, and does it beat the activity score? | Complete |
 | 19 | [Expected credit loss provision](19_expected_credit_loss_provision/) — what roll-rate provision matrix does the payment history support, and would it have predicted the losses that followed? | Complete |
 | 20 | [KPI change-point detection](20_kpi_change_point_detection/) — which monthly KPI moves are real shifts, which are steady trends, and which are noise? | Complete |
+| 21 | [Hierarchical forecast reconciliation](21_hierarchical_forecast_reconciliation/) — should category forecasts be built bottom-up, top-down or combined so they add up to the total? | Complete |
+| 22 | [Order timing regularity](22_order_timing_regularity/) — do customers order on a cycle or at random, and does being "due" make an order more likely? | Complete |
