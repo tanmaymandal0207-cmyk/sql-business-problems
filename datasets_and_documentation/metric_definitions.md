@@ -94,6 +94,12 @@ Shared definitions for metrics used across case studies. Each case study referen
 | LL | [Little's Law backlog planning](../03_operations_and_supply_chain/16_littles_law_backlog_planning/) |
 | HF | [Hierarchical forecast reconciliation](../05_advanced_analytics/21_hierarchical_forecast_reconciliation/) |
 | OT | [Order timing regularity](../05_advanced_analytics/22_order_timing_regularity/) |
+| FS | [Order frequency vs order size](../01_customer_and_revenue/18_order_frequency_vs_size/) |
+| EL | [Price elasticity natural experiment](../02_sales_and_profitability/17_price_elasticity_natural_experiment/) |
+| CQ | [Dispatch capacity simulation](../03_operations_and_supply_chain/17_dispatch_capacity_simulation/) |
+| NM | [Missing data mechanism](../04_data_quality_and_reconciliation/16_missing_data_mechanism/) |
+| PD | [Pilot design: power analysis and CUPED](../05_advanced_analytics/23_pilot_design_power_cuped/) |
+| VR | [Revenue at risk from churn](../05_advanced_analytics/24_revenue_at_risk_churn_simulation/) |
 
 ---
 
@@ -134,6 +140,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Revenue identity and variance split | ln R = ln N + ln S (orders × average order value); var(swing R) = var(swing N) + var(swing S) + 2 cov, where swing = ln y − (trend + March and December effects) | Month | Confirmed | RV |
 | Irreducible swing | √(1 ÷ N + s²), s = SD of ln average order value over 300 random redraws of the month's N orders from the same year | Month | Confirmed | RV |
 | Specialisation index | 0.5 × Σ \|salesperson's category revenue share − company share\|, compared with shuffles of salesperson labels across orders and within customers | Salesperson | Confirmed | CS |
+| Price deviation elasticity | Slope of ln(quantity) on ln(invoice ÷ list in force), both centred within product × year | Order line | Confirmed | EL |
 
 ## Margin
 
@@ -205,6 +212,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Stratified permutation effect | Category mean of (outcome − segment × size-cell mean), tested against 1,000 shuffles of labels within cells | Category | Confirmed | GW |
 | Gap CV and random benchmark | SD ÷ mean of gaps between a customer's order days, against 200 histories with the same orders at random positions between first and last order | Customer | Confirmed | OT |
 | Random-ordering prediction | 1 − e^(−30 ÷ average gap so far): chance of an order in 30 days if the customer orders at random at its usual rate | Customer × month-end | Confirmed | OT |
+| Within-customer size slope | Slope of (ln order value − customer mean) on (ln(1 + days since previous order) − customer mean), tested by shuffling values within customers | Order | Confirmed | FS |
+| Frequency elasticity of order size | Slope of Δ ln(average order size) on Δ ln(orders) between consecutive years | Customer | Confirmed | FS |
+| Smoothed churn probability | (churners + 0.5) ÷ (customers + 1) in the frequency band at the previous snapshot | Band × snapshot | Confirmed | VR |
+| Revenue at risk | 95th / 99th percentile of simulated revenue lost (exposure of customers that churn), 2,000 independent-churn scenarios | Snapshot | Confirmed | VR |
 
 ## Collections
 
@@ -267,6 +278,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Overtaken pair | Two orders placed 1–7 days apart where the earlier is dispatched on a later date; expected if random = P(L₁ − L₂ > gap) | Order pair | Confirmed | FQ |
 | FIFO dispatch slot | The k-th earliest order receives the k-th earliest actual dispatch date (never before its order date) | Order | Confirmed | FQ |
 | Little's Law stage count | Daily number in a stage = entries to date − exits to date; average over a period = entries per day × average days in stage (up to boundary effects) | Stage × day | Confirmed | LL |
+| FIFO cumulative departures | D(t) = MIN over s ≤ t of [A(s) + c × (t − s)]; order k ships on the first day with D(t) ≥ k | Day × capacity | Confirmed | CQ |
 
 ## Product and demand
 
@@ -309,6 +321,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Event log / variant | One row per order, dispatch, delivery and payment event; variant = the ordered sequence of an order's activities | Event / order | Confirmed | PM |
 | Population stability index (PSI) | Σ (a − e) ln(a ÷ e) over bins, shares smoothed by 0.5 per bin; noise test: n N ÷ (n + N) × PSI ≈ χ²(bins − 1) with n, N in orders | Field × month | Confirmed | DD |
 | Calendar-blind expectation | Events × days of a type ÷ all days in the event's first-to-last span; tested with chi-square across weekdays | Event type × weekday | Confirmed | WH |
+| Missingness chi-square | Σ (missing − n p)² ÷ (n p (1 − p)) across groups (groups < 30 pooled), against the 1 % Wilson–Hilferty critical value | Field × dimension | Confirmed | NM |
 
 ## Statistical testing
 
@@ -338,6 +351,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Change-point model BIC | n ln(SSE ÷ n) + p ln(n); p = 1 no change, 2 trend, 3 one shift, 5 two shifts; levels of 3+ months | KPI | Confirmed | CP |
 | Shift permutation p-value | (1 + reorderings whose best one-shift R² ≥ observed) ÷ (1 + 500) | KPI | Confirmed | CP |
 | Binomial dispersion test | Σ (x − n p̄)² ÷ (n p̄ (1 − p̄)) against the Wilson–Hilferty 95 % critical value for months − 1 df | Rate KPI | Confirmed | CP |
+| Minimum detectable effect | (1.96 + 0.84) × SD × √(2 ÷ n per arm) ÷ mean | Pilot design | Confirmed | PD |
+| CUPED adjustment | Y − θ (X − mean X), θ = cov(X, Y) ÷ var(X); SD falls by √(1 − ρ²) | Customer | Confirmed | PD |
+| A/A false-alarm rate | Share of random no-treatment splits with \|z\| > 1.96 | Pilot design | Confirmed | PD |
 
 ---
 
@@ -359,3 +375,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-28 | Added budget-neutral commission rate, annualised quota, log-log persistence slope, logistic churn probability, weekday number, calendar-blind expectation, heterogeneity Q and τ², and credible (shrunk) rate definitions. Extended the case study key. |
 | 2026-10-29 | Added driver tree, LMDI-I effect, overtaken pair, FIFO dispatch slot, cash application rule, open balance before a receipt, calendar-month age bucket, roll rate, loss rate and ECL provision, change-point BIC, shift permutation p-value and binomial dispersion test definitions. Extended the case study key. |
 | 2026-10-30 | Added revenue identity and variance split, irreducible swing, specialisation index, gateway category, stratified permutation effect, gap CV and random benchmark, random-ordering prediction, credit exposure, lift vs random, Little's Law stage count, exponential smoothing and top-down category forecast definitions. Extended the case study key. |
+| 2026-10-31 | Added within-customer size slope, frequency elasticity of order size, price deviation elasticity, FIFO cumulative departures, missingness chi-square, minimum detectable effect, CUPED adjustment, A/A false-alarm rate, smoothed churn probability and revenue at risk definitions. Extended the case study key. |
