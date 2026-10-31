@@ -33,3 +33,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | 14 | [Empirical Bayes for operational rates](14_empirical_bayes_rates/) — which cancellation, return and late-delivery rankings show real differences, and which are noise? | Complete |
 | 15 | [Dispatch queue discipline](15_dispatch_queue_discipline/) — are orders dispatched first come, first served, and what would strict FIFO change for waits and on-time delivery? | Complete |
 | 16 | [Little's Law backlog planning](16_littles_law_backlog_planning/) — how many orders wait for dispatch and travel at once, does Little's Law hold, and what does 2027 need? | Complete |
+| 17 | [Dispatch capacity simulation](17_dispatch_capacity_simulation/) — what daily dispatch capacity does a first-in-first-out queue need today and in 2027, and is capacity the real constraint? | Complete |
