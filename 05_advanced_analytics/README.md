@@ -38,3 +38,5 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 20 | [KPI change-point detection](20_kpi_change_point_detection/) — which monthly KPI moves are real shifts, which are steady trends, and which are noise? | Complete |
 | 21 | [Hierarchical forecast reconciliation](21_hierarchical_forecast_reconciliation/) — should category forecasts be built bottom-up, top-down or combined so they add up to the total? | Complete |
 | 22 | [Order timing regularity](22_order_timing_regularity/) — do customers order on a cycle or at random, and does being "due" make an order more likely? | Complete |
+| 23 | [Pilot design: power analysis and CUPED](23_pilot_design_power_cuped/) — how many customers, how long and which metric does a sales pilot need, checked with A/A tests? | Complete |
+| 24 | [Revenue at risk from churn](24_revenue_at_risk_churn_simulation/) — how much revenue could customer churn cost next year at 95 % confidence, back-tested on last year? | Complete |
