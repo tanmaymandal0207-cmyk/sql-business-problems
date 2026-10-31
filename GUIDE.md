@@ -226,6 +226,12 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Little's Law backlog planning | `ll_orders`, `ll_daily`, `ll_yearly` |
 | Hierarchical forecast reconciliation | `hf_series`, `hf_ses`, `hf_alpha`, `hf_forecasts` |
 | Order timing regularity | `ot_days`, `ot_customers`, `ot_simulated_cv`, `ot_regularity`, `ot_snapshots` |
+| Order frequency vs order size | `fs_orders`, `fs_customers`, `fs_permutation_slopes` |
+| Price elasticity natural experiment | `pe_lines`, `pe_centred`, `pe_elasticity` |
+| Dispatch capacity simulation | `cs_arrivals`, `cs_days`, `cs_waits` |
+| Missing data mechanism | `md_observations`, `md_tests`, `md_impact` |
+| Pilot design: power and CUPED | `pd_customers`, `pd_designs`, `pd_aa_tests` |
+| Revenue at risk from churn | `rr_customers`, `rr_probabilities`, `rr_scenarios` |
 
 ### 5.4 If something does not match
 
@@ -349,3 +355,11 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Top-down / bottom-up forecast** | Forecasting a total and splitting it by shares, or forecasting each part and adding them up |
 | **Exponential smoothing** | A forecast that is a weighted average of past values, with weights falling off the further back they go |
 | **Coefficient of variation (CV)** | Standard deviation ÷ mean; for gaps between orders, near 0 means a fixed cycle and near 1 random timing |
+| **Natural experiment** | Random variation that happened in normal business (such as random price deviations) used in place of a designed test |
+| **Price elasticity** | The % change in quantity bought for a 1 % change in price |
+| **FIFO queue simulation** | Replaying real arrivals through a first-in-first-out queue with a fixed daily capacity to see the waiting times it produces |
+| **Missing at random** | Gaps that are equally likely in every group, so leaving them out does not bias averages or rates |
+| **Minimum detectable effect (MDE)** | The smallest change a test of a given size will detect most of the time (usually 80 %) |
+| **CUPED** | Adjusting a pilot's outcome by each unit's own pre-pilot value, which removes predictable variation and sharpens the test |
+| **A/A test** | Splitting units at random with no treatment, to check that the test does not find differences that are not there |
+| **Revenue at risk** | A high percentile (for example the 95th) of simulated revenue loss: the loss exceeded in only one year in twenty |

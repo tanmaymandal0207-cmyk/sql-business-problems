@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-86%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 86 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-92%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 92 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -76,7 +76,8 @@ sql-business-problems/
 │   ├── 14_key_account_regression_to_mean/
 │   ├── 15_revenue_driver_tree/
 │   ├── 16_gateway_categories/
-│   └── 17_customer_credit_limits/
+│   ├── 17_customer_credit_limits/
+│   └── 18_order_frequency_vs_size/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -93,7 +94,8 @@ sql-business-problems/
 │   ├── 13_salesperson_ranking_stability/
 │   ├── 14_commission_plan_simulation/
 │   ├── 15_revenue_volatility_drivers/
-│   └── 16_salesperson_category_specialisation/
+│   ├── 16_salesperson_category_specialisation/
+│   └── 17_price_elasticity_natural_experiment/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -110,7 +112,8 @@ sql-business-problems/
 │   ├── 13_key_account_service_equity/
 │   ├── 14_empirical_bayes_rates/
 │   ├── 15_dispatch_queue_discipline/
-│   └── 16_littles_law_backlog_planning/
+│   ├── 16_littles_law_backlog_planning/
+│   └── 17_dispatch_capacity_simulation/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -126,7 +129,8 @@ sql-business-problems/
 │   ├── 12_order_to_cash_process_mining/
 │   ├── 13_data_drift_monitoring/
 │   ├── 14_weekend_holiday_postings/
-│   └── 15_cash_application_matching/
+│   ├── 15_cash_application_matching/
+│   └── 16_missing_data_mechanism/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
@@ -149,7 +153,9 @@ sql-business-problems/
 │   ├── 19_expected_credit_loss_provision/
 │   ├── 20_kpi_change_point_detection/
 │   ├── 21_hierarchical_forecast_reconciliation/
-│   └── 22_order_timing_regularity/
+│   ├── 22_order_timing_regularity/
+│   ├── 23_pilot_design_power_cuped/
+│   └── 24_revenue_at_risk_churn_simulation/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -252,6 +258,12 @@ Additional tools will be listed here only when they are used in a published case
 | 84 | [Little's Law: backlog, throughput and lead time](03_operations_and_supply_chain/16_littles_law_backlog_planning/) | Operations and supply chain | Complete |
 | 85 | [Hierarchical forecast reconciliation](05_advanced_analytics/21_hierarchical_forecast_reconciliation/) | Advanced analytics | Complete |
 | 86 | [Order timing: clockwork or random?](05_advanced_analytics/22_order_timing_regularity/) | Advanced analytics | Complete |
+| 87 | [Order frequency vs order size: do customers batch their orders?](01_customer_and_revenue/18_order_frequency_vs_size/) | Customer and revenue | Complete |
+| 88 | [Price elasticity from a natural experiment](02_sales_and_profitability/17_price_elasticity_natural_experiment/) | Sales and profitability | Complete |
+| 89 | [Dispatch capacity simulation](03_operations_and_supply_chain/17_dispatch_capacity_simulation/) | Operations and supply chain | Complete |
+| 90 | [Missing data: random, structural or systematic?](04_data_quality_and_reconciliation/16_missing_data_mechanism/) | Data quality and reconciliation | Complete |
+| 91 | [Designing a sales pilot: power analysis and CUPED](05_advanced_analytics/23_pilot_design_power_cuped/) | Advanced analytics | Complete |
+| 92 | [Revenue at risk from customer churn (Monte Carlo)](05_advanced_analytics/24_revenue_at_risk_churn_simulation/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

@@ -6,6 +6,22 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-10-31
+
+### Added
+- **Order frequency vs order size** ([01_customer_and_revenue/18_order_frequency_vs_size](01_customer_and_revenue/18_order_frequency_vs_size/)). Frequent buyers place bigger orders (correlation +0.29, mostly segment); within customers the gap before an order does not change its size (p = 0.89 over 500 shuffles); a 10 % rise in orders came with orders about 1.1 % smaller, so most extra frequency is extra revenue.
+- **Price elasticity from a natural experiment** ([02_sales_and_profitability/17_price_elasticity_natural_experiment](02_sales_and_profitability/17_price_elasticity_natural_experiment/)). The random ±3 % invoice-price deviations pass every balance check; units respond with an elasticity of −0.26 (95 % interval −0.84 to +0.32) and repeat purchase is unaffected. Billing below-list lines at list would add about ₹20 lakh a year, and still gains at the worst end of the interval.
+- **Dispatch capacity simulation** ([03_operations_and_supply_chain/17_dispatch_capacity_simulation](03_operations_and_supply_chain/17_dispatch_capacity_simulation/)). An exact FIFO queue in SQL for 11–20 orders a day: capacity is not today's constraint (up to 29 shipped in a day; 13 a day would average 0.9 days against 2.65 actual for non-held orders). 2027 needs about 16 a day, plus help in March–April; ending holds beyond six days meets the 3.4-day target alone.
+- **Missing data mechanism** ([04_data_quality_and_reconciliation/16_missing_data_mechanism](04_data_quality_and_reconciliation/16_missing_data_mechanism/)). 29 chi-square tests across six fields: no gap is systematic at 1 %; delivery date is structural for all 55 shipments in transit (10 delivered shipments lack a date). Missing salespeople leave ₹3.94 crore (4.3 %) of revenue unattributed.
+- **Pilot design: power and CUPED** ([05_advanced_analytics/23_pilot_design_power_cuped](05_advanced_analytics/23_pilot_design_power_cuped/)). A 3-month revenue pilot on 180 vs 180 customers could only detect a 115 % uplift; the 10 largest customers carry 92 % of the variance. Six months, orders and CUPED bring the MDE to 16.9 %; a 10 % answer needs about 500 customers per arm. 500 A/A splits per design confirm the formulas.
+- **Revenue at risk from churn** ([05_advanced_analytics/24_revenue_at_risk_churn_simulation](05_advanced_analytics/24_revenue_at_risk_churn_simulation/)). 2,000 simulated years: expected loss ₹45.3 lakh, 95 % ₹96.2 lakh (3.1 % of the nine-month base), 99 % ₹188.2 lakh. The 2025 forecast put the actual loss (₹24.6 lakh) at its 46th percentile. No customer with four or more orders has churned.
+
+### Changed
+- `metric_definitions.md`: added within-customer size slope, frequency elasticity of order size, price deviation elasticity, FIFO cumulative departures, chi-square missingness test, minimum detectable effect, CUPED, A/A false-alarm rate, smoothed churn probability and revenue at risk definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 92 case studies are now complete.
+
+---
+
 ## 2026-10-30
 
 ### Added
