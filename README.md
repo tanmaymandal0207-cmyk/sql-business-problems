@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-92%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 92 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-98%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 98 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -77,7 +77,8 @@ sql-business-problems/
 │   ├── 15_revenue_driver_tree/
 │   ├── 16_gateway_categories/
 │   ├── 17_customer_credit_limits/
-│   └── 18_order_frequency_vs_size/
+│   ├── 18_order_frequency_vs_size/
+│   └── 19_march_peak_drivers/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -95,7 +96,9 @@ sql-business-problems/
 │   ├── 14_commission_plan_simulation/
 │   ├── 15_revenue_volatility_drivers/
 │   ├── 16_salesperson_category_specialisation/
-│   └── 17_price_elasticity_natural_experiment/
+│   ├── 17_price_elasticity_natural_experiment/
+│   ├── 18_product_cost_to_serve/
+│   └── 19_salesperson_workload_balancing/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -113,7 +116,8 @@ sql-business-problems/
 │   ├── 14_empirical_bayes_rates/
 │   ├── 15_dispatch_queue_discipline/
 │   ├── 16_littles_law_backlog_planning/
-│   └── 17_dispatch_capacity_simulation/
+│   ├── 17_dispatch_capacity_simulation/
+│   └── 18_deadline_based_dispatch/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -155,7 +159,9 @@ sql-business-problems/
 │   ├── 21_hierarchical_forecast_reconciliation/
 │   ├── 22_order_timing_regularity/
 │   ├── 23_pilot_design_power_cuped/
-│   └── 24_revenue_at_risk_churn_simulation/
+│   ├── 24_revenue_at_risk_churn_simulation/
+│   ├── 25_month_end_revenue_nowcast/
+│   └── 26_time_to_cash_kaplan_meier/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -264,6 +270,12 @@ Additional tools will be listed here only when they are used in a published case
 | 90 | [Missing data: random, structural or systematic?](04_data_quality_and_reconciliation/16_missing_data_mechanism/) | Data quality and reconciliation | Complete |
 | 91 | [Designing a sales pilot: power analysis and CUPED](05_advanced_analytics/23_pilot_design_power_cuped/) | Advanced analytics | Complete |
 | 92 | [Revenue at risk from customer churn (Monte Carlo)](05_advanced_analytics/24_revenue_at_risk_churn_simulation/) | Advanced analytics | Complete |
+| 93 | [Who drives the March peak?](01_customer_and_revenue/19_march_peak_drivers/) | Customer and revenue | Complete |
+| 94 | [Product profitability after cost to serve](02_sales_and_profitability/18_product_cost_to_serve/) | Sales and profitability | Complete |
+| 95 | [Salesperson workload balancing with the fewest account moves](02_sales_and_profitability/19_salesperson_workload_balancing/) | Sales and profitability | Complete |
+| 96 | [Dispatch by deadline: the capacity needed to keep every promise](03_operations_and_supply_chain/18_deadline_based_dispatch/) | Operations and supply chain | Complete |
+| 97 | [Nowcasting month-end revenue](05_advanced_analytics/25_month_end_revenue_nowcast/) | Advanced analytics | Complete |
+| 98 | [Time to cash with Kaplan–Meier](05_advanced_analytics/26_time_to_cash_kaplan_meier/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

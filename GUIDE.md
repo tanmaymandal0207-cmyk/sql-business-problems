@@ -232,6 +232,12 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Missing data mechanism | `md_observations`, `md_tests`, `md_impact` |
 | Pilot design: power and CUPED | `pd_customers`, `pd_designs`, `pd_aa_tests` |
 | Revenue at risk from churn | `rr_customers`, `rr_probabilities`, `rr_scenarios` |
+| Who drives the March peak? | `mp_orders`, `mp_company`, `mp_groups`, `mp_customers` |
+| Product profitability after cost to serve | `pc_rates`, `pc_lines`, `pc_products` |
+| Salesperson workload balancing | `wb_accounts`, `wb_reps`, `wb_candidates`, `wb_moves`, `wb_after` |
+| Dispatch by deadline | `dd_orders`, `dd_all_windows`, `dd_windows`, `dd_fifo` |
+| Month-end revenue nowcast | `nc_days`, `nc_months`, `nc_weights`, `nc_nowcasts` |
+| Time to cash with Kaplan–Meier | `tc_orders`, `tc_curves`, `tc_summary` |
 
 ### 5.4 If something does not match
 
@@ -363,3 +369,13 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **CUPED** | Adjusting a pilot's outcome by each unit's own pre-pilot value, which removes predictable variation and sharpens the test |
 | **A/A test** | Splitting units at random with no treatment, to check that the test does not find differences that are not there |
 | **Revenue at risk** | A high percentile (for example the 95th) of simulated revenue loss: the loss exceeded in only one year in twenty |
+| **Uplift decomposition** | Splitting a revenue change into more customers × more orders each × bigger orders, using log shares that add up to 100 % |
+| **Activity-based costing** | Charging each cost to products or customers in proportion to the activity that drives it (orders, lines, rupee-days) rather than as a share of revenue |
+| **Operating contribution** | Gross profit less freight, handling, sales effort and the cost of credit, before credit losses and fixed overheads |
+| **Greedy allocation** | Building a plan one best move at a time (here, largest accounts first) instead of searching every combination; fast and explainable, but not guaranteed optimal |
+| **Earliest deadline first (EDF)** | Dispatching the waiting order with the nearest deadline first; with unit-size orders it meets every deadline whenever any schedule can |
+| **Hall's condition** | Every deadline can be met if, for every window of days, the orders that must arrive and ship inside it fit within the window's capacity |
+| **Nowcast** | An estimate of the current period's result from the data already in, updated as the period goes on |
+| **Run-rate** | Revenue so far scaled up to the full period, by calendar days or by the weight of the days still to come |
+| **Kaplan–Meier estimator** | The share of cases still open after t days, built day by day so that cases not yet closed (censored) count for as long as they have been observed |
+| **Restricted mean** | The area under a survival curve up to a horizon: the average time to the event within that horizon |

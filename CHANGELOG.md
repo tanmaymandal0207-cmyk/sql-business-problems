@@ -6,6 +6,23 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-01
+
+### Added
+- **Who drives the March peak?** ([01_customer_and_revenue/19_march_peak_drivers](01_customer_and_revenue/19_march_peak_drivers/)). March runs 61–78 % above the surrounding months, split about evenly between more customers, more orders each and bigger orders. Every segment and industry joins in equally (chi-square 2.6 against 7.8 needed). The customers who order extra change every year: the year-on-year correlation is 0.07, and 2025 spikers repeat at the base rate.
+- **Product profitability after cost to serve** ([02_sales_and_profitability/18_product_cost_to_serve](02_sales_and_profitability/18_product_cost_to_serve/)). ₹4.49 crore of gross profit becomes ₹1.36 crore of operating contribution in FY 2025–26, and −₹1.03 crore after credit losses. 94 of 183 products lose money before credit loss (6 on gross profit). Low margin and small lines drive losses; two carbide end mills are listed below cost. Credit loss does not persist by product (split-half correlation 0.01).
+- **Salesperson workload balancing** ([02_sales_and_profitability/19_salesperson_workload_balancing](02_sales_and_profitability/19_salesperson_workload_balancing/)). Workloads range from 77 to 451 orders; busy months do not raise cancellations. 14 greedy moves, each to a salesperson the customer already knows, cut the coefficient of variation from 0.41 to 0.15 and bring 11 of 15 salespeople within ±15 %. Three more moves would bring 14 of 15.
+- **Dispatch by deadline** ([03_operations_and_supply_chain/18_deadline_based_dispatch](03_operations_and_supply_chain/18_deadline_based_dispatch/)). Hall's condition over 66,961 windows: deadline-first dispatch meets every deadline at 12 orders a day, where FIFO needs 17. A seasonal plan of 12 (October–March) and 10 (April–September) also works. Today 13.2 % of deadlines are missed, and tight and loose orders wait the same 4 days.
+- **Month-end revenue nowcast** ([05_advanced_analytics/25_month_end_revenue_nowcast](05_advanced_analytics/25_month_end_revenue_nowcast/)). Back-tested on 30 months: booked-so-far plus the prior beats the 3-month prior from day 1. The weekday run-rate leads from day 8, with a mean error of 12.3 % on day 15. Large orders cause about half of the error, and March is back-loaded (29 % of its revenue comes after the 25th).
+- **Time to cash with Kaplan–Meier** ([05_advanced_analytics/26_time_to_cash_kaplan_meier](05_advanced_analytics/26_time_to_cash_kaplan_meier/)). Counting 1,419 unsettled orders as censored moves the median from 45 to 51 days and the average within the first year from 47 to 81 days. 10.3 % of orders are still unsettled at 180 days, in every segment. Paid-only figures make the latest deliveries look 17 days faster.
+
+### Changed
+- `metric_definitions.md`: added uplift share, expected March orders, operating contribution, rupee-day credit cost, split-half reliability, account owner, workload band, known contact, dispatch deadline, EDF feasibility ratio, weekday run-rate, nowcast blend, Kaplan–Meier time to cash and restricted mean definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 98 case studies are now complete.
+- Dispatch by deadline links the [queue discipline](03_operations_and_supply_chain/15_dispatch_queue_discipline/) study's FIFO recommendation to a deadline-sorted pick list.
+
+---
+
 ## 2026-10-31
 
 ### Added
