@@ -34,3 +34,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | 15 | [Dispatch queue discipline](15_dispatch_queue_discipline/) — are orders dispatched first come, first served, and what would strict FIFO change for waits and on-time delivery? | Complete |
 | 16 | [Little's Law backlog planning](16_littles_law_backlog_planning/) — how many orders wait for dispatch and travel at once, does Little's Law hold, and what does 2027 need? | Complete |
 | 17 | [Dispatch capacity simulation](17_dispatch_capacity_simulation/) — what daily dispatch capacity does a first-in-first-out queue need today and in 2027, and is capacity the real constraint? | Complete |
+| 18 | [Dispatch by deadline](18_deadline_based_dispatch/) — what is the least daily capacity that meets every dispatch deadline when orders ship deadline-first instead of first-in-first-out? | Complete |
