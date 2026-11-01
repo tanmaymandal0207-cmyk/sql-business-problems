@@ -100,6 +100,12 @@ Shared definitions for metrics used across case studies. Each case study referen
 | NM | [Missing data mechanism](../04_data_quality_and_reconciliation/16_missing_data_mechanism/) |
 | PD | [Pilot design: power analysis and CUPED](../05_advanced_analytics/23_pilot_design_power_cuped/) |
 | VR | [Revenue at risk from churn](../05_advanced_analytics/24_revenue_at_risk_churn_simulation/) |
+| MR | [Who drives the March peak?](../01_customer_and_revenue/19_march_peak_drivers/) |
+| PP | [Product profitability after cost to serve](../02_sales_and_profitability/18_product_cost_to_serve/) |
+| WL | [Salesperson workload balancing](../02_sales_and_profitability/19_salesperson_workload_balancing/) |
+| ED | [Dispatch by deadline](../03_operations_and_supply_chain/18_deadline_based_dispatch/) |
+| NW | [Month-end revenue nowcast](../05_advanced_analytics/25_month_end_revenue_nowcast/) |
+| TK | [Time to cash with Kaplan–Meier](../05_advanced_analytics/26_time_to_cash_kaplan_meier/) |
 
 ---
 
@@ -141,6 +147,11 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Irreducible swing | √(1 ÷ N + s²), s = SD of ln average order value over 300 random redraws of the month's N orders from the same year | Month | Confirmed | RV |
 | Specialisation index | 0.5 × Σ \|salesperson's category revenue share − company share\|, compared with shuffles of salesperson labels across orders and within customers | Salesperson | Confirmed | CS |
 | Price deviation elasticity | Slope of ln(quantity) on ln(invoice ÷ list in force), both centred within product × year | Order line | Confirmed | EL |
+| Uplift share | Log change of one driver (active customers, orders per customer, average order value) ÷ log change in revenue, March against the January–June baseline months; the three shares add to 100 % | Year | Confirmed | MR |
+| Expected March orders | (March + baseline orders of the group) × all March orders ÷ all orders, for the 2 × k homogeneity test | Group | Confirmed | MR |
+| Account owner | The field salesperson with the most orders on the account in the window (ties: latest order, then lowest ID) | Customer | Confirmed | WL |
+| Workload band | Average workload (orders on owned accounts) ± 15 % | Salesperson | Confirmed | WL |
+| Known contact | A salesperson who booked at least one order for the customer in the previous 24 months | Customer × salesperson | Confirmed | WL |
 
 ## Margin
 
@@ -159,6 +170,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | GP return | Gross profit ÷ salary cost (salary pro-rated from hire date) | Salesperson | Confirmed | SE |
 | Cost of sales | Salary cost ÷ revenue | Salesperson / role | Confirmed | SE |
 | Margin bridge effects | Product × segment cells, m = P (1 − d) − c: volume = Δ total units × prior margin per unit; mix = Σ Δq × m₀ − volume; price = Σ q₁ (P₁ − P₀)(1 − d₀); discount = Σ q₁ P₁ (d₀ − d₁); new and lost cells separate. Effects sum exactly to the continuing-cell margin change; both periods use current unit cost | Product × segment | Confirmed | MG |
+| Operating contribution (product) | Gross profit − freight (by value) − handling and sales effort (per order, split equally by line) − cost of credit, before credit loss | Product | Confirmed | PP |
+| Split-half reliability | Correlation of a product's rate in April–September with the same rate in October–March; near 0 means the rate is not a property of the product | Product | Confirmed | PP |
 
 > `products.unit_cost` is a single current cost per product, not a historical cost at the time of sale. Lines for products with a null `unit_cost` are excluded from margin metrics, and the exclusion is reported.
 
@@ -242,6 +255,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Loss rate and ECL provision | Loss rate = product of roll rates from the bucket to bucket 5 (bucket 6+ = 100 %); provision = outstanding × loss rate | Open item × reporting date | Confirmed | EC |
 | Credit exposure at an order | Earlier valid orders' value − payments on them up to the order date + the new order | Order | Confirmed | LM |
 | Lift vs random (credit rule) | (losses caught ÷ good business blocked) ÷ (all losses ÷ all good business) | Rule | Confirmed | LM |
+| Rupee-day cost of credit | (Σ payments × days from final delivery to payment + balance unpaid at 180 days × days to day 180) × 12 % ÷ 365 | Order line | Confirmed | PP |
+| Kaplan–Meier time to cash | S(t) = Π over days u ≤ t of (1 − orders settled on day u ÷ orders still waiting); settled = payments reach 99 % of value; open orders censored at the as-of date | Group | Confirmed | TK |
+| Restricted mean time to cash | Σ S(t) for t = 0 … 364: average days to cash within the first year, an unpaid order counting 365 | Group | Confirmed | TK |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -279,6 +295,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | FIFO dispatch slot | The k-th earliest order receives the k-th earliest actual dispatch date (never before its order date) | Order | Confirmed | FQ |
 | Little's Law stage count | Daily number in a stage = entries to date − exits to date; average over a period = entries per day × average days in stage (up to boundary effects) | Stage × day | Confirmed | LL |
 | FIFO cumulative departures | D(t) = MIN over s ≤ t of [A(s) + c × (t − s)]; order k ships on the first day with D(t) ≥ k | Day × capacity | Confirmed | CQ |
+| Dispatch deadline | Promised delivery date − median transit to the standardised shipping city (pre-window history, 20+ orders), never before the order date | Order | Confirmed | ED |
+| EDF feasibility ratio | Orders arriving on or after day s and due by day t ÷ (t − s + 1); the least capacity meeting every deadline is the largest ratio rounded up | Window of days | Confirmed | ED |
 
 ## Product and demand
 
@@ -304,6 +322,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Precision@K | Hits among the top K recommendations ÷ K, averaged over customers; hit = bought in the test period | Method | Confirmed | CF |
 | Exponential smoothing forecast | F(t) = α y(t−1) + (1 − α) F(t−1), F(2) = y(1); α from 0.1–0.9 chosen on 2024 | Series × month | Confirmed | HF |
 | Top-down category forecast | Total forecast × the category's share of the previous 12 months; combined = average of bottom-up and top-down | Category × month | Confirmed | HF |
+| Weekday run-rate | Revenue to day N × Σ weekday weights of the month ÷ Σ weights to day N; weight = average revenue on that weekday ÷ average daily revenue, from days before the month | Month × day | Confirmed | NW |
+| Nowcast blend | Revenue to day N + prior (average of the previous 3 months) × share of the month's weekday weight still to come | Month × day | Confirmed | NW |
 
 ## Data quality
 
@@ -376,3 +396,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-29 | Added driver tree, LMDI-I effect, overtaken pair, FIFO dispatch slot, cash application rule, open balance before a receipt, calendar-month age bucket, roll rate, loss rate and ECL provision, change-point BIC, shift permutation p-value and binomial dispersion test definitions. Extended the case study key. |
 | 2026-10-30 | Added revenue identity and variance split, irreducible swing, specialisation index, gateway category, stratified permutation effect, gap CV and random benchmark, random-ordering prediction, credit exposure, lift vs random, Little's Law stage count, exponential smoothing and top-down category forecast definitions. Extended the case study key. |
 | 2026-10-31 | Added within-customer size slope, frequency elasticity of order size, price deviation elasticity, FIFO cumulative departures, missingness chi-square, minimum detectable effect, CUPED adjustment, A/A false-alarm rate, smoothed churn probability and revenue at risk definitions. Extended the case study key. |
+| 2026-11-01 | Added uplift share, expected March orders, operating contribution, split-half reliability, rupee-day cost of credit, account owner, workload band, known contact, dispatch deadline, EDF feasibility ratio, weekday run-rate, nowcast blend, Kaplan–Meier time to cash and restricted mean definitions. Extended the case study key. |
