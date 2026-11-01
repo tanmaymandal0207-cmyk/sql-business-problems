@@ -34,3 +34,5 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 15 | [Revenue volatility drivers](15_revenue_volatility_drivers/) — how much of a monthly revenue miss is trend and season, order count, order size or chance? | Complete |
 | 16 | [Salesperson category specialisation](16_salesperson_category_specialisation/) — do salespeople specialise in categories beyond random allocation, and would a product-line split help? | Complete |
 | 17 | [Price elasticity natural experiment](17_price_elasticity_natural_experiment/) — do customers buy less when the random ±3 % invoice-price deviation goes against them, and what is billing at list worth? | Complete |
+| 18 | [Product profitability after cost to serve](18_product_cost_to_serve/) — which products still make money once freight, handling, sales effort, credit and bad debts are charged? | Complete |
+| 19 | [Salesperson workload balancing](19_salesperson_workload_balancing/) — how few account moves, each to a salesperson the customer already knows, bring every workload within 15 % of the average? | Complete |
