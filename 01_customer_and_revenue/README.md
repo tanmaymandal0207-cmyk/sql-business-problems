@@ -35,3 +35,4 @@ Case studies on how revenue is distributed across customers, how it changes over
 | 16 | [Gateway categories](16_gateway_categories/) — does the category of a customer's first order predict its value, once segment and first-order size are held constant? | Complete |
 | 17 | [Customer credit limits](17_customer_credit_limits/) — which credit limit or overdue-hold rule would have blocked the orders that were never paid? | Complete |
 | 18 | [Order frequency vs order size](18_order_frequency_vs_size/) — do customers who order more often place smaller orders, or is extra frequency extra revenue? | Complete |
+| 19 | [Who drives the March peak?](19_march_peak_drivers/) — is the year-end peak more customers, more orders or bigger orders, and do the same customers spike every March? | Complete |
