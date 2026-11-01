@@ -40,3 +40,5 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 22 | [Order timing regularity](22_order_timing_regularity/) — do customers order on a cycle or at random, and does being "due" make an order more likely? | Complete |
 | 23 | [Pilot design: power analysis and CUPED](23_pilot_design_power_cuped/) — how many customers, how long and which metric does a sales pilot need, checked with A/A tests? | Complete |
 | 24 | [Revenue at risk from churn](24_revenue_at_risk_churn_simulation/) — how much revenue could customer churn cost next year at 95 % confidence, back-tested on last year? | Complete |
+| 25 | [Month-end revenue nowcast](25_month_end_revenue_nowcast/) — from which day of the month do the orders booked so far predict month-end revenue better than the forecast, and how wide is the range? | Complete |
+| 26 | [Time to cash with Kaplan–Meier](26_time_to_cash_kaplan_meier/) — how long does cash really take once unpaid orders are counted, and how much do paid-only figures understate it? | Complete |
