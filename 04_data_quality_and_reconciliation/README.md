@@ -33,3 +33,4 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 14 | [Weekend and holiday postings test](14_weekend_holiday_postings/) — which transaction dates follow the business calendar, and which cheques are dated on non-banking days? | Complete |
 | 15 | [Cash application matching](15_cash_application_matching/) — how many receipts can rules match to invoices from customer, date and amount alone, and why do the rest fail? | Complete |
 | 16 | [Missing data mechanism](16_missing_data_mechanism/) — are missing values structural, random or systematic, and what does each gap do to the KPIs? | Complete |
+| 17 | [Data quality materiality](17_data_quality_materiality/) — which known data issues change the board KPIs by a material amount, and which fixes come first? | Complete |
