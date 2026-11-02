@@ -106,6 +106,12 @@ Shared definitions for metrics used across case studies. Each case study referen
 | ED | [Dispatch by deadline](../03_operations_and_supply_chain/18_deadline_based_dispatch/) |
 | NW | [Month-end revenue nowcast](../05_advanced_analytics/25_month_end_revenue_nowcast/) |
 | TK | [Time to cash with Kaplan–Meier](../05_advanced_analytics/26_time_to_cash_kaplan_meier/) |
+| OV | [Overdue balances and ordering](../01_customer_and_revenue/20_overdue_balances_and_ordering/) |
+| DK | [Discount creep](../02_sales_and_profitability/20_discount_creep/) |
+| HB | [Second dispatch hub](../03_operations_and_supply_chain/19_second_dispatch_hub/) |
+| MQ | [Data quality materiality](../04_data_quality_and_reconciliation/17_data_quality_materiality/) |
+| HO | [Salesperson handover difference in differences](../05_advanced_analytics/27_salesperson_handover_did/) |
+| CI | [Conformal forecast intervals](../05_advanced_analytics/28_conformal_forecast_intervals/) |
 
 ---
 
@@ -172,6 +178,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Margin bridge effects | Product × segment cells, m = P (1 − d) − c: volume = Δ total units × prior margin per unit; mix = Σ Δq × m₀ − volume; price = Σ q₁ (P₁ − P₀)(1 − d₀); discount = Σ q₁ P₁ (d₀ − d₁); new and lost cells separate. Effects sum exactly to the continuing-cell margin change; both periods use current unit cost | Product × segment | Confirmed | MG |
 | Operating contribution (product) | Gross profit − freight (by value) − handling and sales effort (per order, split equally by line) − cost of credit, before credit loss | Product | Confirmed | PP |
 | Split-half reliability | Correlation of a product's rate in April–September with the same rate in October–March; near 0 means the rate is not a property of the product | Product | Confirmed | PP |
+| Within-customer discount slope | Σ (years since first order − customer mean) × (order discount − customer mean) ÷ Σ (years − customer mean)², points a year; tested by 500 shuffles of discounts within customer | Customer pool | Confirmed | DK |
 
 > `products.unit_cost` is a single current cost per product, not a historical cost at the time of sale. Lines for products with a null `unit_cost` are excluded from margin metrics, and the exclusion is reported.
 
@@ -229,6 +236,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Frequency elasticity of order size | Slope of Δ ln(average order size) on Δ ln(orders) between consecutive years | Customer | Confirmed | FS |
 | Smoothed churn probability | (churners + 0.5) ÷ (customers + 1) in the frequency band at the previous snapshot | Band × snapshot | Confirmed | VR |
 | Revenue at risk | 95th / 99th percentile of simulated revenue lost (exposure of customers that churn), 2,000 independent-churn scenarios | Snapshot | Confirmed | VR |
+| Overdue month | At the start of the month the customer has a valid, fully delivered order delivered 90+ days earlier with under 99 % of its value received | Customer × month | Confirmed | OV |
+| Activity-matched within-customer difference | Orders in overdue months − orders in clear months, both as deviations from the customer's mean within its band of orders in the previous six months; tested by 500 within-cell relabellings | Customer × activity band | Confirmed | OV |
+| Handover effect | Treated-weighted average over cells (event quarter × segment × size third) of mean log growth of customers whose main salesperson changed − mean of those who kept theirs | Event quarter cohort | Confirmed | HO |
+| Pre-trend effect | The handover effect estimator applied to growth from the first to the second half of the year before the change | Event quarter cohort | Confirmed | HO |
 
 ## Collections
 
@@ -297,6 +308,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | FIFO cumulative departures | D(t) = MIN over s ≤ t of [A(s) + c × (t − s)]; order k ships on the first day with D(t) ≥ k | Day × capacity | Confirmed | CQ |
 | Dispatch deadline | Promised delivery date − median transit to the standardised shipping city (pre-window history, 20+ orders), never before the order date | Order | Confirmed | ED |
 | EDF feasibility ratio | Orders arriving on or after day s and due by day t ÷ (t − s + 1); the least capacity meeting every deadline is the largest ratio rounded up | Window of days | Confirmed | ED |
+| Haversine distance | 2 × 6,371 × asin(√(sin²(Δlat/2) + cos lat₁ cos lat₂ sin²(Δlon/2))) km between city centres | City pair | Confirmed | HB |
+| Transit curve | Average transit days by 250 km band from the inferred origin, made non-decreasing | Distance band | Confirmed | HB |
+| Hub transit saving | Curve(km from origin) − curve(km from the nearer of origin and hub) per shipment | Shipment × hub | Confirmed | HB |
 
 ## Product and demand
 
@@ -309,6 +323,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | ADI / CV² | Weeks ÷ weeks with demand; squared coefficient of variation of non-zero weekly demand. Pattern cut-offs 1.32 and 0.49 (Syntetos–Boylan) | Product | Confirmed | ID |
 | Croston / SBA forecast | Smoothed demand size ÷ smoothed interval, updated only in weeks with demand (α = 0.1); SBA = (1 − α/2) × Croston | Product × week | Confirmed | ID |
 | WAPE | Σ \|forecast − actual\| ÷ Σ actual | Method | Confirmed | ID |
+| MA6 forecast | Average units of the previous 6 months, zero months included | Product × month | Confirmed | CI |
+| Conformal 80 % range | MA6 + [smallest, largest] of the product's previous 12 errors (own), or MA6 + (MA6 + 1) × [10th, 90th percentile] of all products' scaled errors (pooled) | Product × month | Confirmed | CI |
 
 ## Revenue recognition and forecasting
 
@@ -342,6 +358,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Population stability index (PSI) | Σ (a − e) ln(a ÷ e) over bins, shares smoothed by 0.5 per bin; noise test: n N ÷ (n + N) × PSI ≈ χ²(bins − 1) with n, N in orders | Field × month | Confirmed | DD |
 | Calendar-blind expectation | Events × days of a type ÷ all days in the event's first-to-last span; tested with chi-square across weekdays | Event type × weekday | Confirmed | WH |
 | Missingness chi-square | Σ (missing − n p)² ÷ (n p (1 − p)) across groups (groups < 30 pooled), against the 1 % Wilson–Hilferty critical value | Field × dimension | Confirmed | NM |
+| KPI materiality | Corrected − as-reported KPI under one data rule; material if ≥ 1 % of an amount or count, or ≥ 0.5 points of a rate | KPI | Confirmed | MQ |
 
 ## Statistical testing
 
@@ -397,3 +414,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-30 | Added revenue identity and variance split, irreducible swing, specialisation index, gateway category, stratified permutation effect, gap CV and random benchmark, random-ordering prediction, credit exposure, lift vs random, Little's Law stage count, exponential smoothing and top-down category forecast definitions. Extended the case study key. |
 | 2026-10-31 | Added within-customer size slope, frequency elasticity of order size, price deviation elasticity, FIFO cumulative departures, missingness chi-square, minimum detectable effect, CUPED adjustment, A/A false-alarm rate, smoothed churn probability and revenue at risk definitions. Extended the case study key. |
 | 2026-11-01 | Added uplift share, expected March orders, operating contribution, split-half reliability, rupee-day cost of credit, account owner, workload band, known contact, dispatch deadline, EDF feasibility ratio, weekday run-rate, nowcast blend, Kaplan–Meier time to cash and restricted mean definitions. Extended the case study key. |
+| 2026-11-02 | Added overdue month, activity-matched within-customer difference, within-customer discount slope, haversine distance, transit curve, hub transit saving, KPI materiality, handover effect, pre-trend effect, MA6 forecast and conformal range definitions. Extended the case study key. |
