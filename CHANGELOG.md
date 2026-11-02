@@ -6,6 +6,22 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-02
+
+### Added
+- **Overdue balances and ordering** ([01_customer_and_revenue/20_overdue_balances_and_ordering](01_customer_and_revenue/20_overdue_balances_and_ordering/)). In overdue months customers place 1.49 orders a month against 0.43, but that compares big customers with small ones. For the same customer at the same recent activity, the difference is +0.011 orders (p = 0.71 over 500 relabellings). Collections can be firm without costing orders.
+- **Discount creep** ([02_sales_and_profitability/20_discount_creep](02_sales_and_profitability/20_discount_creep/)). Discount rises from 4.9 % on first orders to 7.0 % after the 30th, but the same customer's discount moves +0.06 points a year (p = 0.22). Segment sets the discount. A "no creep" cap would net −₹1.8 lakh.
+- **Second dispatch hub** ([03_operations_and_supply_chain/19_second_dispatch_hub](03_operations_and_supply_chain/19_second_dispatch_hub/)). The data place the warehouse in the Mumbai–Pune area. A Kanpur hub would cut 1.16 transit days per shipment and late deliveries from 730 to 598 a year, but would save only about ₹7 lakh of outbound freight.
+- **Data quality materiality** ([04_data_quality_and_reconciliation/17_data_quality_materiality](04_data_quality_and_reconciliation/17_data_quality_materiality/)). Five of ten board KPIs move materially: NULL discounts take ₹53 lakh off revenue, missing promise dates cost 1.5 points of on-time delivery, unassigned orders leave the league table 3.1 % short, and city spellings cut Bengaluru revenue by a fifth.
+- **Salesperson handover difference in differences** ([05_advanced_analytics/27_salesperson_handover_did](05_advanced_analytics/27_salesperson_handover_did/)). The raw −6.9 % against +15.6 % becomes a matched effect of −12.3 % with p = 0.28. The changed accounts had grown faster just before (+18.5 % pre-trend). Handovers to new hires were close to neutral (−2.6 %).
+- **Conformal forecast intervals** ([05_advanced_analytics/28_conformal_forecast_intervals](05_advanced_analytics/28_conformal_forecast_intervals/)). The normal ± 1.28 SD range covers 82 % but is exceeded 13.3 % of the time (meant to be 10 %), because errors are skewed. A pooled conformal range is exceeded 10.1 % of the time; the product's own errors suit intermittent items.
+
+### Changed
+- `metric_definitions.md`: added overdue month, activity-matched within-customer difference, within-customer discount slope, haversine distance, transit curve, hub saving, materiality test, handover effect, pre-trend effect, MA6 forecast and conformal range definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 104 case studies are now complete.
+
+---
+
 ## 2026-11-01
 
 ### Added

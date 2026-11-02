@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-98%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 98 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-104%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 104 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -78,7 +78,8 @@ sql-business-problems/
 │   ├── 16_gateway_categories/
 │   ├── 17_customer_credit_limits/
 │   ├── 18_order_frequency_vs_size/
-│   └── 19_march_peak_drivers/
+│   ├── 19_march_peak_drivers/
+│   └── 20_overdue_balances_and_ordering/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -98,7 +99,8 @@ sql-business-problems/
 │   ├── 16_salesperson_category_specialisation/
 │   ├── 17_price_elasticity_natural_experiment/
 │   ├── 18_product_cost_to_serve/
-│   └── 19_salesperson_workload_balancing/
+│   ├── 19_salesperson_workload_balancing/
+│   └── 20_discount_creep/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -117,7 +119,8 @@ sql-business-problems/
 │   ├── 15_dispatch_queue_discipline/
 │   ├── 16_littles_law_backlog_planning/
 │   ├── 17_dispatch_capacity_simulation/
-│   └── 18_deadline_based_dispatch/
+│   ├── 18_deadline_based_dispatch/
+│   └── 19_second_dispatch_hub/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -134,7 +137,8 @@ sql-business-problems/
 │   ├── 13_data_drift_monitoring/
 │   ├── 14_weekend_holiday_postings/
 │   ├── 15_cash_application_matching/
-│   └── 16_missing_data_mechanism/
+│   ├── 16_missing_data_mechanism/
+│   └── 17_data_quality_materiality/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
@@ -161,7 +165,9 @@ sql-business-problems/
 │   ├── 23_pilot_design_power_cuped/
 │   ├── 24_revenue_at_risk_churn_simulation/
 │   ├── 25_month_end_revenue_nowcast/
-│   └── 26_time_to_cash_kaplan_meier/
+│   ├── 26_time_to_cash_kaplan_meier/
+│   ├── 27_salesperson_handover_did/
+│   └── 28_conformal_forecast_intervals/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -276,6 +282,12 @@ Additional tools will be listed here only when they are used in a published case
 | 96 | [Dispatch by deadline: the capacity needed to keep every promise](03_operations_and_supply_chain/18_deadline_based_dispatch/) | Operations and supply chain | Complete |
 | 97 | [Nowcasting month-end revenue](05_advanced_analytics/25_month_end_revenue_nowcast/) | Advanced analytics | Complete |
 | 98 | [Time to cash with Kaplan–Meier](05_advanced_analytics/26_time_to_cash_kaplan_meier/) | Advanced analytics | Complete |
+| 99 | [Do overdue balances slow a customer's ordering?](01_customer_and_revenue/20_overdue_balances_and_ordering/) | Customer and revenue | Complete |
+| 100 | [Discount creep: do customers get bigger discounts the longer they buy?](02_sales_and_profitability/20_discount_creep/) | Sales and profitability | Complete |
+| 101 | [A second dispatch hub: where would it cut delivery times most?](03_operations_and_supply_chain/19_second_dispatch_hub/) | Operations and supply chain | Complete |
+| 102 | [Data quality materiality: which issues move the board KPIs?](04_data_quality_and_reconciliation/17_data_quality_materiality/) | Data quality and reconciliation | Complete |
+| 103 | [Does a salesperson handover cost revenue? (difference in differences)](05_advanced_analytics/27_salesperson_handover_did/) | Advanced analytics | Complete |
+| 104 | [Honest forecast ranges: conformal intervals for product demand](05_advanced_analytics/28_conformal_forecast_intervals/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

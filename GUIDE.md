@@ -238,6 +238,12 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Dispatch by deadline | `dd_orders`, `dd_all_windows`, `dd_windows`, `dd_fifo` |
 | Month-end revenue nowcast | `nc_days`, `nc_months`, `nc_weights`, `nc_nowcasts` |
 | Time to cash with Kaplan–Meier | `tc_orders`, `tc_curves`, `tc_summary` |
+| Overdue balances and ordering | `ob_months`, `ob_within`, `ob_permutations` |
+| Discount creep | `dc_orders`, `dc_shuffles` |
+| Second dispatch hub | `hb_cities`, `hb_shipments`, `hb_distances`, `hb_origin_fit`, `hb_curve`, `hb_freight_model`, `hb_scenarios` |
+| Data quality materiality | `dq_lines`, `dq_city_map`, `dq_customer_master`, `dq_kpis` |
+| Salesperson handover difference in differences | `ho_windows`, `ho_panel`, `ho_permutations`, `ho_effects` |
+| Conformal forecast intervals | `cf_demand`, `cf_intervals`, `cf_scores` |
 
 ### 5.4 If something does not match
 
@@ -379,3 +385,10 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Run-rate** | Revenue so far scaled up to the full period, by calendar days or by the weight of the days still to come |
 | **Kaplan–Meier estimator** | The share of cases still open after t days, built day by day so that cases not yet closed (censored) count for as long as they have been observed |
 | **Restricted mean** | The area under a survival curve up to a horizon: the average time to the event within that horizon |
+| **Within-customer comparison** | Comparing each customer only with itself (for example, months with and without a debt), so differences between customers cannot explain the result |
+| **Composition effect** | A change in an average that comes from a change in who is being averaged, not from any member changing |
+| **Haversine distance** | The straight-line (great-circle) distance between two points from their latitude and longitude |
+| **Materiality** | Whether an error is large enough to change a decision; here 1 % of an amount or 0.5 points of a rate |
+| **Difference in differences** | The change in a treated group minus the change in a comparable untreated group over the same period |
+| **Pre-trend test** | Running the same comparison on the period before the change, to check that the groups were moving alike beforehand |
+| **Conformal interval** | A forecast range built from the sizes of recent forecast errors, with no assumption about their shape |
