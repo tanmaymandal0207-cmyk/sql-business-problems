@@ -36,3 +36,4 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 17 | [Price elasticity natural experiment](17_price_elasticity_natural_experiment/) — do customers buy less when the random ±3 % invoice-price deviation goes against them, and what is billing at list worth? | Complete |
 | 18 | [Product profitability after cost to serve](18_product_cost_to_serve/) — which products still make money once freight, handling, sales effort, credit and bad debts are charged? | Complete |
 | 19 | [Salesperson workload balancing](19_salesperson_workload_balancing/) — how few account moves, each to a salesperson the customer already knows, bring every workload within 15 % of the average? | Complete |
+| 20 | [Discount creep](20_discount_creep/) — does the same customer's discount rise the longer it buys, or do frequent buyers simply come from high-discount segments? | Complete |
