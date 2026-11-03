@@ -8,7 +8,7 @@ Business problems analysed and answered with SQL — each case study starts from
 
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
-  <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
+  <img src="https://img.shields.io/badge/Categories-6-DCE6F2?labelColor=17283B" alt="Categories: 6">
   <img src="https://img.shields.io/badge/Case%20studies-105%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 105 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
