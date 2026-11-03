@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="Zomato Bangalore SQL Analysis banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1f2a"/>
+      <stop offset="1" stop-color="#2a1f24"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="320" fill="url(#bg)"/>
+  <rect width="1280" height="320" fill="url(#grid)"/>
+
+  <!-- left accent bar -->
+  <rect x="64" y="72" width="6" height="176" rx="3" fill="#e8743b"/>
+
+  <!-- title block -->
+  <text x="96" y="104" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" letter-spacing="3" fill="#e8743b" font-weight="600">BIGQUERY · SQL CASE STUDY</text>
+  <text x="96" y="160" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="50" fill="#f5f2ee" font-weight="700">Zomato Bangalore</text>
+  <text x="96" y="208" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="30" fill="#c9c3bc" font-weight="400">Data Quality → Restaurant Market Analysis</text>
+  <text x="96" y="246" font-family="Consolas, Menlo, monospace" font-size="16" fill="#8f8a86">profile · standardise · validate · deduplicate · analyse</text>
+
+  <!-- stat cards -->
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <rect x="836" y="64" width="180" height="88" rx="10" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.10"/>
+    <text x="856" y="106" font-size="30" font-weight="700" fill="#f5f2ee">51,717</text>
+    <text x="856" y="134" font-size="14" fill="#a7a19b">listing rows</text>
+
+    <rect x="1036" y="64" width="180" height="88" rx="10" fill="#e8743b" fill-opacity="0.16" stroke="#e8743b" stroke-opacity="0.55"/>
+    <text x="1056" y="106" font-size="30" font-weight="700" fill="#f5f2ee">12,453</text>
+    <text x="1056" y="134" font-size="14" fill="#f0b896">unique restaurants</text>
+
+    <rect x="836" y="168" width="180" height="88" rx="10" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.10"/>
+    <text x="856" y="210" font-size="30" font-weight="700" fill="#f5f2ee">93</text>
+    <text x="856" y="238" font-size="14" fill="#a7a19b">localities</text>
+
+    <rect x="1036" y="168" width="180" height="88" rx="10" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.10"/>
+    <text x="1056" y="210" font-size="30" font-weight="700" fill="#f5f2ee">8</text>
+    <text x="1056" y="238" font-size="14" fill="#a7a19b">business questions</text>
+  </g>
+
+  <!-- map-pin motif -->
+  <g transform="translate(746 118)" fill="none" stroke="#e8743b" stroke-width="3" stroke-opacity="0.85">
+    <path d="M32 0C14 0 0 14 0 31c0 22 32 53 32 53s32-31 32-53C64 14 50 0 32 0z"/>
+    <circle cx="32" cy="31" r="11"/>
+  </g>
+</svg>
