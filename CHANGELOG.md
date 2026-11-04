@@ -6,14 +6,6 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
-## 2026-11-03
-
-### Added
-- **Zomato Bangalore restaurant market** ([06_public_datasets/01_zomato_bangalore_restaurant_market](06_public_datasets/01_zomato_bangalore_restaurant_market/)). First case study on a real public dataset. The 51,717 listing rows cover only 12,453 restaurants, so every metric is rebuilt at restaurant grain; at that grain Whitefield, not BTM, is the largest locality, and no large locality averages 3.8 or more. Includes column profiling, the cleaning layer, validation, eight business questions with results, and a review log of the original practice queries.
-
-### Changed
-- `README.md`: added the `06_public_datasets` category, case study 105 and a note on its dataset; case-study badge updated to 105.
-
 ## 2026-11-02
 
 ### Added

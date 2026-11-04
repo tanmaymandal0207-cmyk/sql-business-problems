@@ -8,8 +8,8 @@ Business problems analysed and answered with SQL — each case study starts from
 
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
-  <img src="https://img.shields.io/badge/Categories-6-DCE6F2?labelColor=17283B" alt="Categories: 6">
-  <img src="https://img.shields.io/badge/Case%20studies-105%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 105 complete">
+  <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
+  <img src="https://img.shields.io/badge/Case%20studies-104%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 104 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -52,7 +52,6 @@ Every case study follows the same workflow:
 | [`03_operations_and_supply_chain`](03_operations_and_supply_chain/) | Order fulfilment, delivery performance, shipping cost and returns |
 | [`04_data_quality_and_reconciliation`](04_data_quality_and_reconciliation/) | Referential integrity, duplicates, standardisation and order-to-cash reconciliation |
 | [`05_advanced_analytics`](05_advanced_analytics/) | Cohorts, segmentation, time-series patterns and other multi-step analyses |
-| [`06_public_datasets`](06_public_datasets/) | Case studies built on real public datasets rather than `sahyadri_b2b` |
 | [`datasets_and_documentation`](datasets_and_documentation/) | Dataset schema and shared metric definitions |
 
 ```
@@ -169,8 +168,6 @@ sql-business-problems/
 │   ├── 26_time_to_cash_kaplan_meier/
 │   ├── 27_salesperson_handover_did/
 │   └── 28_conformal_forecast_intervals/
-├── 06_public_datasets/
-│   └── 01_zomato_bangalore_restaurant_market/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -291,15 +288,12 @@ Additional tools will be listed here only when they are used in a published case
 | 102 | [Data quality materiality: which issues move the board KPIs?](04_data_quality_and_reconciliation/17_data_quality_materiality/) | Data quality and reconciliation | Complete |
 | 103 | [Does a salesperson handover cost revenue? (difference in differences)](05_advanced_analytics/27_salesperson_handover_did/) | Advanced analytics | Complete |
 | 104 | [Honest forecast ranges: conformal intervals for product demand](05_advanced_analytics/28_conformal_forecast_intervals/) | Advanced analytics | Complete |
-| 105 | [Zomato Bangalore: from listing data quality to restaurant market analysis](06_public_datasets/01_zomato_bangalore_restaurant_market/) | Public datasets | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## 7. Data and methodology
 
 Case studies initially use the **`sahyadri_b2b`** dataset — transactional data for a B2B industrial products distributor covering customers, products, sales orders, order line items, payments, shipments and employees. The table structure, keys and known data characteristics are documented in [`datasets_and_documentation/schema.md`](datasets_and_documentation/schema.md).
-
-Case study 105 uses a real public dataset instead: **Zomato Bangalore Restaurants** (Kaggle; 51,717 listing rows covering 12,453 restaurants). Its schema, cleaning log and grain decisions are documented inside [its own folder](06_public_datasets/01_zomato_bangalore_restaurant_market/).
 
 For each analysis, the following are documented alongside the SQL:
 
