@@ -6,6 +6,20 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-05
+
+### Added
+- **Industry diversification** ([01_customer_and_revenue/21_industry_diversification](01_customer_and_revenue/21_industry_diversification/)). The 15 industries' monthly swings largely cancel (diversification ratio 2.09; the company is no more volatile than 500 independent shuffles). Industrial Distribution adds risk in line with its 36.6 % share. "Unknown" (4.1 % of revenue, 18.1 % of the swing) and Steel & Metals add more; General Engineering steadies revenue. Volatility follows top-customer concentration (correlation +0.61).
+- **Early-payment discount** ([02_sales_and_profitability/21_early_payment_discount](02_sales_and_profitability/21_early_payment_discount/)). "2/10 net 60" implies about 15 % a year against a 12 % cost of money. It loses ₹16.8 lakh a year if every slower order switches, and only orders paid after day 71 gain. 1/10 breaks even at 13 % uptake and suits Enterprise (no early payers today). SMB customers already pay at day 10.
+- **Six-day dispatch week** ([03_operations_and_supply_chain/20_six_day_dispatch_week](03_operations_and_supply_chain/20_six_day_dispatch_week/)). Sunday carries 15.2 % of dispatch but only 55 orders arrive on Sundays. Deadline-first dispatch at 14 a day on six days meets every deadline: the same 84 order slots a week as 12 × 7. First-in-first-out would need 18.
+- **Working-day adjustment** ([05_advanced_analytics/29_working_day_adjustment](05_advanced_analytics/29_working_day_adjustment/)). A Sunday brings 0.09 of an average day and a Saturday about half; months differ by up to 14.5 % in trading days. The calendar explains about 8 % of month-on-month variation (slope 0.94 out of sample) and flips the sign of 1 of 32 changes. February is the one month where it is the story.
+
+### Changed
+- `metric_definitions.md`: added industry swing, risk contribution, diversification ratio, early-payment break-even day and uptake, six-day window capacity, working-day FIFO departures, weekday weight and trading-day index definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 108 case studies are now complete.
+
+---
+
 ## 2026-11-02
 
 ### Added

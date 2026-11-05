@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-104%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 104 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-108%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 108 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -79,7 +79,8 @@ sql-business-problems/
 │   ├── 17_customer_credit_limits/
 │   ├── 18_order_frequency_vs_size/
 │   ├── 19_march_peak_drivers/
-│   └── 20_overdue_balances_and_ordering/
+│   ├── 20_overdue_balances_and_ordering/
+│   └── 21_industry_diversification/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -100,7 +101,8 @@ sql-business-problems/
 │   ├── 17_price_elasticity_natural_experiment/
 │   ├── 18_product_cost_to_serve/
 │   ├── 19_salesperson_workload_balancing/
-│   └── 20_discount_creep/
+│   ├── 20_discount_creep/
+│   └── 21_early_payment_discount/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -120,7 +122,8 @@ sql-business-problems/
 │   ├── 16_littles_law_backlog_planning/
 │   ├── 17_dispatch_capacity_simulation/
 │   ├── 18_deadline_based_dispatch/
-│   └── 19_second_dispatch_hub/
+│   ├── 19_second_dispatch_hub/
+│   └── 20_six_day_dispatch_week/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -167,7 +170,8 @@ sql-business-problems/
 │   ├── 25_month_end_revenue_nowcast/
 │   ├── 26_time_to_cash_kaplan_meier/
 │   ├── 27_salesperson_handover_did/
-│   └── 28_conformal_forecast_intervals/
+│   ├── 28_conformal_forecast_intervals/
+│   └── 29_working_day_adjustment/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -288,6 +292,10 @@ Additional tools will be listed here only when they are used in a published case
 | 102 | [Data quality materiality: which issues move the board KPIs?](04_data_quality_and_reconciliation/17_data_quality_materiality/) | Data quality and reconciliation | Complete |
 | 103 | [Does a salesperson handover cost revenue? (difference in differences)](05_advanced_analytics/27_salesperson_handover_did/) | Advanced analytics | Complete |
 | 104 | [Honest forecast ranges: conformal intervals for product demand](05_advanced_analytics/28_conformal_forecast_intervals/) | Advanced analytics | Complete |
+| 105 | [Industry diversification: which verticals steady revenue and which make it swing?](01_customer_and_revenue/21_industry_diversification/) | Customer and revenue | Complete |
+| 106 | [Early-payment discount: would "2/10 net 60" pay for itself?](02_sales_and_profitability/21_early_payment_discount/) | Sales and profitability | Complete |
+| 107 | [Can the warehouse close on Sundays?](03_operations_and_supply_chain/20_six_day_dispatch_week/) | Operations and supply chain | Complete |
+| 108 | [Working-day adjustment: how much of each month's change is just the calendar?](05_advanced_analytics/29_working_day_adjustment/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

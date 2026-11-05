@@ -244,6 +244,10 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Data quality materiality | `dq_lines`, `dq_city_map`, `dq_customer_master`, `dq_kpis` |
 | Salesperson handover difference in differences | `ho_windows`, `ho_panel`, `ho_permutations`, `ho_effects` |
 | Conformal forecast intervals | `cf_demand`, `cf_intervals`, `cf_scores` |
+| Industry diversification | `id_months`, `id_company`, `id_shuffles`, `id_contribution` |
+| Early-payment discount | `ep_orders`, `ep_terms`, `ep_summary` |
+| Six-day dispatch week | `sw_days`, `sw_orders`, `sw_windows`, `sw_fifo` |
+| Working-day adjustment | `wd_days`, `wd_weights`, `wd_months` |
 
 ### 5.4 If something does not match
 
@@ -392,3 +396,7 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Difference in differences** | The change in a treated group minus the change in a comparable untreated group over the same period |
 | **Pre-trend test** | Running the same comparison on the period before the change, to check that the groups were moving alike beforehand |
 | **Conformal interval** | A forecast range built from the sizes of recent forecast errors, with no assumption about their shape |
+| **Risk contribution** | A part's share of the total's variance: its covariance with the total ÷ the total's variance; the shares add up to 100 % |
+| **Diversification ratio** | The sum of the parts' standard deviations ÷ the total's; above 1 means the parts' swings partly cancel |
+| **Early-payment discount** | A price reduction for paying within a short window (for example "2/10 net 60": 2 % off if paid within 10 days, otherwise due in 60) |
+| **Trading-day index** | How many "average days" of business a month contains, from its mix of weekdays; 1 = a typical month |
