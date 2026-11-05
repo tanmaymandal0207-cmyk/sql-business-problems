@@ -112,6 +112,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | MQ | [Data quality materiality](../04_data_quality_and_reconciliation/17_data_quality_materiality/) |
 | HO | [Salesperson handover difference in differences](../05_advanced_analytics/27_salesperson_handover_did/) |
 | CI | [Conformal forecast intervals](../05_advanced_analytics/28_conformal_forecast_intervals/) |
+| VD | [Industry diversification](../01_customer_and_revenue/21_industry_diversification/) |
+| EP | [Early-payment discount](../02_sales_and_profitability/21_early_payment_discount/) |
+| SW | [Six-day dispatch week](../03_operations_and_supply_chain/20_six_day_dispatch_week/) |
+| WD | [Working-day adjustment](../05_advanced_analytics/29_working_day_adjustment/) |
 
 ---
 
@@ -240,6 +244,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Activity-matched within-customer difference | Orders in overdue months − orders in clear months, both as deviations from the customer's mean within its band of orders in the previous six months; tested by 500 within-cell relabellings | Customer × activity band | Confirmed | OV |
 | Handover effect | Treated-weighted average over cells (event quarter × segment × size third) of mean log growth of customers whose main salesperson changed − mean of those who kept theirs | Event quarter cohort | Confirmed | HO |
 | Pre-trend effect | The handover effect estimator applied to growth from the first to the second half of the year before the change | Event quarter cohort | Confirmed | HO |
+| Industry swing | Monthly revenue of an industry − its own least-squares straight-line trend | Industry × month | Confirmed | VD |
+| Risk contribution | Cov(industry swing, company swing) ÷ Var(company swing); shares add up to 100 % | Industry | Confirmed | VD |
+| Diversification ratio | Σ industry swing standard deviations ÷ company swing standard deviation | Company | Confirmed | VD |
 
 ## Collections
 
@@ -269,6 +276,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Rupee-day cost of credit | (Σ payments × days from final delivery to payment + balance unpaid at 180 days × days to day 180) × 12 % ÷ 365 | Order line | Confirmed | PP |
 | Kaplan–Meier time to cash | S(t) = Π over days u ≤ t of (1 − orders settled on day u ÷ orders still waiting); settled = payments reach 99 % of value; open orders censored at the as-of date | Group | Confirmed | TK |
 | Restricted mean time to cash | Σ S(t) for t = 0 … 364: average days to cash within the first year, an unpaid order counting 365 | Group | Confirmed | TK |
+| Early-payment break-even day | 10 + discount × 365 ÷ cost of money: a switch to day-10 payment gains only for orders otherwise paid after this day | Discount level | Confirmed | EP |
+| Break-even uptake | Windfall on orders already paid within 10 days ÷ net gain if every slower settled order switched | Segment × discount | Confirmed | EP |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -311,6 +320,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Haversine distance | 2 × 6,371 × asin(√(sin²(Δlat/2) + cos lat₁ cos lat₂ sin²(Δlon/2))) km between city centres | City pair | Confirmed | HB |
 | Transit curve | Average transit days by 250 km band from the inferred origin, made non-decreasing | Distance band | Confirmed | HB |
 | Hub transit saving | Curve(km from origin) − curve(km from the nearer of origin and hub) per shipment | Shipment × hub | Confirmed | HB |
+| Six-day window capacity | Orders arriving on or after day s and due by day t (Sunday deadlines moved to Saturday) ÷ working days in [s, t] | Window of days | Confirmed | SW |
+| Working-day FIFO departures | D(t) = c W(t) + MIN(0, running MIN of A(s) − c W(s)), W = working days to date | Day × capacity | Confirmed | SW |
 
 ## Product and demand
 
@@ -340,6 +351,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Top-down category forecast | Total forecast × the category's share of the previous 12 months; combined = average of bottom-up and top-down | Category × month | Confirmed | HF |
 | Weekday run-rate | Revenue to day N × Σ weekday weights of the month ÷ Σ weights to day N; weight = average revenue on that weekday ÷ average daily revenue, from days before the month | Month × day | Confirmed | NW |
 | Nowcast blend | Revenue to day N + prior (average of the previous 3 months) × share of the month's weekday weight still to come | Month × day | Confirmed | NW |
+| Weekday weight (calendar) | Average booked revenue on a weekday ÷ average daily revenue, estimated on 2024 | Weekday | Confirmed | WD |
+| Trading-day index | Σ weekday weights of a month's days ÷ the average of that sum over all months; adjusted revenue = revenue ÷ index | Month | Confirmed | WD |
 
 ## Data quality
 
@@ -415,3 +428,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-10-31 | Added within-customer size slope, frequency elasticity of order size, price deviation elasticity, FIFO cumulative departures, missingness chi-square, minimum detectable effect, CUPED adjustment, A/A false-alarm rate, smoothed churn probability and revenue at risk definitions. Extended the case study key. |
 | 2026-11-01 | Added uplift share, expected March orders, operating contribution, split-half reliability, rupee-day cost of credit, account owner, workload band, known contact, dispatch deadline, EDF feasibility ratio, weekday run-rate, nowcast blend, Kaplan–Meier time to cash and restricted mean definitions. Extended the case study key. |
 | 2026-11-02 | Added overdue month, activity-matched within-customer difference, within-customer discount slope, haversine distance, transit curve, hub transit saving, KPI materiality, handover effect, pre-trend effect, MA6 forecast and conformal range definitions. Extended the case study key. |
+| 2026-11-05 | Added industry swing, risk contribution, diversification ratio, early-payment break-even day and uptake, six-day window capacity, working-day FIFO departures, calendar weekday weight and trading-day index definitions. Extended the case study key. |
