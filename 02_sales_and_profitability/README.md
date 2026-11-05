@@ -37,3 +37,4 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 18 | [Product profitability after cost to serve](18_product_cost_to_serve/) — which products still make money once freight, handling, sales effort, credit and bad debts are charged? | Complete |
 | 19 | [Salesperson workload balancing](19_salesperson_workload_balancing/) — how few account moves, each to a salesperson the customer already knows, bring every workload within 15 % of the average? | Complete |
 | 20 | [Discount creep](20_discount_creep/) — does the same customer's discount rise the longer it buys, or do frequent buyers simply come from high-discount segments? | Complete |
+| 21 | [Early-payment discount](21_early_payment_discount/) — would "2/10 net 60" pay for itself, and which discount level and segments would? | Complete |
