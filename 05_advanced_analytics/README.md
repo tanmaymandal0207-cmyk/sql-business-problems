@@ -44,3 +44,4 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 26 | [Time to cash with Kaplan–Meier](26_time_to_cash_kaplan_meier/) — how long does cash really take once unpaid orders are counted, and how much do paid-only figures understate it? | Complete |
 | 27 | [Salesperson handover difference in differences](27_salesperson_handover_did/) — compared with matched accounts, does a change of salesperson cost revenue, and were the moved accounts already declining? | Complete |
 | 28 | [Conformal forecast intervals](28_conformal_forecast_intervals/) — do 80 % demand ranges contain demand 80 % of the time, and do conformal ranges built from past errors do better? | Complete |
+| 29 | [Working-day adjustment](29_working_day_adjustment/) — how much of each month's revenue change is just the calendar, and when does adjusting for it change the story? | Complete |
