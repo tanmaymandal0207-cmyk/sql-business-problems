@@ -6,6 +6,22 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-06
+
+### Added
+- **Large-order pull-forward** ([01_customer_and_revenue/22_large_order_pull_forward](01_customer_and_revenue/22_large_order_pull_forward/)). After an order of ₹5 lakh or more, the customer's regular ordering dips 8–10 % for one to two months, then recovers. Against 400 placebo date sets, only the 60-day window reaches p < 0.05, and not on a common event set. At most about 8 % of a large order is borrowed from the next two months.
+- **Annual rate contracts** ([02_sales_and_profitability/22_annual_rate_contracts](02_sales_and_profitability/22_annual_rate_contracts/)). Half of revenue sits in customer-category pairs bought in 9+ of 11 quarters, against 8.8 % at product level. A commitment of 50 % of last year's value was met by about 82 % of qualifying pairs in both back-tests. 221 contracts with 60 customers would cover ₹20.01 crore and commit ₹10 crore.
+- **Freight zone audit** ([03_operations_and_supply_chain/21_freight_zone_audit](03_operations_and_supply_chain/21_freight_zone_audit/)). The carrier charges six regional zones (₹361 to ₹1,498) plus 0.611 % of value, explaining 97.9 % of charges. Hubballi, Hyderabad and Jaipur sit 20–46 % above a distance benchmark, but the six flagged lanes cost only ₹0.39 lakh a year extra. A 0.1-point cut in the value rate is worth ₹3.64 lakh.
+- **Quiet categories** ([01_customer_and_revenue/23_quiet_categories](01_customer_and_revenue/23_quiet_categories/)). 3.6 % of established customer-category pairs go quiet for three quarters while the customer keeps ordering, against 2.4 % expected by chance (z = 4.0). 81 % come back within two quarters; hydraulics, motors and pumps go quiet most.
+- **FY target Monte Carlo** ([05_advanced_analytics/30_fy_target_monte_carlo](05_advanced_analytics/30_fy_target_monte_carlo/)). An order-level simulation of October 2026 – March 2027 gives a median FY 2026-27 of ₹44.45 crore if order sizes fall back and ₹50.78 crore if the 25 % jump holds. ₹40 crore is safe, ₹45 crore is reached in 69 % of pooled runs. Count-only growth was within 2 % from June in the FY 2025-26 back-test but missed April – September 2026 by 23 %.
+- **Order size extreme value** ([05_advanced_analytics/31_order_size_extreme_value](05_advanced_analytics/31_order_size_extreme_value/)). Orders above ₹5 lakh follow a generalised Pareto with shape 0.625 (bootstrap 0.46–0.70). The size exceeded once a month is ₹11.6 lakh, once a quarter ₹21.4 lakh, once a year ₹48.5 lakh. A 2024–2025 fit expected 0.1 orders above ₹1 crore in 2026; there were 2.
+
+### Changed
+- `metric_definitions.md`: added pull-forward relative change and placebo p-value, rate-contract qualification and safe commitment, freight zone and distance benchmark, quiet spell and chance rate, compound Poisson FY simulation and back-test percentile, and GPD shape, scale and return level definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 114 case studies are now complete.
+
+---
+
 ## 2026-11-05
 
 ### Added

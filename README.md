@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-108%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 108 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-114%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 114 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -80,7 +80,9 @@ sql-business-problems/
 │   ├── 18_order_frequency_vs_size/
 │   ├── 19_march_peak_drivers/
 │   ├── 20_overdue_balances_and_ordering/
-│   └── 21_industry_diversification/
+│   ├── 21_industry_diversification/
+│   ├── 22_large_order_pull_forward/
+│   └── 23_quiet_categories/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -102,7 +104,8 @@ sql-business-problems/
 │   ├── 18_product_cost_to_serve/
 │   ├── 19_salesperson_workload_balancing/
 │   ├── 20_discount_creep/
-│   └── 21_early_payment_discount/
+│   ├── 21_early_payment_discount/
+│   └── 22_annual_rate_contracts/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -123,7 +126,8 @@ sql-business-problems/
 │   ├── 17_dispatch_capacity_simulation/
 │   ├── 18_deadline_based_dispatch/
 │   ├── 19_second_dispatch_hub/
-│   └── 20_six_day_dispatch_week/
+│   ├── 20_six_day_dispatch_week/
+│   └── 21_freight_zone_audit/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -171,7 +175,9 @@ sql-business-problems/
 │   ├── 26_time_to_cash_kaplan_meier/
 │   ├── 27_salesperson_handover_did/
 │   ├── 28_conformal_forecast_intervals/
-│   └── 29_working_day_adjustment/
+│   ├── 29_working_day_adjustment/
+│   ├── 30_fy_target_monte_carlo/
+│   └── 31_order_size_extreme_value/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -296,6 +302,12 @@ Additional tools will be listed here only when they are used in a published case
 | 106 | [Early-payment discount: would "2/10 net 60" pay for itself?](02_sales_and_profitability/21_early_payment_discount/) | Sales and profitability | Complete |
 | 107 | [Can the warehouse close on Sundays?](03_operations_and_supply_chain/20_six_day_dispatch_week/) | Operations and supply chain | Complete |
 | 108 | [Working-day adjustment: how much of each month's change is just the calendar?](05_advanced_analytics/29_working_day_adjustment/) | Advanced analytics | Complete |
+| 109 | [Do large orders steal next quarter's demand?](01_customer_and_revenue/22_large_order_pull_forward/) | Customer and revenue | Complete |
+| 110 | [Annual rate contracts: who to offer them to, and what volume to ask for](02_sales_and_profitability/22_annual_rate_contracts/) | Sales and profitability | Complete |
+| 111 | [Freight zone audit: does the carrier's zone map match distance?](03_operations_and_supply_chain/21_freight_zone_audit/) | Operations and supply chain | Complete |
+| 112 | [Quiet categories: are customers moving categories to competitors?](01_customer_and_revenue/23_quiet_categories/) | Customer and revenue | Complete |
+| 113 | [Will we hit the full-year target? A Monte Carlo of the rest of the year](05_advanced_analytics/30_fy_target_monte_carlo/) | Advanced analytics | Complete |
+| 114 | [How big can one order get? Extreme value analysis for approval limits](05_advanced_analytics/31_order_size_extreme_value/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

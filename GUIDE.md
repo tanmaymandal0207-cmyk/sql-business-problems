@@ -248,6 +248,12 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Early-payment discount | `ep_orders`, `ep_terms`, `ep_summary` |
 | Six-day dispatch week | `sw_days`, `sw_orders`, `sw_windows`, `sw_fifo` |
 | Working-day adjustment | `wd_days`, `wd_weights`, `wd_months` |
+| Large-order pull-forward | `po_orders`, `po_days`, `po_scores`, `po_sets` |
+| Annual rate contracts | `rc_lines`, `rc_pairs`, `rc_levels`, `rc_offers` |
+| Freight zone audit | `fz_cities`, `fz_shipments`, `fz_rate`, `fz_lanes` |
+| Quiet categories | `qc_panel`, `qc_events` |
+| FY target Monte Carlo | `ft_orders`, `ft_pool`, `ft_months`, `ft_cutoffs`, `ft_growth`, `ft_plan`, `ft_counts`, `ft_sims`, `ft_backtest` |
+| Order size extreme value | `ev_orders`, `ev_fits`, `ev_bootstrap` |
 
 ### 5.4 If something does not match
 
@@ -400,3 +406,9 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Diversification ratio** | The sum of the parts' standard deviations ÷ the total's; above 1 means the parts' swings partly cancel |
 | **Early-payment discount** | A price reduction for paying within a short window (for example "2/10 net 60": 2 % off if paid within 10 days, otherwise due in 60) |
 | **Trading-day index** | How many "average days" of business a month contains, from its mix of weekdays; 1 = a typical month |
+| **Placebo test** | Repeating an analysis on random dates where nothing happened, to see how often chance alone gives a result as large as the real one |
+| **Rate contract** | A fixed price list for a year in return for a committed purchase value |
+| **Freight zone** | A group of destinations the carrier charges the same fixed amount per shipment |
+| **Compound Poisson simulation** | Simulating a total by drawing a random number of events (orders) and then a random size for each |
+| **Generalised Pareto distribution** | The standard model for the part of a distribution above a high threshold; its shape ξ measures how heavy the tail is |
+| **Return level** | The size exceeded on average once every T years (for example, the once-a-year order) |
