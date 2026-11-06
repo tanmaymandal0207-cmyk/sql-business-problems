@@ -38,3 +38,5 @@ Case studies on how revenue is distributed across customers, how it changes over
 | 19 | [Who drives the March peak?](19_march_peak_drivers/) — is the year-end peak more customers, more orders or bigger orders, and do the same customers spike every March? | Complete |
 | 20 | [Overdue balances and ordering](20_overdue_balances_and_ordering/) — do customers order less while they owe money, once each is compared with itself at the same level of activity? | Complete |
 | 21 | [Industry diversification](21_industry_diversification/) — do the industries' monthly swings cancel out, and which verticals add more volatility than their share of revenue? | Complete |
+| 22 | [Large-order pull-forward](22_large_order_pull_forward/) — after an order of ₹5 lakh or more, does the customer's regular ordering drop by more than random dates would show? | Complete |
+| 23 | [Quiet categories](23_quiet_categories/) — how often does a regularly bought category go quiet at a customer who keeps ordering, and how often does it come back? | Complete |
