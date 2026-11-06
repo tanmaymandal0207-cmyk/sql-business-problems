@@ -116,6 +116,12 @@ Shared definitions for metrics used across case studies. Each case study referen
 | EP | [Early-payment discount](../02_sales_and_profitability/21_early_payment_discount/) |
 | SW | [Six-day dispatch week](../03_operations_and_supply_chain/20_six_day_dispatch_week/) |
 | WD | [Working-day adjustment](../05_advanced_analytics/29_working_day_adjustment/) |
+| LO | [Do large orders steal next quarter's demand?](../01_customer_and_revenue/22_large_order_pull_forward/) |
+| AC | [Annual rate contracts](../02_sales_and_profitability/22_annual_rate_contracts/) |
+| FZ | [Freight zone audit](../03_operations_and_supply_chain/21_freight_zone_audit/) |
+| QC | [Quiet categories](../01_customer_and_revenue/23_quiet_categories/) |
+| FT | [Will we hit the full-year target?](../05_advanced_analytics/30_fy_target_monte_carlo/) |
+| XV | [How big can one order get?](../05_advanced_analytics/31_order_size_extreme_value/) |
 
 ---
 
@@ -162,6 +168,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Account owner | The field salesperson with the most orders on the account in the window (ties: latest order, then lowest ID) | Customer | Confirmed | WL |
 | Workload band | Average workload (orders on owned accounts) ± 15 % | Salesperson | Confirmed | WL |
 | Known contact | A salesperson who booked at least one order for the customer in the previous 24 months | Customer × salesperson | Confirmed | WL |
+| Rate-contract qualifying pair | A customer-category pair bought in all 4 quarters of the year, worth ₹2 lakh or more | Customer × category | Confirmed | AC |
+| Safe commitment level | The highest share of last year's value (5-point steps) met the following year by 80 %+ of qualifying pairs in every back-test | Rule | Confirmed | AC |
 
 ## Margin
 
@@ -247,6 +255,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Industry swing | Monthly revenue of an industry − its own least-squares straight-line trend | Industry × month | Confirmed | VD |
 | Risk contribution | Cov(industry swing, company swing) ÷ Var(company swing); shares add up to 100 % | Industry | Confirmed | VD |
 | Diversification ratio | Σ industry swing standard deviations ÷ company swing standard deviation | Company | Confirmed | VD |
+| Pull-forward relative change | (Customer's base revenue W days after ÷ W days before a ₹5 lakh+ order) ÷ (the same ratio for all other customers over the same days), pooled over events | Window | Confirmed | LO |
+| Placebo p-value (event study) | Share of 400 sets of random dates for the same customers with a relative change at or below the actual one | Window | Confirmed | LO |
+| Quiet spell | An established pair (bought in 3+ of the prior 4 quarters, including the last) not bought for 3 quarters while the customer kept ordering | Customer × category × quarter | Confirmed | QC |
+| Chance quiet rate | (1 − p)³, p = share of the customer's active quarters in which the pair bought the category | Customer × category | Confirmed | QC |
 
 ## Collections
 
@@ -322,6 +334,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Hub transit saving | Curve(km from origin) − curve(km from the nearer of origin and hub) per shipment | Shipment × hub | Confirmed | HB |
 | Six-day window capacity | Orders arriving on or after day s and due by day t (Sunday deadlines moved to Saturday) ÷ working days in [s, t] | Window of days | Confirmed | SW |
 | Working-day FIFO departures | D(t) = c W(t) + MIN(0, running MIN of A(s) − c W(s)), W = working days to date | Day × capacity | Confirmed | SW |
+| Freight value rate | Within-destination slope of freight charge on shipment value (consignments under ₹20 lakh) | Card | Confirmed | FZ |
+| Freight zone | Destinations sorted by fixed charge (charge − value rate × value, averaged); a new zone starts at a jump of ₹50 or more | Destination | Confirmed | FZ |
+| Freight distance benchmark | Shipment-weighted least squares of destination fixed charge on km from the origin; flagged if 15 % and ₹100 above | Destination | Confirmed | FZ |
 
 ## Product and demand
 
@@ -353,6 +368,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Nowcast blend | Revenue to day N + prior (average of the previous 3 months) × share of the month's weekday weight still to come | Month × day | Confirmed | NW |
 | Weekday weight (calendar) | Average booked revenue on a weekday ÷ average daily revenue, estimated on 2024 | Weekday | Confirmed | WD |
 | Trading-day index | Σ weekday weights of a month's days ÷ the average of that sum over all months; adjusted revenue = revenue ÷ index | Month | Confirmed | WD |
+| Compound Poisson FY simulation | FY total = FY-to-date + Σ remaining months of N ~ Poisson(same month last year's orders × count growth) orders drawn from that month last year (× size growth in rule B) | Cut-off | Confirmed | FT |
+| Back-test percentile | Share of simulated totals at or below the actual total; 10–90 % coverage = share of cut-offs whose actual lies between P10 and P90 | Cut-off | Confirmed | FT |
 
 ## Data quality
 
@@ -404,6 +421,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Minimum detectable effect | (1.96 + 0.84) × SD × √(2 ÷ n per arm) ÷ mean | Pilot design | Confirmed | PD |
 | CUPED adjustment | Y − θ (X − mean X), θ = cov(X, Y) ÷ var(X); SD falls by √(1 − ρ²) | Customer | Confirmed | PD |
 | A/A false-alarm rate | Share of random no-treatment splits with \|z\| > 1.96 | Pilot design | Confirmed | PD |
+| GPD shape and scale (PWM) | Exceedances over u sorted ascending; a0 = mean, a1 = (1/n) Σ (n − i)/(n − 1) y(i); ξ = 2 − a0 ÷ (a0 − 2a1), σ = 2a0a1 ÷ (a0 − 2a1) | Threshold fit | Confirmed | XV |
+| Return level | Size exceeded about once every T years: u + σ/ξ × ((λT)^ξ − 1), λ = exceedances per year | Threshold fit | Confirmed | XV |
 
 ---
 
@@ -429,3 +448,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-11-01 | Added uplift share, expected March orders, operating contribution, split-half reliability, rupee-day cost of credit, account owner, workload band, known contact, dispatch deadline, EDF feasibility ratio, weekday run-rate, nowcast blend, Kaplan–Meier time to cash and restricted mean definitions. Extended the case study key. |
 | 2026-11-02 | Added overdue month, activity-matched within-customer difference, within-customer discount slope, haversine distance, transit curve, hub transit saving, KPI materiality, handover effect, pre-trend effect, MA6 forecast and conformal range definitions. Extended the case study key. |
 | 2026-11-05 | Added industry swing, risk contribution, diversification ratio, early-payment break-even day and uptake, six-day window capacity, working-day FIFO departures, calendar weekday weight and trading-day index definitions. Extended the case study key. |
+| 2026-11-06 | Added pull-forward relative change, event-study placebo p-value, rate-contract qualifying pair, safe commitment level, freight value rate, freight zone, freight distance benchmark, quiet spell, chance quiet rate, compound Poisson FY simulation, back-test percentile, GPD shape and scale and return level definitions. Extended the case study key. |
