@@ -122,6 +122,11 @@ Shared definitions for metrics used across case studies. Each case study referen
 | QC | [Quiet categories](../01_customer_and_revenue/23_quiet_categories/) |
 | FT | [Will we hit the full-year target?](../05_advanced_analytics/30_fy_target_monte_carlo/) |
 | XV | [How big can one order get?](../05_advanced_analytics/31_order_size_extreme_value/) |
+| KV | [KPI revisions after month-end](../04_data_quality_and_reconciliation/18_kpi_revisions_after_month_end/) |
+| PL | [Price ladders](../02_sales_and_profitability/23_price_ladders/) |
+| EW | [E-way bill exposure](../03_operations_and_supply_chain/22_eway_bill_exposure/) |
+| BT | [Are silent customers lost? (BG/NBD)](../05_advanced_analytics/32_customer_dropout_bgnbd/) |
+| DF | [Which DSO should the board see?](../04_data_quality_and_reconciliation/19_dso_formula_comparison/) |
 
 ---
 
@@ -259,6 +264,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Placebo p-value (event study) | Share of 400 sets of random dates for the same customers with a relative change at or below the actual one | Window | Confirmed | LO |
 | Quiet spell | An established pair (bought in 3+ of the prior 4 quarters, including the last) not bought for 3 quarters while the customer kept ordering | Customer × category × quarter | Confirmed | QC |
 | Chance quiet rate | (1 − p)³, p = share of the customer's active quarters in which the pair bought the category | Customer × category | Confirmed | QC |
+| BG/NBD dropout profile | Best log-likelihood with the mean dropout chance per purchase m = a ÷ (a + b) held fixed, against m = 0 (NBD); gamma ratios as sums of logs over k | Model | Confirmed | BT |
+| NBD chance of a purchase | 1 − ((α + T) ÷ (α + T + t))^(r + x); expected purchases = (r + x) ÷ (α + T) × t | Customer × window | Confirmed | BT |
 
 ## Collections
 
@@ -290,6 +297,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Restricted mean time to cash | Σ S(t) for t = 0 … 364: average days to cash within the first year, an unpaid order counting 365 | Group | Confirmed | TK |
 | Early-payment break-even day | 10 + discount × 365 ÷ cost of money: a switch to day-10 payment gains only for orders otherwise paid after this day | Discount level | Confirmed | EP |
 | Break-even uptake | Windfall on orders already paid within 10 days ÷ net gain if every slower settled order switched | Segment × discount | Confirmed | EP |
+| Countback DSO | Receivables matched against the most recent months' sales, month by month back; DSO = days of months used up + remainder ÷ that month's sales × its days | Month-end | Confirmed | DF |
+| Current-invoice DSO | Countback DSO on receivables up to 90 days old | Month-end | Confirmed | DF |
+| Average age of receivables | Open-amount-weighted days since invoice date | Month-end | Confirmed | DF |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -337,6 +347,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Freight value rate | Within-destination slope of freight charge on shipment value (consignments under ₹20 lakh) | Card | Confirmed | FZ |
 | Freight zone | Destinations sorted by fixed charge (charge − value rate × value, averaged); a new zone starts at a jump of ₹50 or more | Destination | Confirmed | FZ |
 | Freight distance benchmark | Shipment-weighted least squares of destination fixed charge on km from the origin; flagged if 15 % and ₹100 above | Destination | Confirmed | FZ |
+| E-way bill required | Consignment value incl. GST (assumed 18 %) above ₹50,000 inter-state or ₹1 lakh within Maharashtra | Shipment | Confirmed | EW |
+| E-way bill validity | MAX(1, CEIL(road km ÷ 200)) days, road km = haversine km × road factor; outlived if transit days exceed it | Shipment | Confirmed | EW |
 
 ## Product and demand
 
@@ -351,6 +363,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | WAPE | Σ \|forecast − actual\| ÷ Σ actual | Method | Confirmed | ID |
 | MA6 forecast | Average units of the previous 6 months, zero months included | Product × month | Confirmed | CI |
 | Conformal 80 % range | MA6 + [smallest, largest] of the product's previous 12 errors (own), or MA6 + (MA6 + 1) × [10th, 90th percentile] of all products' scaled errors (pooled) | Product × month | Confirmed | CI |
+| Product family (ladder) | Products whose names match once numbers are masked, 3+ members; bearing series kept apart | Family | Confirmed | PL |
+| Ladder slope | Least-squares slope of ln(list price) on ln(size) within a family | Family | Confirmed | PL |
+| Neighbour price | Log-log interpolation of list price between the next smaller and next larger size; out of line if more than 10 % off | Product | Confirmed | PL |
 
 ## Revenue recognition and forecasting
 
@@ -389,6 +404,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Calendar-blind expectation | Events × days of a type ÷ all days in the event's first-to-last span; tested with chi-square across weekdays | Event type × weekday | Confirmed | WH |
 | Missingness chi-square | Σ (missing − n p)² ÷ (n p (1 − p)) across groups (groups < 30 pooled), against the 1 % Wilson–Hilferty critical value | Field × dimension | Confirmed | NM |
 | KPI materiality | Corrected − as-reported KPI under one data rule; material if ≥ 1 % of an amount or count, or ≥ 0.5 points of a rate | KPI | Confirmed | MQ |
+| Pack (as-of) on-time rate | On-time orders ÷ orders delivered by the as-of date (month-end + lag), for orders promised in the month | Month × lag | Confirmed | KV |
+| Fixed on-time rate | On-time orders ÷ all orders promised in the month; equals the final figure at any date after month-end | Month | Confirmed | KV |
+| KPI revision | Final value − value as reported at the as-of date | Month × KPI | Confirmed | KV |
 
 ## Statistical testing
 
@@ -449,3 +467,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-11-02 | Added overdue month, activity-matched within-customer difference, within-customer discount slope, haversine distance, transit curve, hub transit saving, KPI materiality, handover effect, pre-trend effect, MA6 forecast and conformal range definitions. Extended the case study key. |
 | 2026-11-05 | Added industry swing, risk contribution, diversification ratio, early-payment break-even day and uptake, six-day window capacity, working-day FIFO departures, calendar weekday weight and trading-day index definitions. Extended the case study key. |
 | 2026-11-06 | Added pull-forward relative change, event-study placebo p-value, rate-contract qualifying pair, safe commitment level, freight value rate, freight zone, freight distance benchmark, quiet spell, chance quiet rate, compound Poisson FY simulation, back-test percentile, GPD shape and scale and return level definitions. Extended the case study key. |
+| 2026-11-07 | Added as-of and fixed on-time rates, KPI revision, product family, ladder slope, neighbour price, e-way bill requirement and validity, BG/NBD dropout profile, NBD purchase chance, countback DSO, current-invoice DSO and average age of receivables definitions. Extended the case study key. |
