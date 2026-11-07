@@ -254,6 +254,11 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Quiet categories | `qc_panel`, `qc_events` |
 | FY target Monte Carlo | `ft_orders`, `ft_pool`, `ft_months`, `ft_cutoffs`, `ft_growth`, `ft_plan`, `ft_counts`, `ft_sims`, `ft_backtest` |
 | Order size extreme value | `ev_orders`, `ev_fits`, `ev_bootstrap` |
+| KPI revisions after month-end | `kr_orders`, `kr_kpis` |
+| Price ladders | `pl_products`, `pl_ladders`, `pl_sales` |
+| E-way bill exposure | `ew_cities`, `ew_shipments`, `ew_bills` |
+| Customer dropout (BG/NBD) | `bt_customers`, `bt_kcounts`, `bt_nbd_grid`, `bt_nbd`, `bt_profile`, `bt_predictions` |
+| DSO formula comparison | `ds_invoices`, `ds_sales`, `ds_open`, `ds_dso` |
 
 ### 5.4 If something does not match
 
@@ -412,3 +417,8 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Compound Poisson simulation** | Simulating a total by drawing a random number of events (orders) and then a random size for each |
 | **Generalised Pareto distribution** | The standard model for the part of a distribution above a high threshold; its shape ξ measures how heavy the tail is |
 | **Return level** | The size exceeded on average once every T years (for example, the once-a-year order) |
+| **As-of reconstruction** | Rebuilding a past report using only the events dated on or before its reporting date |
+| **Price ladder** | The sizes of one product family ordered by size, with their list prices |
+| **E-way bill** | The GST document required to move goods above a value threshold; valid for one day per 200 km |
+| **BG/NBD** | A model of customers who order at their own random rate and may stop for good after any order ("buy till you die") |
+| **Countback DSO** | Days of the most recent sales needed to add up to the receivables, counting back month by month |

@@ -6,6 +6,21 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-07
+
+### Added
+- **KPI revisions after month-end** ([04_data_quality_and_reconciliation/18_kpi_revisions_after_month_end](04_data_quality_and_reconciliation/18_kpi_revisions_after_month_end/)). In all 18 months the board pack overstated on-time delivery (by 1.62 points on average) and understated delivery time (by 1.07 days), because orders not yet delivered were left out. Those 2 % of orders were all late. Dividing by all orders promised in the month gives the final figure exactly on the 5th.
+- **Price ladders** ([02_sales_and_profitability/23_price_ladders](02_sales_and_profitability/23_price_ladders/)). Size read from product names builds 12 ladders (60 products, 27.2 % of revenue). Only 3 of 36 inner rungs are over 10 % off their neighbours, all too cheap; raising the 1-inch SS316 ball valve, UCP207 pillow block and 6205 bearing is worth about ₹17 lakh a year. Carbide end mills list below cost at both ends of their ladder.
+- **E-way bill exposure** ([03_operations_and_supply_chain/22_eway_bill_exposure](03_operations_and_supply_chain/22_eway_bill_exposure/)). Half of all shipments (89 % of value) need a GST e-way bill, about 6 a day. About one in ten deliveries would arrive after the bill expired (8.8–11.3 % across distance assumptions), mostly on one-day lanes: 61 % of Pune bills.
+- **Customer dropout (BG/NBD)** ([05_advanced_analytics/32_customer_dropout_bgnbd](05_advanced_analytics/32_customer_dropout_bgnbd/)). A BG/NBD model fitted in SQL finds no customers leaving for good: every level of dropout fits worse than none. The no-dropout model predicted 252 buyers next quarter against 251. Customers flagged as silent ordered at the same rate as the rest (77.1 % against 77.2 %).
+- **DSO formula comparison** ([04_data_quality_and_reconciliation/19_dso_formula_comparison](04_data_quality_and_reconciliation/19_dso_formula_comparison/)). The pack's one-month DSO moves against the month's sales (correlation −0.87); May 2026's 41-day jump was a quiet month after two big ones. Countback DSO moves at most 12 days a month. No DSO shows the real problem: the average age of receivables rose from 94 to 289 days.
+
+### Changed
+- `metric_definitions.md`: added as-of on-time rate, fixed on-time rate and KPI revision, product family, ladder slope and neighbour price, e-way bill requirement, validity and outlived bill, BG/NBD dropout profile and NBD purchase chance, countback DSO, current-invoice DSO and average age of receivables definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 119 case studies are now complete.
+
+---
+
 ## 2026-11-06
 
 ### Added

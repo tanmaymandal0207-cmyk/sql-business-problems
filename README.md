@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-114%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 114 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-119%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 119 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -105,7 +105,8 @@ sql-business-problems/
 │   ├── 19_salesperson_workload_balancing/
 │   ├── 20_discount_creep/
 │   ├── 21_early_payment_discount/
-│   └── 22_annual_rate_contracts/
+│   ├── 22_annual_rate_contracts/
+│   └── 23_price_ladders/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -127,7 +128,8 @@ sql-business-problems/
 │   ├── 18_deadline_based_dispatch/
 │   ├── 19_second_dispatch_hub/
 │   ├── 20_six_day_dispatch_week/
-│   └── 21_freight_zone_audit/
+│   ├── 21_freight_zone_audit/
+│   └── 22_eway_bill_exposure/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -145,7 +147,9 @@ sql-business-problems/
 │   ├── 14_weekend_holiday_postings/
 │   ├── 15_cash_application_matching/
 │   ├── 16_missing_data_mechanism/
-│   └── 17_data_quality_materiality/
+│   ├── 17_data_quality_materiality/
+│   ├── 18_kpi_revisions_after_month_end/
+│   └── 19_dso_formula_comparison/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
@@ -177,7 +181,8 @@ sql-business-problems/
 │   ├── 28_conformal_forecast_intervals/
 │   ├── 29_working_day_adjustment/
 │   ├── 30_fy_target_monte_carlo/
-│   └── 31_order_size_extreme_value/
+│   ├── 31_order_size_extreme_value/
+│   └── 32_customer_dropout_bgnbd/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -308,6 +313,11 @@ Additional tools will be listed here only when they are used in a published case
 | 112 | [Quiet categories: are customers moving categories to competitors?](01_customer_and_revenue/23_quiet_categories/) | Customer and revenue | Complete |
 | 113 | [Will we hit the full-year target? A Monte Carlo of the rest of the year](05_advanced_analytics/30_fy_target_monte_carlo/) | Advanced analytics | Complete |
 | 114 | [How big can one order get? Extreme value analysis for approval limits](05_advanced_analytics/31_order_size_extreme_value/) | Advanced analytics | Complete |
+| 115 | [Why do last month's KPIs change after the pack goes out?](04_data_quality_and_reconciliation/18_kpi_revisions_after_month_end/) | Data quality and reconciliation | Complete |
+| 116 | [Price ladders: are size variants priced consistently?](02_sales_and_profitability/23_price_ladders/) | Sales and profitability | Complete |
+| 117 | [E-way bills: how many consignments need one, and how many outlive it?](03_operations_and_supply_chain/22_eway_bill_exposure/) | Operations and supply chain | Complete |
+| 118 | [Are silent customers lost? A "buy till you die" test of customer dropout](05_advanced_analytics/32_customer_dropout_bgnbd/) | Advanced analytics | Complete |
+| 119 | [Which DSO should the board see? Four formulas against the age of receivables](04_data_quality_and_reconciliation/19_dso_formula_comparison/) | Data quality and reconciliation | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 
