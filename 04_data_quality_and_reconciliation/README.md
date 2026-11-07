@@ -34,3 +34,5 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 15 | [Cash application matching](15_cash_application_matching/) — how many receipts can rules match to invoices from customer, date and amount alone, and why do the rest fail? | Complete |
 | 16 | [Missing data mechanism](16_missing_data_mechanism/) — are missing values structural, random or systematic, and what does each gap do to the KPIs? | Complete |
 | 17 | [Data quality materiality](17_data_quality_materiality/) — which known data issues change the board KPIs by a material amount, and which fixes come first? | Complete |
+| 18 | [KPI revisions after month-end](18_kpi_revisions_after_month_end/) — why the pack's on-time rate is always revised down, and a formula that never needs revising | Complete |
+| 19 | [DSO formula comparison](19_dso_formula_comparison/) — simple, 3-month, 12-month and countback DSO against the real age of receivables | Complete |
