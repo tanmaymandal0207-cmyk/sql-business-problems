@@ -38,3 +38,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | 19 | [Second dispatch hub](19_second_dispatch_hub/) — which city would cut the most transit days as a second dispatch point, and what would it save in late deliveries and freight? | Complete |
 | 20 | [Six-day dispatch week](20_six_day_dispatch_week/) — can the warehouse close on Sundays and still meet every dispatch deadline, and with how many staff-days? | Complete |
 | 21 | [Freight zone audit](21_freight_zone_audit/) — what zones does the carrier's card use, do they follow distance, and which negotiating lever is worth most? | Complete |
+| 22 | [E-way bill exposure](22_eway_bill_exposure/) — how many shipments need a GST e-way bill, and on which lanes do deliveries arrive after the bill has expired? | Complete |
