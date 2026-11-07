@@ -39,3 +39,4 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 20 | [Discount creep](20_discount_creep/) — does the same customer's discount rise the longer it buys, or do frequent buyers simply come from high-discount segments? | Complete |
 | 21 | [Early-payment discount](21_early_payment_discount/) — would "2/10 net 60" pay for itself, and which discount level and segments would? | Complete |
 | 22 | [Annual rate contracts](22_annual_rate_contracts/) — should contracts cover products or categories, who qualifies, and what commitment held in two back-tests? | Complete |
+| 23 | [Price ladders](23_price_ladders/) — read size from product names, test every rung against its neighbours, and check margin along each ladder | Complete |
