@@ -6,6 +6,22 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-08
+
+### Added
+- **TDS on purchase of goods** ([04_data_quality_and_reconciliation/20_tds_on_purchase_of_goods](04_data_quality_and_reconciliation/20_tds_on_purchase_of_goods/)). 13–16 customers a year cross ₹50 lakh, so about ₹65,000 (2024-25) and ₹54,000 (2025-26) of TDS credits should appear in Form 26AS, by quarter. No receipt shows the deduction: all 735 settled invoices carrying TDS were paid in full. Seven customers leave a 2024-25 TCS question of ₹49,184.
+- **GST funded before collection** ([02_sales_and_profitability/24_gst_funded_before_collection](02_sales_and_profitability/24_gst_funded_before_collection/)). The company carries collected GST for 22.3 days on average. GST paid but not collected grew from ₹35.6 lakh (June 2024) to ₹128.4 lakh (July 2026), costing ₹12.82 lakh a year; Enterprise customers cause 56 % of it. ₹70.8 lakh of GST was paid on 651 invoices more than 180 days past due.
+- **MSME 45-day rule** ([01_customer_and_revenue/24_msme_45_day_rule](01_customer_and_revenue/24_msme_45_day_rule/)). 51.9 % of paid value arrives after 45 days, almost all of it Enterprise (94.4 % of their value). Statutory interest at three times the bank rate comes to ₹38.5 lakh on late receipts and ₹108.7 lakh on open balances. At 31 March 2026, 201 customers owed ₹4.88 crore past 45 days (section 43B(h)).
+- **Quarterly volume rebate** ([02_sales_and_profitability/25_quarterly_volume_rebate](02_sales_and_profitability/25_quarterly_volume_rebate/)). A 1/2/3 % retroactive rebate at ₹10/20/40 lakh a quarter would cost ₹33.7 lakh a year (8.5 % of gross profit) on volume already bought, and needs 23.9 % more purchases from qualifying customers to break even. Pulling one month forward earns ₹38 lakh more. An annual, incremental design costs ₹9–13 lakh a year.
+- **Goods in transit insurance** ([03_operations_and_supply_chain/23_goods_in_transit_insurance](03_operations_and_supply_chain/23_goods_in_transit_insurance/)). About ₹50–60 lakh is on the road on a typical day; peaks of up to ₹2.16 crore come from single consignments, the largest ₹1.55 crore. Declaring last year's ₹42.3 crore of dispatches would run out in December 2026 against a projected ₹68.2 crore. Five shipments never arrived and their carrier claims are out of time.
+- **Trade credit insurance** ([05_advanced_analytics/33_trade_credit_insurance](05_advanced_analytics/33_trade_credit_insurance/)). Of ₹4.63 crore of losses (7.2 % of invoices), a policy's conditions would have covered ₹11.2 lakh, paying ₹10 lakh. 96.5 % of the loss is on customers who kept paying other invoices, and the delivery condition would have stopped 59 % of sales. Break-even premium: 0.38 % of insured turnover, not the 6.5 % the broker's view implies.
+
+### Changed
+- `metric_definitions.md`: added expected TDS and amount above ₹50 lakh, GST funded rupee-days and month-end GST funded, days late and statutory MSME interest, 43B(h) exposure, retroactive and incremental rebate and break-even extra purchases, value on the road, conveyance load and sum insured run-out, delivered while overdue, customer kept paying, insurable loss and break-even premium rate definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 125 case studies are now complete.
+
+---
+
 ## 2026-11-07
 
 ### Added

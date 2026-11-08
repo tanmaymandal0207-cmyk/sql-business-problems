@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-119%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 119 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-125%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 125 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -82,7 +82,8 @@ sql-business-problems/
 │   ├── 20_overdue_balances_and_ordering/
 │   ├── 21_industry_diversification/
 │   ├── 22_large_order_pull_forward/
-│   └── 23_quiet_categories/
+│   ├── 23_quiet_categories/
+│   └── 24_msme_45_day_rule/
 ├── 02_sales_and_profitability/
 │   ├── 01_discount_margin_erosion/
 │   ├── 02_salesperson_scorecard/
@@ -106,7 +107,9 @@ sql-business-problems/
 │   ├── 20_discount_creep/
 │   ├── 21_early_payment_discount/
 │   ├── 22_annual_rate_contracts/
-│   └── 23_price_ladders/
+│   ├── 23_price_ladders/
+│   ├── 24_gst_funded_before_collection/
+│   └── 25_quarterly_volume_rebate/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -129,7 +132,8 @@ sql-business-problems/
 │   ├── 19_second_dispatch_hub/
 │   ├── 20_six_day_dispatch_week/
 │   ├── 21_freight_zone_audit/
-│   └── 22_eway_bill_exposure/
+│   ├── 22_eway_bill_exposure/
+│   └── 23_goods_in_transit_insurance/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -149,7 +153,8 @@ sql-business-problems/
 │   ├── 16_missing_data_mechanism/
 │   ├── 17_data_quality_materiality/
 │   ├── 18_kpi_revisions_after_month_end/
-│   └── 19_dso_formula_comparison/
+│   ├── 19_dso_formula_comparison/
+│   └── 20_tds_on_purchase_of_goods/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
@@ -182,7 +187,8 @@ sql-business-problems/
 │   ├── 29_working_day_adjustment/
 │   ├── 30_fy_target_monte_carlo/
 │   ├── 31_order_size_extreme_value/
-│   └── 32_customer_dropout_bgnbd/
+│   ├── 32_customer_dropout_bgnbd/
+│   └── 33_trade_credit_insurance/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -318,6 +324,12 @@ Additional tools will be listed here only when they are used in a published case
 | 117 | [E-way bills: how many consignments need one, and how many outlive it?](03_operations_and_supply_chain/22_eway_bill_exposure/) | Operations and supply chain | Complete |
 | 118 | [Are silent customers lost? A "buy till you die" test of customer dropout](05_advanced_analytics/32_customer_dropout_bgnbd/) | Advanced analytics | Complete |
 | 119 | [Which DSO should the board see? Four formulas against the age of receivables](04_data_quality_and_reconciliation/19_dso_formula_comparison/) | Data quality and reconciliation | Complete |
+| 120 | [TDS on purchase of goods: what customers should deduct, and what to reconcile](04_data_quality_and_reconciliation/20_tds_on_purchase_of_goods/) | Data quality and reconciliation | Complete |
+| 121 | [GST paid before the customer pays: how much cash it ties up](02_sales_and_profitability/24_gst_funded_before_collection/) | Sales and profitability | Complete |
+| 122 | [The MSME 45-day rule: late receipts, statutory interest and year-end exposure](01_customer_and_revenue/24_msme_45_day_rule/) | Customer and revenue | Complete |
+| 123 | [A quarterly volume rebate: cost, break-even volume and timing games](02_sales_and_profitability/25_quarterly_volume_rebate/) | Sales and profitability | Complete |
+| 124 | [Goods in transit: value on the road, per-conveyance limit and sum insured](03_operations_and_supply_chain/23_goods_in_transit_insurance/) | Operations and supply chain | Complete |
+| 125 | [Would trade credit insurance have paid our bad debts?](05_advanced_analytics/33_trade_credit_insurance/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

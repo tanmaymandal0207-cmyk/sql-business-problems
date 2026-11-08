@@ -259,6 +259,12 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | E-way bill exposure | `ew_cities`, `ew_shipments`, `ew_bills` |
 | Customer dropout (BG/NBD) | `bt_customers`, `bt_kcounts`, `bt_nbd_grid`, `bt_nbd`, `bt_profile`, `bt_predictions` |
 | DSO formula comparison | `ds_invoices`, `ds_sales`, `ds_open`, `ds_dso` |
+| TDS on purchase of goods | `td_invoices`, `td_customers`, `td_tcs` |
+| GST funded before collection | `gs_invoices`, `gs_receipts`, `gs_funding`, `gs_month_ends` |
+| MSME 45-day rule | `ms_invoices`, `ms_items`, `ms_interest`, `ms_year_end` |
+| Quarterly volume rebate | `qr_tiers`, `qr_invoices`, `qr_quarters` |
+| Goods in transit insurance | `gt_shipments`, `gt_daily`, `gt_conveyances`, `gt_declaration` |
+| Trade credit insurance | `ti_invoices`, `ti_tests` |
 
 ### 5.4 If something does not match
 
@@ -422,3 +428,11 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **E-way bill** | The GST document required to move goods above a value threshold; valid for one day per 200 km |
 | **BG/NBD** | A model of customers who order at their own random rate and may stop for good after any order ("buy till you die") |
 | **Countback DSO** | Days of the most recent sales needed to add up to the receivables, counting back month by month |
+| **TDS on purchase of goods** | Tax of 0.1 % a large buyer deducts on its purchases from one seller above ₹50 lakh in a financial year; a credit for the seller in Form 26AS |
+| **GSTR-3B** | The monthly GST return; the GST on the month's invoices is paid with it by the 20th of the next month |
+| **MSME 45-day rule** | A buyer must pay a micro or small enterprise within the agreed period, at most 45 days; late payment carries compound interest at three times the RBI bank rate |
+| **Section 43B(h)** | A buyer's purchase from a micro or small enterprise is tax-deductible only when paid, if paid after the 45-day limit |
+| **Retroactive rebate** | A rebate paid on the whole period's purchases once a threshold is reached (as opposed to incremental: only on the amount above it) |
+| **Per-conveyance limit** | The most an inland transit policy pays for goods on one vehicle ("per bottom") |
+| **Open (turnover) policy** | An annual transit policy with a sum insured set on estimated dispatches, covering every dispatch until it is used up |
+| **Trade credit insurance** | Insurance that pays a share (typically 85–90 %) of a buyer's unpaid debt on insolvency or protracted default |
