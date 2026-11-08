@@ -127,6 +127,12 @@ Shared definitions for metrics used across case studies. Each case study referen
 | EW | [E-way bill exposure](../03_operations_and_supply_chain/22_eway_bill_exposure/) |
 | BT | [Are silent customers lost? (BG/NBD)](../05_advanced_analytics/32_customer_dropout_bgnbd/) |
 | DF | [Which DSO should the board see?](../04_data_quality_and_reconciliation/19_dso_formula_comparison/) |
+| TX | [TDS on purchase of goods](../04_data_quality_and_reconciliation/20_tds_on_purchase_of_goods/) |
+| GF | [GST funded before collection](../02_sales_and_profitability/24_gst_funded_before_collection/) |
+| MS | [The MSME 45-day rule](../01_customer_and_revenue/24_msme_45_day_rule/) |
+| QR | [Quarterly volume rebate](../02_sales_and_profitability/25_quarterly_volume_rebate/) |
+| GT | [Goods in transit insurance](../03_operations_and_supply_chain/23_goods_in_transit_insurance/) |
+| TI | [Would trade credit insurance have paid our bad debts?](../05_advanced_analytics/33_trade_credit_insurance/) |
 
 ---
 
@@ -175,6 +181,8 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Known contact | A salesperson who booked at least one order for the customer in the previous 24 months | Customer × salesperson | Confirmed | WL |
 | Rate-contract qualifying pair | A customer-category pair bought in all 4 quarters of the year, worth ₹2 lakh or more | Customer × category | Confirmed | AC |
 | Safe commitment level | The highest share of last year's value (5-point steps) met the following year by 80 %+ of qualifying pairs in every back-test | Rule | Confirmed | AC |
+| Retroactive rebate | Quarter's purchases × the rate of the highest tier reached (1 % at ₹10 lakh, 2 % at ₹20 lakh, 3 % at ₹40 lakh) | Customer × quarter | Confirmed | QR |
+| Incremental rebate | Σ tier step × MAX(0, purchases − tier threshold): the same marginal rates, paid only above each threshold | Customer × quarter | Confirmed | QR |
 
 ## Margin
 
@@ -196,6 +204,7 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Operating contribution (product) | Gross profit − freight (by value) − handling and sales effort (per order, split equally by line) − cost of credit, before credit loss | Product | Confirmed | PP |
 | Split-half reliability | Correlation of a product's rate in April–September with the same rate in October–March; near 0 means the rate is not a property of the product | Product | Confirmed | PP |
 | Within-customer discount slope | Σ (years since first order − customer mean) × (order discount − customer mean) ÷ Σ (years − customer mean)², points a year; tested by 500 shuffles of discounts within customer | Customer pool | Confirmed | DK |
+| Break-even extra purchases (rebate) | Rebate ÷ (gross margin − rebate rate): extra sales whose gross profit after the rebate on them repays the rebate | Customer × quarter or tier | Confirmed | QR |
 
 > `products.unit_cost` is a single current cost per product, not a historical cost at the time of sale. Lines for products with a null `unit_cost` are excluded from margin metrics, and the exclusion is reported.
 
@@ -300,6 +309,16 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Countback DSO | Receivables matched against the most recent months' sales, month by month back; DSO = days of months used up + remainder ÷ that month's sales × its days | Month-end | Confirmed | DF |
 | Current-invoice DSO | Countback DSO on receivables up to 90 days old | Month-end | Confirmed | DF |
 | Average age of receivables | Open-amount-weighted days since invoice date | Month-end | Confirmed | DF |
+| Amount above ₹50 lakh (TDS) | MAX(0, running FY purchases − ₹50 lakh) − MAX(0, running total before the invoice − ₹50 lakh); expected TDS = 0.1 % of it | Invoice | Confirmed | TX |
+| GST funded rupee-days | GST collected × days from the GST due date (20th of next month) to the receipt, plus GST uncollected × days to the as-of date | Invoice | Confirmed | GF |
+| GST funded at a month-end | GST due by that date − GST collected (pro rata with receipts) by that date | Month-end | Confirmed | GF |
+| Days late (MSME) | MAX(0, settlement date − (acceptance + 45 days)); open balances measured to the as-of date | Receipt or open balance | Confirmed | MS |
+| Statutory MSME interest | Amount × ((1 + 3 × bank rate ÷ 12)^(days late × 12 ÷ 365) − 1): compound, monthly rests, three times the RBI bank rate | Receipt or open balance | Confirmed | MS |
+| 43B(h) exposure | Amount owed at the customer's year-end (31 March assumed) on invoices accepted more than 45 days earlier | Customer × year-end | Confirmed | MS |
+| Delivered while overdue | At the invoice date, the customer had an earlier invoice more than 60 days past due with over ₹1 unpaid | Invoice | Confirmed | TI |
+| Customer kept paying | Any payment by the customer after a defaulted invoice's default date (due + 180 days) | Defaulted invoice | Confirmed | TI |
+| Insurable loss | Loss on an invoice not delivered while overdue, from a customer with no payment after its default date | Invoice | Confirmed | TI |
+| Break-even credit insurance premium | 90 % × insurable losses ÷ turnover not delivered while overdue | Segment | Confirmed | TI |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -349,6 +368,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Freight distance benchmark | Shipment-weighted least squares of destination fixed charge on km from the origin; flagged if 15 % and ₹100 above | Destination | Confirmed | FZ |
 | E-way bill required | Consignment value incl. GST (assumed 18 %) above ₹50,000 inter-state or ₹1 lakh within Maharashtra | Shipment | Confirmed | EW |
 | E-way bill validity | MAX(1, CEIL(road km ÷ 200)) days, road km = haversine km × road factor; outlived if transit days exceed it | Shipment | Confirmed | EW |
+| Value on the road | Insured value (shipment value × 1.18 × 1.10) of shipments dispatched on or before the day and not yet delivered | Day | Confirmed | GT |
+| Conveyance load | Insured value of all shipments to one city on one day (assumed one vehicle) | City × day | Confirmed | GT |
+| Sum insured run-out | First month of the financial year in which cumulative insured dispatches pass the declared sum insured | Financial year × declaration | Confirmed | GT |
 
 ## Product and demand
 
@@ -468,3 +490,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-11-05 | Added industry swing, risk contribution, diversification ratio, early-payment break-even day and uptake, six-day window capacity, working-day FIFO departures, calendar weekday weight and trading-day index definitions. Extended the case study key. |
 | 2026-11-06 | Added pull-forward relative change, event-study placebo p-value, rate-contract qualifying pair, safe commitment level, freight value rate, freight zone, freight distance benchmark, quiet spell, chance quiet rate, compound Poisson FY simulation, back-test percentile, GPD shape and scale and return level definitions. Extended the case study key. |
 | 2026-11-07 | Added as-of and fixed on-time rates, KPI revision, product family, ladder slope, neighbour price, e-way bill requirement and validity, BG/NBD dropout profile, NBD purchase chance, countback DSO, current-invoice DSO and average age of receivables definitions. Extended the case study key. |
+| 2026-11-08 | Added amount above ₹50 lakh and expected TDS, GST funded rupee-days and month-end GST funded, MSME days late and statutory interest, 43B(h) exposure, retroactive and incremental rebate, break-even extra purchases, value on the road, conveyance load, sum insured run-out, delivered while overdue, customer kept paying, insurable loss and break-even credit insurance premium definitions. Extended the case study key. |
