@@ -48,3 +48,4 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 30 | [FY target Monte Carlo](30_fy_target_monte_carlo/) — simulating the rest of the year order by order, how likely is each candidate target, and would the method have been right a year ago? | Complete |
 | 31 | [Order size extreme value](31_order_size_extreme_value/) — how heavy is the tail of order sizes, and what size is exceeded once a month, quarter and year? | Complete |
 | 32 | [Customer dropout (BG/NBD)](32_customer_dropout_bgnbd/) — do customers leave for good or just go quiet, and do customers flagged as silent come back? | Complete |
+| 33 | [Trade credit insurance](33_trade_credit_insurance/) — apply the policy's conditions to two years of bad debts: what it would have paid and the premium that breaks even | Complete |
