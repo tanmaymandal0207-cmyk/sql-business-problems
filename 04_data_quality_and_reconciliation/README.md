@@ -36,3 +36,4 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 17 | [Data quality materiality](17_data_quality_materiality/) — which known data issues change the board KPIs by a material amount, and which fixes come first? | Complete |
 | 18 | [KPI revisions after month-end](18_kpi_revisions_after_month_end/) — why the pack's on-time rate is always revised down, and a formula that never needs revising | Complete |
 | 19 | [DSO formula comparison](19_dso_formula_comparison/) — simple, 3-month, 12-month and countback DSO against the real age of receivables | Complete |
+| 20 | [TDS on purchase of goods](20_tds_on_purchase_of_goods/) — which customers cross ₹50 lakh, the quarterly TDS credits to expect in Form 26AS, and the 2024-25 TCS exposure | Complete |
