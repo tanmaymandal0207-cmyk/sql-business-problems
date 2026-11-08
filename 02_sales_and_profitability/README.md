@@ -40,3 +40,5 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 21 | [Early-payment discount](21_early_payment_discount/) — would "2/10 net 60" pay for itself, and which discount level and segments would? | Complete |
 | 22 | [Annual rate contracts](22_annual_rate_contracts/) — should contracts cover products or categories, who qualifies, and what commitment held in two back-tests? | Complete |
 | 23 | [Price ladders](23_price_ladders/) — read size from product names, test every rung against its neighbours, and check margin along each ladder | Complete |
+| 24 | [GST funded before collection](24_gst_funded_before_collection/) — how long the company carries customers' GST, what it costs, and how much was paid on invoices never collected | Complete |
+| 25 | [Quarterly volume rebate](25_quarterly_volume_rebate/) — what a tiered rebate would cost on today's volumes, the extra volume it must buy, and how much could be earned by moving orders | Complete |
