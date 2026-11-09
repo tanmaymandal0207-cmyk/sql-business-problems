@@ -9,7 +9,7 @@ Business problems analysed and answered with SQL — each case study starts from
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
   <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
-  <img src="https://img.shields.io/badge/Case%20studies-125%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 125 complete">
+  <img src="https://img.shields.io/badge/Case%20studies-131%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 131 complete">
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
@@ -109,7 +109,8 @@ sql-business-problems/
 │   ├── 22_annual_rate_contracts/
 │   ├── 23_price_ladders/
 │   ├── 24_gst_funded_before_collection/
-│   └── 25_quarterly_volume_rebate/
+│   ├── 25_quarterly_volume_rebate/
+│   └── 26_discount_approval_matrix/
 ├── 03_operations_and_supply_chain/
 │   ├── 01_late_delivery_root_cause/
 │   ├── 02_freight_cost_to_serve/
@@ -133,7 +134,8 @@ sql-business-problems/
 │   ├── 20_six_day_dispatch_week/
 │   ├── 21_freight_zone_audit/
 │   ├── 22_eway_bill_exposure/
-│   └── 23_goods_in_transit_insurance/
+│   ├── 23_goods_in_transit_insurance/
+│   └── 24_liquidated_damages_exposure/
 ├── 04_data_quality_and_reconciliation/
 │   ├── 01_order_to_cash_reconciliation/
 │   ├── 02_data_quality_scorecard/
@@ -154,7 +156,9 @@ sql-business-problems/
 │   ├── 17_data_quality_materiality/
 │   ├── 18_kpi_revisions_after_month_end/
 │   ├── 19_dso_formula_comparison/
-│   └── 20_tds_on_purchase_of_goods/
+│   ├── 20_tds_on_purchase_of_goods/
+│   ├── 21_payment_rails_audit/
+│   └── 22_returns_credit_note_deadline/
 ├── 05_advanced_analytics/
 │   ├── 01_abc_xyz_product_classification/
 │   ├── 02_customer_payment_behaviour/
@@ -188,7 +192,9 @@ sql-business-problems/
 │   ├── 30_fy_target_monte_carlo/
 │   ├── 31_order_size_extreme_value/
 │   ├── 32_customer_dropout_bgnbd/
-│   └── 33_trade_credit_insurance/
+│   ├── 33_trade_credit_insurance/
+│   ├── 34_gratuity_liability/
+│   └── 35_inventory_pooling_second_hub/
 ├── datasets_and_documentation/
 │   ├── schema.md
 │   └── metric_definitions.md
@@ -330,6 +336,12 @@ Additional tools will be listed here only when they are used in a published case
 | 123 | [A quarterly volume rebate: cost, break-even volume and timing games](02_sales_and_profitability/25_quarterly_volume_rebate/) | Sales and profitability | Complete |
 | 124 | [Goods in transit: value on the road, per-conveyance limit and sum insured](03_operations_and_supply_chain/23_goods_in_transit_insurance/) | Operations and supply chain | Complete |
 | 125 | [Would trade credit insurance have paid our bad debts?](05_advanced_analytics/33_trade_credit_insurance/) | Advanced analytics | Complete |
+| 126 | [A discount approval matrix: who should approve which discounts?](02_sales_and_profitability/26_discount_approval_matrix/) | Sales and profitability | Complete |
+| 127 | [Liquidated damages: what a delay-penalty clause would cost on our late deliveries](03_operations_and_supply_chain/24_liquidated_damages_exposure/) | Operations and supply chain | Complete |
+| 128 | [Payment rails audit: do receipts fit the rules of the rail they claim?](04_data_quality_and_reconciliation/21_payment_rails_audit/) | Data quality and reconciliation | Complete |
+| 129 | [Returned goods and the GST credit-note deadline](04_data_quality_and_reconciliation/22_returns_credit_note_deadline/) | Data quality and reconciliation | Complete |
+| 130 | [Gratuity liability under the new labour codes (projected unit credit)](05_advanced_analytics/34_gratuity_liability/) | Advanced analytics | Complete |
+| 131 | [Inventory pooling: the safety stock cost of a second hub](05_advanced_analytics/35_inventory_pooling_second_hub/) | Advanced analytics | Complete |
 
 Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
 

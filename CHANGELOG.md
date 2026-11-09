@@ -6,6 +6,22 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-09
+
+### Added
+- **Discount approval matrix** ([02_sales_and_profitability/26_discount_approval_matrix](02_sales_and_profitability/26_discount_approval_matrix/)). A matrix by job title (5 % to 12.5 %, then the MD) would escalate one order in four, about 19 a week, 8 to the MD. Customer segment explains 56.5 % of discount variation and job title 3.8 %. Discounts already follow segment caps (SMB 5 %, Mid-Market 10 %, Enterprise 15 %, Distributor 18 %) that no order broke in 33 months, including the 2026 test period.
+- **Liquidated damages exposure** ([03_operations_and_supply_chain/24_liquidated_damages_exposure](03_operations_and_supply_chain/24_liquidated_damages_exposure/)). A 0.5 %-a-week clause capped at 10 % would cost ₹4.5 lakh a year on all customers (0.12 % of value) and ₹1.6 lakh on enterprise customers; the cap never applies. Late orders are not short paid more often than on-time ones, so no one deducts LD today. A 7-day promise buffer cuts LD by three-quarters but adds 7 days to every quote.
+- **Payment rails audit** ([04_data_quality_and_reconciliation/21_payment_rails_audit](04_data_quality_and_reconciliation/21_payment_rails_audit/)). 543 of 1,144 receipts recorded as RTGS (₹3.7 crore) are below the ₹2 lakh RTGS minimum, 80 % of them for SMB customers. Cheques are dated on Sundays and second or fourth Saturdays as often as electronic receipts (21 %), so the ledger date is the booking date, not the clearing date. 190 receipts have no method.
+- **Returns and the GST credit-note deadline** ([04_data_quality_and_reconciliation/22_returns_credit_note_deadline](04_data_quality_and_reconciliation/22_returns_credit_note_deadline/)). 29 returns from 2025-26 (GST ₹4.06 lakh) need credit notes, with customers' ITC reversal, by 30 November 2026; ₹4.32 lakh on earlier returns is out of time if never credited. The 75 returned orders still show ₹73.8 lakh as owed. ₹3.2 lakh is held on orders never delivered.
+- **Gratuity liability** ([05_advanced_analytics/34_gratuity_liability](05_advanced_analytics/34_gratuity_liability/)). A projected unit credit valuation in SQL puts the obligation at ₹52.8 lakh on labour-code wages (₹43.6 lakh at 40 % of CTC), with a service cost of ₹8.6 lakh a year. If everyone left on 31 March 2026 the company would owe ₹45.5 lakh, 25 % more than on today's structure. Two eligible employees have no salary recorded.
+- **Inventory pooling with a second hub** ([05_advanced_analytics/35_inventory_pooling_second_hub](05_advanced_analytics/35_inventory_pooling_second_hub/)). Splitting stock between Mumbai and a Kanpur hub would need 34 % more safety stock (₹65.7 lakh, ₹13.1 lakh a year to hold), about twice the hub's freight saving. Regional demand is uncorrelated (0.004), so the square-root law holds. Stocking the top 40 products at the hub covers 73 % of its units for ₹2.1 lakh a year.
+
+### Changed
+- `metric_definitions.md`: added approver under the title matrix, segment discount cap, variance explained, weeks of delay and LD per order, RTGS below minimum, non-clearing day, month-end cheque cut-off, credit-note deadline, accrued gratuity, gratuity DBO and current service cost, pooled and split safety stock definitions.
+- `README.md`, `GUIDE.md` (tables created and new glossary terms) and the category indexes updated. 131 case studies are now complete.
+
+---
+
 ## 2026-11-08
 
 ### Added

@@ -265,6 +265,12 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | Quarterly volume rebate | `qr_tiers`, `qr_invoices`, `qr_quarters` |
 | Goods in transit insurance | `gt_shipments`, `gt_daily`, `gt_conveyances`, `gt_declaration` |
 | Trade credit insurance | `ti_invoices`, `ti_tests` |
+| Discount approval matrix | `da_title_limits`, `da_lines`, `da_orders`, `da_segment_caps` |
+| Liquidated damages exposure | `ld_shipments`, `ld_orders` |
+| Payment rails audit | `pr_receipts`, `pr_cutoff` |
+| Returns and the GST credit-note deadline | `cn_returns` |
+| Gratuity liability | `gr_employees`, `gr_accrued`, `gr_projection` |
+| Inventory pooling with a second hub | `ip_cities`, `ip_regions`, `ip_order_lines`, `ip_weekly`, `ip_products` |
 
 ### 5.4 If something does not match
 
@@ -436,3 +442,10 @@ bq load --autodetect --skip_leading_rows=1 --source_format=CSV \
 | **Per-conveyance limit** | The most an inland transit policy pays for goods on one vehicle ("per bottom") |
 | **Open (turnover) policy** | An annual transit policy with a sum insured set on estimated dispatches, covering every dispatch until it is used up |
 | **Trade credit insurance** | Insurance that pays a share (typically 85–90 %) of a buyer's unpaid debt on insolvency or protracted default |
+| **Delegation of authority** | A matrix of who may approve what (here, discounts) up to which limit |
+| **Liquidated damages (LD)** | A pre-agreed deduction for late delivery, typically 0.5 % of the delayed value per week, capped at 10 % |
+| **RTGS / NEFT / UPI** | India's payment rails: RTGS for ₹2 lakh and above, NEFT any amount, UPI typically up to ₹1 lakh a transaction |
+| **Credit note (GST)** | A document reducing an invoice's value and tax, e.g. for returned goods; must be declared by 30 November after the financial year |
+| **Gratuity** | A statutory payment on leaving after five years' service: 15/26 × monthly wages × years |
+| **Projected unit credit** | The Ind AS 19 method that values a benefit by projecting it to the expected exit and attributing it to service to date |
+| **Inventory pooling** | Holding stock in one place so that different regions' demand swings partly cancel out; splitting it needs more safety stock |
