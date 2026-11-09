@@ -42,3 +42,4 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 23 | [Price ladders](23_price_ladders/) — read size from product names, test every rung against its neighbours, and check margin along each ladder | Complete |
 | 24 | [GST funded before collection](24_gst_funded_before_collection/) — how long the company carries customers' GST, what it costs, and how much was paid on invoices never collected | Complete |
 | 25 | [Quarterly volume rebate](25_quarterly_volume_rebate/) — what a tiered rebate would cost on today's volumes, the extra volume it must buy, and how much could be earned by moving orders | Complete |
+| 26 | [Discount approval matrix](26_discount_approval_matrix/) — how many approvals a title-based matrix would create, what really drives discounts, and the segment caps already in the data | Complete |
