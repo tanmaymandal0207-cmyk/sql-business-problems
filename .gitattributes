@@ -1,0 +1,2 @@
+# Show BigQuery Standard SQL as SQL in the language bar (not T-SQL)
+*.sql linguist-language=SQL
