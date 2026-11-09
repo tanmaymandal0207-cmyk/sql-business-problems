@@ -49,3 +49,5 @@ Depends on the case study — see [schema](../datasets_and_documentation/schema.
 | 31 | [Order size extreme value](31_order_size_extreme_value/) — how heavy is the tail of order sizes, and what size is exceeded once a month, quarter and year? | Complete |
 | 32 | [Customer dropout (BG/NBD)](32_customer_dropout_bgnbd/) — do customers leave for good or just go quiet, and do customers flagged as silent come back? | Complete |
 | 33 | [Trade credit insurance](33_trade_credit_insurance/) — apply the policy's conditions to two years of bad debts: what it would have paid and the premium that breaks even | Complete |
+| 34 | [Gratuity liability](34_gratuity_liability/) — a projected unit credit valuation in SQL, and what the labour codes' 50 % wage rule adds | Complete |
+| 35 | [Inventory pooling with a second hub](35_inventory_pooling_second_hub/) — the extra safety stock two locations need, the square-root law, and which products the hub should stock | Complete |
