@@ -133,6 +133,12 @@ Shared definitions for metrics used across case studies. Each case study referen
 | QR | [Quarterly volume rebate](../02_sales_and_profitability/25_quarterly_volume_rebate/) |
 | GT | [Goods in transit insurance](../03_operations_and_supply_chain/23_goods_in_transit_insurance/) |
 | TI | [Would trade credit insurance have paid our bad debts?](../05_advanced_analytics/33_trade_credit_insurance/) |
+| DA | [Discount approval matrix](../02_sales_and_profitability/26_discount_approval_matrix/) |
+| LQ | [Liquidated damages exposure](../03_operations_and_supply_chain/24_liquidated_damages_exposure/) |
+| PR | [Payment rails audit](../04_data_quality_and_reconciliation/21_payment_rails_audit/) |
+| CN | [Returns and the GST credit-note deadline](../04_data_quality_and_reconciliation/22_returns_credit_note_deadline/) |
+| GY | [Gratuity liability under the new labour codes](../05_advanced_analytics/34_gratuity_liability/) |
+| IP | [Inventory pooling with a second hub](../05_advanced_analytics/35_inventory_pooling_second_hub/) |
 
 ---
 
@@ -183,6 +189,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Safe commitment level | The highest share of last year's value (5-point steps) met the following year by 80 %+ of qualifying pairs in every back-test | Rule | Confirmed | AC |
 | Retroactive rebate | Quarter's purchases × the rate of the highest tier reached (1 % at ₹10 lakh, 2 % at ₹20 lakh, 3 % at ₹40 lakh) | Customer × quarter | Confirmed | QR |
 | Incremental rebate | Σ tier step × MAX(0, purchases − tier threshold): the same marginal rates, paid only above each threshold | Customer × quarter | Confirmed | QR |
+| Approver (title matrix) | The salesperson if the order's highest line discount is within their title's limit, otherwise the lowest title whose limit covers it | Order | Confirmed | DA |
+| Segment discount cap | The highest order discount a customer segment received in the calibration period | Segment | Confirmed | DA |
+| Variance explained | Between-group sum of squares ÷ total sum of squares of order discounts | Factor | Confirmed | DA |
 
 ## Margin
 
@@ -319,6 +328,10 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Customer kept paying | Any payment by the customer after a defaulted invoice's default date (due + 180 days) | Defaulted invoice | Confirmed | TI |
 | Insurable loss | Loss on an invoice not delivered while overdue, from a customer with no payment after its default date | Invoice | Confirmed | TI |
 | Break-even credit insurance premium | 90 % × insurable losses ÷ turnover not delivered while overdue | Segment | Confirmed | TI |
+| RTGS below minimum | A receipt recorded as RTGS for less than ₹2 lakh | Receipt | Confirmed | PR |
+| Non-clearing day | A Sunday or the second or fourth Saturday of the month | Day | Confirmed | PR |
+| Month-end cheque cut-off | A cheque or draft dated after the last clearing day of its month | Receipt | Confirmed | PR |
+| Credit-note deadline (GST) | 30 November of the year in which the financial year of the original supply ends | Invoice | Confirmed | CN |
 
 > Order revenue and amount collected are calculated independently. They agree within ₹0.05 on 99.74 % of orders. The differences are explained in OC (duplicate receipts, short payments, stale flags).
 
@@ -371,6 +384,9 @@ Shared definitions for metrics used across case studies. Each case study referen
 | Value on the road | Insured value (shipment value × 1.18 × 1.10) of shipments dispatched on or before the day and not yet delivered | Day | Confirmed | GT |
 | Conveyance load | Insured value of all shipments to one city on one day (assumed one vehicle) | City × day | Confirmed | GT |
 | Sum insured run-out | First month of the financial year in which cumulative insured dispatches pass the declared sum insured | Financial year × declaration | Confirmed | GT |
+| Weeks of delay | CEIL(days delivered after the promised date ÷ 7) | Shipment | Confirmed | LQ |
+| LD per order | MIN(Σ 0.5 % × late shipment value incl. GST × weeks of delay, 10 % × order value incl. GST) | Order | Confirmed | LQ |
+| Safety stock (pooled / split) | 1.645 × σ(weekly demand) × √(lead time weeks); pooled uses σ of total demand, split uses σ(region A) + σ(region B) | Product | Confirmed | IP |
 
 ## Product and demand
 
@@ -466,6 +482,14 @@ Shared definitions for metrics used across case studies. Each case study referen
 
 ---
 
+## People costs
+
+| Metric | Definition | Grain | Status | Used in |
+|---|---|---|---|---|
+| Accrued gratuity | IF(service ≥ 5 years, MIN(₹20 lakh, 15 ÷ 26 × monthly wages × gratuity years), 0); gratuity years round up a part-year over six months | Employee | Confirmed | GY |
+| Gratuity DBO (projected unit credit) | Σ over future years of P(exit) × discount factor × projected benefit (if vested) × service today ÷ service at exit | Employee | Confirmed | GY |
+| Current service cost (gratuity) | The DBO expression with 1 ÷ service at exit: the benefit earned by one more year of service | Employee | Confirmed | GY |
+
 ## Change log
 
 | Date | Change |
@@ -491,3 +515,4 @@ Shared definitions for metrics used across case studies. Each case study referen
 | 2026-11-06 | Added pull-forward relative change, event-study placebo p-value, rate-contract qualifying pair, safe commitment level, freight value rate, freight zone, freight distance benchmark, quiet spell, chance quiet rate, compound Poisson FY simulation, back-test percentile, GPD shape and scale and return level definitions. Extended the case study key. |
 | 2026-11-07 | Added as-of and fixed on-time rates, KPI revision, product family, ladder slope, neighbour price, e-way bill requirement and validity, BG/NBD dropout profile, NBD purchase chance, countback DSO, current-invoice DSO and average age of receivables definitions. Extended the case study key. |
 | 2026-11-08 | Added amount above ₹50 lakh and expected TDS, GST funded rupee-days and month-end GST funded, MSME days late and statutory interest, 43B(h) exposure, retroactive and incremental rebate, break-even extra purchases, value on the road, conveyance load, sum insured run-out, delivered while overdue, customer kept paying, insurable loss and break-even credit insurance premium definitions. Extended the case study key. |
+| 2026-11-09 | Added approver under the title matrix, segment discount cap, variance explained, weeks of delay, LD per order, RTGS below minimum, non-clearing day, month-end cheque cut-off, credit-note deadline, pooled and split safety stock, and a People costs section with accrued gratuity, gratuity DBO and current service cost. Extended the case study key. |
