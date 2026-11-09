@@ -15,6 +15,20 @@ Business problems analysed and answered with SQL — each case study starts from
 
 ---
 
+## Start here
+
+Short on time? These five case studies show the full method — business problem, SQL, validation and recommendation — on the problems operations and finance teams meet most often.
+
+| Case study | Business question | Why it is worth reading |
+|---|---|---|
+| [Customer revenue risk](01_customer_and_revenue/01_customer_revenue_risk/) | Is headline revenue hiding one-off orders, concentration and declining accounts? | Revised in a second version after validation; both versions kept for traceability |
+| [Order-to-cash reconciliation](04_data_quality_and_reconciliation/01_order_to_cash_reconciliation/) | Can finance trust the hand-updated payment-status flag, and how much cash is really outstanding? | Reconciles orders to actual receipts before anyone reports on them |
+| [Late delivery root cause](03_operations_and_supply_chain/01_late_delivery_root_cause/) | Which of three competing explanations actually drives late deliveries? | Tests each hypothesis against the data before budget is spent |
+| [Discount and margin erosion](02_sales_and_profitability/01_discount_margin_erosion/) | How much does uncontrolled discounting cost, and what would a limit recover? | Turns a margin complaint into a costed policy recommendation |
+| [Customer master de-duplication](04_data_quality_and_reconciliation/03_customer_master_deduplication/) | Which customer records are duplicates, and which should survive? | Rates match confidence and proposes merges without changing data until reviewed |
+
+---
+
 ## 1. Project overview
 
 This repository documents business problems solved using SQL. Each case study follows the same structure: a clearly stated business problem, the data and metrics used to address it, the SQL solution, the checks used to validate the numbers, and the business interpretation of the results.
