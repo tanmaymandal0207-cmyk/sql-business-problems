@@ -40,3 +40,4 @@ Case studies on order fulfilment — whether orders ship and arrive on time, wha
 | 21 | [Freight zone audit](21_freight_zone_audit/) — what zones does the carrier's card use, do they follow distance, and which negotiating lever is worth most? | Complete |
 | 22 | [E-way bill exposure](22_eway_bill_exposure/) — how many shipments need a GST e-way bill, and on which lanes do deliveries arrive after the bill has expired? | Complete |
 | 23 | [Goods in transit insurance](23_goods_in_transit_insurance/) — value on the road every day, the per-conveyance limit needed, and the sum insured to declare for the open policy | Complete |
+| 24 | [Liquidated damages exposure](24_liquidated_damages_exposure/) — what a 0.5 %-a-week delay-penalty clause would cost, whether anyone deducts it today, and how much promise buffer avoids it | Complete |
