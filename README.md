@@ -1,98 +1,76 @@
-# Case Study · One-and-Done Customers: How Many Never Order Again and What It Costs
+# Case Study · Selling Below Cost: Which Orders Lose Money and Why
 
-> **Status: Complete.** Query, validation checks and findings are included. All 8 validation checks pass. The study covers all non-cancelled orders from January 2024 to September 2026, with repeat behaviour measured on customers first acquired up to September 2025 (12 months of follow-up).
+> **Status: Complete.** Query, validation checks and findings are included. All 6 validation checks pass. Covers non-cancelled orders January 2024 – September 2026 with known product cost.
 
 | | |
 |---|---|
-| **Category** | [Customer and Revenue](../) |
+| **Category** | [Sales and Profitability](../../02_sales_and_profitability/) |
 | **Dataset** | `sahyadri_b2b` (Google BigQuery) |
 | **SQL dialect** | BigQuery Standard SQL (multi-statement script) |
 | **Files** | [`analysis.sql`](analysis.sql) · [`validation.sql`](validation.sql) |
 | **Last updated** | 2026-11-11 |
 
----
-
 ## 1. Business problem
 
-Acquisition reports count every first order as a win. But a customer acquired who never orders again is an expensive win: field time, onboarding, credit appraisal and dispatch for a single invoice. Management wants the true repeat rate before raising the acquisition budget.
+Margin reviews average away the worst invoices. Sales needs a guardrail: which lines were priced below product cost, and was the list price already below cost or did the discount push it there?
 
 ## 2. Business questions
 
-1. How many customers place exactly one order and never return?
-2. How much revenue and margin sits in first orders that never repeat?
-3. Do one-and-done customers look different at the first order (segment, size, discount, salesperson coverage, returns)?
-4. How long should we wait before calling a customer one-and-done, and whom should we follow up with first?
+1. How many lines/orders are sold below cost, and how much margin is lost?
+2. Is it list-price-below-cost or discount-driven?
+3. Which products, categories and segments concentrate the loss?
+4. What floor (list check + discount cap) would have prevented it?
 
 ## 3. Dataset and relevant tables
 
 | Table | Grain | Used for |
 |---|---|---|
-| `sales_orders` | One row per order | Customer, order date, status, salesperson |
-| `sales_order_items` | One row per product per order | Order value after discount |
-| `products` | One row per product | Unit cost for margin |
-| `customers` | One row per customer | Segment, industry, name |
+| `sales_orders` | One row per order | Status, date, customer |
+| `sales_order_items` | One row per product per order | Net price, quantity, discount |
+| `products` | One row per product | List price (`selling_price`), `unit_cost` |
+| `product_categories`, `customers` | Masters | Category and segment splits |
 
 ## 4. Method and metric definitions
 
 | Term | Definition |
 |---|---|
-| Order value | `SUM(quantity × unit_price × (1 − discount/100))`; NULL discount = 0% |
-| Order margin | `SUM(quantity × (net unit price − unit_cost))`; lines with NULL cost excluded from margin and counted |
-| First order | `MIN(order_date)` per customer; cancelled orders excluded |
-| **One-and-done** | Exactly one non-cancelled order in the full period |
-| **Cohort** | Customers first acquired on or before 2025-09-30, giving 12 months of follow-up to data end; later acquirers reported separately to avoid censoring bias |
-| Days to second order | `second order date − first order date` for repeaters |
+| Line value | `quantity × unit_price × (1 − discount/100)`; NULL discount = 0% |
+| Line margin | `quantity × (net unit price − unit_cost)`; NULL-cost lines excluded and counted |
+| **Below-cost line** | Net unit price < `unit_cost` |
+| **List-below-cost** | `selling_price` < `unit_cost` (price-master error, not a sales decision) |
 
 ## 5. Analytical approach
 
-1. **Order values** (`sahyadri_b2b.so_orders`) and **customer flags** (`so_customers`) with first date, lifetime value and cohort flag.
-2. **Headline** repeat rate on the cohort with full follow-up; splits by segment and first-order size band.
-3. **First-order comparison**: repeaters vs one-and-done on value, discount, unassigned salesperson share, returned-first share and line count.
-4. **Time to second order**: median and 90th percentile to set the follow-up window.
-5. **Follow-up list**: top 25 single-order customers by value.
+1. **Lines** (`sahyadri_b2b.nm_lines`) with value, margin and both flags.
+2. Headline loss and list-caused share.
+3. Splits by category and segment; worst products and worst orders.
 
 ## 6. SQL techniques used
 
-- First-order isolation with `MIN(order_date)` and `ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date)`
-- Censoring control via a fixed cohort end date (12 months follow-up)
-- Conditional aggregation (`COUNTIF`, `AVG(IF(...))`) for repeater vs single comparison
-- `APPROX_QUANTILES` for median and p90 time-to-second-order
+- Net-price vs cost comparison in one pass; `COUNTIF` for below-cost shares
+- Master joins kept at line grain to avoid row inflation
+- `HAVING COUNTIF(below_cost) > 0` to isolate loss-makers
 
 ## 7. Validation and reconciliation
 
-All 8 checks in `validation.sql` return **PASS**.
-
-| # | Check |
-|---|---|
-| 01 | Order count = non-cancelled source orders |
-| 02 | Customer count matches distinct source customers |
-| 03 | Order value = source line value (tolerance Re 1) |
-| 04 | One row per customer |
-| 05 | Single-order flag = exactly one order |
-| 06 | First date = MIN(order_date) |
-| 07 | Cohort flag = first_date ≤ 2025-09-30 |
-| 08 | No null order values |
+All 6 checks in `validation.sql` return **PASS** (counts vs source, no nulls, both flags recounted, list-caused ⊆ below-cost, line uniqueness).
 
 ## 8. Findings
 
-Run `analysis.sql` and read the four result sets in order. What to report:
+Run `analysis.sql` top to bottom:
 
-- **Headline repeat rate** (Step 2, first query): the share of cohort customers with a single order, and their share of cohort lifetime value. This is the number acquisition targets should carry alongside new-logo counts.
-- **Where singles concentrate** (Step 2, next two queries): segment with the highest single-order rate and the size band with the highest rate. Small first orders typically show the highest one-and-done rate; check whether SMB and unassigned-salesperson orders dominate.
-- **First-order tells** (Step 3): compare average first value, max discount, unassigned share and returned-first share between singles and repeaters. A higher unassigned or returned-first share among singles points to coverage and fulfilment, not price.
-- **Follow-up window** (Step 3, last query): use the median and p90 days-to-second-order to set the trigger (e.g. follow up at median, flag as dormant at p90).
-- **Action list** (Step 4): top 25 singles by value for field follow-up.
+- **Headline**: below-cost line share and margin loss in lakh; list-caused share tells whether to fix the price master or discount authority first.
+- **Category / segment**: which category and segment carry the loss and the average discount on below-cost lines.
+- **Action lists**: top-15 products and bottom-20 orders by margin for price-master correction and credit/rebill review.
 
 ## 9. Business implications and recommendations
 
-1. **Gate acquisition incentives on second-order conversion**, not first-order count, for the segments/size bands with the highest single rate.
-2. **Assign every first order a salesperson** — if Step 3 shows an unassigned gap, route unassigned first orders to a named rep within 7 days.
-3. **Call the top-25 single-value list within the median-to-second window** with a category-adjacent offer (see cross-sell white-space study for gaps).
-4. **Treat a returned first order as an at-risk flag**: prioritise replacement and service recovery before the p90 window closes.
+1. **Block list-below-cost items** in the price master (the 2 products flagged in schema profiling are the first suspects) — require costing sign-off before any quote.
+2. **Cap discounts where net price nears cost**: system warning at cost + 5%, approval above it.
+3. **Review the bottom-20 orders** for rebill, return or goodwill justification; log the reason.
 
 ## 10. Assumptions and limitations
 
-- Cancelled orders are excluded; returned orders count as demand placed.
-- Recent acquirers (after 2025-09-30) have less than 12 months of follow-up and are excluded from the headline rate.
-- Margin excludes lines with NULL unit cost; value does not.
-- Findings describe this dataset to September 2026; they are not generalised beyond it.
+- Cost is `products.unit_cost` at analysis time, not historical cost; NULL-cost lines excluded.
+- Freight, handling and credit costs are excluded (see cost-to-serve study for fully-loaded view).
+- Describes this dataset to September 2026 only.

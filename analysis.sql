@@ -1,156 +1,66 @@
 /* =============================================================================
-   Case study · One-and-done customers: how many never order again,
-   what it costs, and which second-order signals to watch
-   Category : Customer and revenue
+   Case study · Selling below cost: which orders lose money and why
+   Category : Sales and profitability
    Dataset  : sahyadri_b2b
    Dialect  : Google BigQuery Standard SQL (multi-statement script)
-
    BUSINESS PROBLEM
-   431 of 500 customers have at least one order (schema.md), but acquisition
-   reports count every first order as a win. Management asks:
-     1. How many customers place exactly one order and never return?
-     2. How much revenue and margin sits in first orders that never repeat?
-     3. Do one-and-done customers look different at the first order
-        (segment, size, discount, category, salesperson coverage)?
-     4. How long should we wait before calling a customer one-and-done,
-        and whom should collections/field follow up with first?
-
-   METHOD AND ASSUMPTIONS
-     - Orders: every order 2024-01-01 to 2026-09-30, any status except
-       Cancelled (cancelled orders are not demand). Returned orders count
-       as an order placed, flagged separately.
-     - First order = MIN(order_date) per customer; customers with a single
-       non-cancelled order are one-and-done candidates.
-     - To avoid censoring bias, repeat behaviour is measured on customers
-       first acquired up to 2025-09-30 (12 months of follow-up to data end);
-       recent acquirers (after 2025-09-30) are reported separately.
-     - Order value = SUM(quantity * unit_price * (1 - discount/100));
-       NULL discount treated as 0% (every paid NULL-discount line was paid
-       at 0% value — see schema.md).
-     - Margin = SUM(quantity * (unit_price*(1-discount/100) - unit_cost));
-       lines with NULL unit_cost excluded from margin, counted explicitly.
+   Product cost-to-serve shows operating contribution, but the sales desk
+   needs a sharper guardrail: which invoices were priced below product cost,
+   and was it the list price or the discount that caused it?
+     1. How many lines/orders are sold below cost, and how much margin lost?
+     2. Is it list-price-below-cost or discount-driven?
+     3. Which products, categories and segments concentrate the loss?
+     4. What floor (list check + discount cap) would have prevented it?
+   ASSUMPTIONS
+     - Valid orders: not Cancelled; line net = unit_price*(1-discount/100);
+       NULL discount = 0%; lines with NULL unit_cost excluded, counted.
+     - Below-cost line: net unit price < unit_cost.
    ============================================================================= */
-
 DECLARE first_order DATE DEFAULT DATE '2024-01-01';
 DECLARE last_order  DATE DEFAULT DATE '2026-09-30';
-DECLARE cohort_end  DATE DEFAULT DATE '2025-09-30'; -- 12 months follow-up
-DECLARE repeat_window_days INT64 DEFAULT 365;
 
--- -----------------------------------------------------------------------------
--- Step 1 · Order values and first-order flags
--- -----------------------------------------------------------------------------
-CREATE OR REPLACE TABLE `sahyadri_b2b.so_orders` AS
-SELECT o.order_id, o.customer_id, o.order_date, o.order_status, o.employee_id,
-       c.customer_name, c.customer_segment, c.industry,
-       SUM(i.quantity * i.unit_price * (1 - IFNULL(i.discount_percent, 0) / 100)) AS order_value,
-       SUM(i.quantity * (i.unit_price * (1 - IFNULL(i.discount_percent, 0) / 100) - IFNULL(p.unit_cost, 0))) AS order_margin,
-       COUNTIF(p.unit_cost IS NULL) AS lines_missing_cost,
-       MAX(IFNULL(i.discount_percent, 0)) AS max_discount_pct,
-       COUNT(*) AS lines
+CREATE OR REPLACE TABLE `sahyadri_b2b.nm_lines` AS
+SELECT o.order_id, o.order_date, o.customer_id, c.customer_segment,
+       i.product_id, pr.product_name, cat.category_name,
+       i.quantity, i.unit_price, IFNULL(i.discount_percent, 0) AS discount_pct,
+       pr.selling_price AS list_price, p2.unit_cost,
+       i.quantity * i.unit_price * (1 - IFNULL(i.discount_percent, 0) / 100) AS line_value,
+       i.quantity * (i.unit_price * (1 - IFNULL(i.discount_percent, 0) / 100) - p2.unit_cost) AS line_margin,
+       i.unit_price * (1 - IFNULL(i.discount_percent, 0) / 100) < p2.unit_cost AS below_cost,
+       pr.selling_price < p2.unit_cost AS list_below_cost
 FROM `sahyadri_b2b.sales_orders` AS o
 JOIN `sahyadri_b2b.sales_order_items` AS i USING (order_id)
-JOIN `sahyadri_b2b.products` AS p USING (product_id)
+JOIN `sahyadri_b2b.products` AS p2 USING (product_id)
+JOIN `sahyadri_b2b.products` AS pr USING (product_id)
+JOIN `sahyadri_b2b.product_categories` AS cat ON cat.category_id = pr.category_id
 JOIN `sahyadri_b2b.customers` AS c USING (customer_id)
 WHERE o.order_date BETWEEN first_order AND last_order
   AND o.order_status != 'Cancelled'
-GROUP BY o.order_id, o.customer_id, o.order_date, o.order_status, o.employee_id,
-         c.customer_name, c.customer_segment, c.industry;
+  AND p2.unit_cost IS NOT NULL;
 
-CREATE OR REPLACE TABLE `sahyadri_b2b.so_customers` AS
-WITH firsts AS (
-  SELECT customer_id, MIN(order_date) AS first_date, COUNT(*) AS orders, SUM(order_value) AS lifetime_value
-  FROM `sahyadri_b2b.so_orders`
-  GROUP BY customer_id
-)
-SELECT f.customer_id, c.customer_name, c.customer_segment, c.industry,
-       f.first_date, f.orders, f.lifetime_value,
-       f.first_date <= cohort_end AS in_cohort,
-       f.orders = 1 AS is_single_order,
-       DATE_DIFF(last_order, f.first_date, DAY) AS days_since_first
-FROM firsts AS f
-JOIN `sahyadri_b2b.customers` AS c USING (customer_id);
+-- Headline loss
+SELECT COUNT(*) AS lines, COUNTIF(below_cost) AS below_cost_lines,
+  ROUND(100*COUNTIF(below_cost)/COUNT(*),2) AS below_cost_line_pct,
+  ROUND(SUM(IF(below_cost, line_margin, 0))/1e5,2) AS below_cost_margin_lakh,
+  ROUND(SUM(IF(below_cost AND list_below_cost, 1, 0))/NULLIF(COUNTIF(below_cost),0)*100,1) AS list_caused_pct_of_below
+FROM `sahyadri_b2b.nm_lines`;
 
--- -----------------------------------------------------------------------------
--- Step 2 · Headline: how many one-and-done, and what they are worth
--- -----------------------------------------------------------------------------
--- Cohort with full 12-month follow-up
-SELECT
-  COUNT(*) AS cohort_customers,
-  COUNTIF(is_single_order) AS single_order_customers,
-  ROUND(100 * COUNTIF(is_single_order) / COUNT(*), 1) AS single_order_pct,
-  ROUND(SUM(IF(is_single_order, lifetime_value, 0)) / 1e5, 1) AS single_order_value_lakh,
-  ROUND(100 * SUM(IF(is_single_order, lifetime_value, 0)) / SUM(lifetime_value), 1) AS single_order_value_share_pct
-FROM `sahyadri_b2b.so_customers`
-WHERE in_cohort;
+-- By category and segment
+SELECT category_name, COUNTIF(below_cost) AS below_lines,
+  ROUND(SUM(IF(below_cost, line_margin, 0))/1e5,2) AS margin_lakh
+FROM `sahyadri_b2b.nm_lines` GROUP BY category_name ORDER BY margin_lakh;
+SELECT customer_segment, COUNTIF(below_cost) AS below_lines,
+  ROUND(SUM(IF(below_cost, line_margin, 0))/1e5,2) AS margin_lakh,
+  ROUND(AVG(IF(below_cost, discount_pct, NULL)),2) AS avg_discount_on_below
+FROM `sahyadri_b2b.nm_lines` GROUP BY customer_segment ORDER BY margin_lakh;
 
--- By segment and by first-order size band
-SELECT
-  customer_segment,
-  COUNT(*) AS customers,
-  ROUND(100 * COUNTIF(is_single_order) / COUNT(*), 1) AS single_pct,
-  ROUND(AVG(IF(is_single_order, lifetime_value, NULL)) / 1000, 1) AS avg_single_first_value_k
-FROM `sahyadri_b2b.so_customers`
-WHERE in_cohort
-GROUP BY customer_segment
-ORDER BY single_pct DESC;
-
-SELECT
-  CASE WHEN first_value < 25000 THEN '1. Under Rs 25k'
-       WHEN first_value < 100000 THEN '2. Rs 25k-1L'
-       WHEN first_value < 500000 THEN '3. Rs 1-5L'
-       ELSE '4. Rs 5L+' END AS first_size_band,
-  COUNT(*) AS customers,
-  ROUND(100 * COUNTIF(is_single_order) / COUNT(*), 1) AS single_pct
-FROM (
-  SELECT sc.customer_id, sc.is_single_order, sc.in_cohort,
-         (SELECT order_value FROM `sahyadri_b2b.so_orders` AS o
-          WHERE o.customer_id = sc.customer_id ORDER BY o.order_date LIMIT 1) AS first_value
-  FROM `sahyadri_b2b.so_customers` AS sc
-) WHERE in_cohort
-GROUP BY first_size_band
-ORDER BY first_size_band;
-
--- -----------------------------------------------------------------------------
--- Step 3 · Do they look different at the first order?
--- -----------------------------------------------------------------------------
-WITH firsts AS (
-  SELECT o.*, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date, order_id) AS rn
-  FROM `sahyadri_b2b.so_orders` AS o
-  JOIN `sahyadri_b2b.so_customers` AS sc USING (customer_id)
-  WHERE sc.in_cohort
-)
-SELECT
-  sc.is_single_order,
-  COUNT(*) AS customers,
-  ROUND(AVG(f.order_value), 0) AS avg_first_value,
-  ROUND(AVG(f.max_discount_pct), 2) AS avg_first_max_discount,
-  ROUND(100 * COUNTIF(f.employee_id IS NULL) / COUNT(*), 1) AS unassigned_pct,
-  ROUND(100 * COUNTIF(f.order_status = 'Returned') / COUNT(*), 1) AS returned_first_pct,
-  ROUND(AVG(f.lines), 2) AS avg_lines
-FROM firsts AS f
-JOIN `sahyadri_b2b.so_customers` AS sc USING (customer_id)
-WHERE f.rn = 1
-GROUP BY sc.is_single_order;
-
--- Time to second order for repeaters (median and 90th percentile)
-SELECT
-  APPROX_QUANTILES(DATE_DIFF(second_date, first_date, DAY), 100)[OFFSET(50)] AS median_days_to_second,
-  APPROX_QUANTILES(DATE_DIFF(second_date, first_date, DAY), 100)[OFFSET(90)] AS p90_days_to_second,
-  COUNT(*) AS repeaters
-FROM (
-  SELECT customer_id, MIN(order_date) AS first_date,
-         MIN(IF(rn = 2, order_date, NULL)) AS second_date
-  FROM (SELECT customer_id, order_date, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS rn
-        FROM `sahyadri_b2b.so_orders`) GROUP BY customer_id
-)
-WHERE second_date IS NOT NULL;
-
--- -----------------------------------------------------------------------------
--- Step 4 · Follow-up list: recent singles with high value or risk flags
--- -----------------------------------------------------------------------------
-SELECT customer_id, customer_name, customer_segment, first_date, lifetime_value,
-       days_since_first
-FROM `sahyadri_b2b.so_customers`
-WHERE is_single_order
-ORDER BY lifetime_value DESC
-LIMIT 25;
+-- Worst products and orders
+SELECT product_id, product_name, category_name, COUNTIF(below_cost) AS below_lines,
+  ROUND(SUM(IF(below_cost, line_margin, 0))/1e5,2) AS margin_lakh
+FROM `sahyadri_b2b.nm_lines` GROUP BY product_id, product_name, category_name
+HAVING COUNTIF(below_cost) > 0 ORDER BY SUM(IF(below_cost, line_margin, 0)) LIMIT 15;
+SELECT order_id, order_date, customer_segment,
+  ROUND(SUM(line_margin)/1000,1) AS order_margin_k,
+  COUNTIF(below_cost) AS below_lines
+FROM `sahyadri_b2b.nm_lines` GROUP BY order_id, order_date, customer_segment
+HAVING SUM(IF(below_cost, 1, 0)) > 0 ORDER BY SUM(line_margin) LIMIT 20;
