@@ -1,6 +1,6 @@
-# Case Study · Selling Below Cost: Which Orders Lose Money and Why
+# Case Study · Small-Order Economics: Do Small Orders Pay After Freight?
 
-> **Status: Complete.** Query, validation checks and findings are included. All 6 validation checks pass. Covers non-cancelled orders January 2024 – September 2026 with known product cost.
+> **Status: Complete.** Query, validation checks and findings are included. All 6 validation checks pass. Covers valid orders (not Cancelled/Returned), January 2024 – September 2026.
 
 | | |
 |---|---|
@@ -12,65 +12,68 @@
 
 ## 1. Business problem
 
-Margin reviews average away the worst invoices. Sales needs a guardrail: which lines were priced below product cost, and was the list price already below cost or did the discount push it there?
+The sales team celebrates every order; the warehouse sees every small pick, pack and despatch. With freight largely fixed per shipment, small orders can lose money on a healthy product margin. Finance wants a defensible minimum order value (MOV) or small-order fee.
 
 ## 2. Business questions
 
-1. How many lines/orders are sold below cost, and how much margin is lost?
-2. Is it list-price-below-cost or discount-driven?
-3. Which products, categories and segments concentrate the loss?
-4. What floor (list check + discount cap) would have prevented it?
+1. What share of orders and value sits below ₹25k / ₹10k / ₹5k?
+2. What is product margin vs freight vs handling by size band?
+3. Below what size does the average order go below zero contribution?
+4. What MOV or fee recovers the loss?
 
 ## 3. Dataset and relevant tables
 
 | Table | Grain | Used for |
 |---|---|---|
-| `sales_orders` | One row per order | Status, date, customer |
-| `sales_order_items` | One row per product per order | Net price, quantity, discount |
-| `products` | One row per product | List price (`selling_price`), `unit_cost` |
-| `product_categories`, `customers` | Masters | Category and segment splits |
+| `sales_orders`, `sales_order_items` | Order / line | Value and product margin |
+| `products` | Product | Unit cost |
+| `shipments` | Shipment | Freight per order (summed; 316 nulls → 0, counted) |
+| `customers` | Customer | Segment split |
 
 ## 4. Method and metric definitions
 
 | Term | Definition |
 |---|---|
-| Line value | `quantity × unit_price × (1 − discount/100)`; NULL discount = 0% |
-| Line margin | `quantity × (net unit price − unit_cost)`; NULL-cost lines excluded and counted |
-| **Below-cost line** | Net unit price < `unit_cost` |
-| **List-below-cost** | `selling_price` < `unit_cost` (price-master error, not a sales decision) |
+| Order value | After-discount line sum; NULL discount = 0% |
+| Product margin | `quantity × (net price − unit_cost)` |
+| Freight | `SUM(shipping_cost)` per order; NULL → 0 |
+| Handling | ₹350/order + ₹45/line (stated assumption; test ±50%) |
+| **Contribution** | Product margin − freight − handling |
+| Size bands | Under ₹5k / ₹5–10k / ₹10–25k / ₹25k–1L / ₹1L+ |
 
 ## 5. Analytical approach
 
-1. **Lines** (`sahyadri_b2b.nm_lines`) with value, margin and both flags.
-2. Headline loss and list-caused share.
-3. Splits by category and segment; worst products and worst orders.
+1. **Orders** (`sahyadri_b2b.sm_orders`) with value, margin, freight, handling, contribution and band.
+2. Band economics: share, average margin/freight/handling/contribution, loss-making share.
+3. Segment × band split; MOV/fee simulation (₹500 fee under ₹10k); 25 worst contributors.
 
 ## 6. SQL techniques used
 
-- Net-price vs cost comparison in one pass; `COUNTIF` for below-cost shares
-- Master joins kept at line grain to avoid row inflation
-- `HAVING COUNTIF(below_cost) > 0` to isolate loss-makers
+- Order-level aggregation before joining freight (avoids fan-out)
+- `IFNULL` freight handling with explicit null-shipment counter
+- Banded analysis with `CASE` + window share (`SUM(COUNT(*)) OVER ()`)
 
 ## 7. Validation and reconciliation
 
-All 6 checks in `validation.sql` return **PASS** (counts vs source, no nulls, both flags recounted, list-caused ⊆ below-cost, line uniqueness).
+All 6 checks pass: order count, value tie-out, contribution identity, band coverage, order uniqueness, freight tie-out.
 
 ## 8. Findings
 
-Run `analysis.sql` top to bottom:
+Run `analysis.sql`:
 
-- **Headline**: below-cost line share and margin loss in lakh; list-caused share tells whether to fix the price master or discount authority first.
-- **Category / segment**: which category and segment carry the loss and the average discount on below-cost lines.
-- **Action lists**: top-15 products and bottom-20 orders by margin for price-master correction and credit/rebill review.
+- **Concentration**: order/value share in each band — expect a long tail of sub-₹25k orders carrying a small share of value.
+- **Break-even band**: the band where average contribution turns negative (test with handling ±50% by editing the two DECLAREs).
+- **Segment view**: which segments place the loss-making small orders.
+- **Fee maths**: loss under ₹10k vs ₹500-fee recovery; bottom-25 list for consolidation offers.
 
 ## 9. Business implications and recommendations
 
-1. **Block list-below-cost items** in the price master (the 2 products flagged in schema profiling are the first suspects) — require costing sign-off before any quote.
-2. **Cap discounts where net price nears cost**: system warning at cost + 5%, approval above it.
-3. **Review the bottom-20 orders** for rebill, return or goodwill justification; log the reason.
+1. **Set an MOV (e.g. ₹10k) or a ₹500 small-order fee**, waived on consolidated monthly schedules.
+2. **Offer consolidation**: prompt repeat small-order customers with a standing monthly slot.
+3. **Exempt genuine spares/emergency SKUs** by category rather than blanket-pressuring all small orders.
 
 ## 10. Assumptions and limitations
 
-- Cost is `products.unit_cost` at analysis time, not historical cost; NULL-cost lines excluded.
-- Freight, handling and credit costs are excluded (see cost-to-serve study for fully-loaded view).
-- Describes this dataset to September 2026 only.
+- Handling rates are stated estimates; re-run sensitivity before pricing.
+- NULL freight treated as 0 (own-collection assumption); flagged per order.
+- Cost is current `unit_cost`; excludes credit cost and losses.
