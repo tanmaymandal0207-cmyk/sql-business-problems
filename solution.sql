@@ -1,12 +1,12 @@
--- Business Problem 04: Online ordering adoption by locality
+-- Business Problem 05: Table-booking and dine-in service profile
 
-WITH locality_ordering AS (
+-- Locality-level availability.
+WITH locality_booking AS (
   SELECT
     location,
     COUNT(*) AS total_listings,
-    COUNTIF(LOWER(TRIM(online_order)) = 'yes') AS online_order_listings,
-    COUNTIF(LOWER(TRIM(online_order)) = 'no') AS non_online_order_listings,
-    COUNTIF(online_order IS NULL OR TRIM(online_order) = '') AS unknown_listings
+    COUNTIF(LOWER(TRIM(book_table)) = 'yes') AS booking_listings,
+    COUNTIF(LOWER(TRIM(book_table)) = 'no') AS non_booking_listings
   FROM `zomatoanalytics.Zomato_csv.restaurants_clean`
   WHERE location IS NOT NULL
   GROUP BY location
@@ -14,20 +14,30 @@ WITH locality_ordering AS (
 SELECT
   location,
   total_listings,
-  online_order_listings,
-  non_online_order_listings,
-  unknown_listings,
-  ROUND(100 * SAFE_DIVIDE(online_order_listings, total_listings - unknown_listings), 2)
-    AS online_order_adoption_pct
-FROM locality_ordering
+  booking_listings,
+  non_booking_listings,
+  ROUND(100 * SAFE_DIVIDE(
+    booking_listings,
+    booking_listings + non_booking_listings
+  ), 2) AS table_booking_availability_pct
+FROM locality_booking
 WHERE total_listings >= 50
-ORDER BY online_order_adoption_pct DESC, total_listings DESC;
+ORDER BY table_booking_availability_pct DESC, total_listings DESC;
 
--- Overall online-order availability profile.
+-- Rating and price comparison by table-booking status.
+WITH base AS (
+  SELECT
+    LOWER(TRIM(book_table)) AS booking_status,
+    SAFE_CAST(SPLIT(rate_cleaned, '/')[SAFE_OFFSET(0)] AS FLOAT64) AS rating,
+    approx_cost_cleaned
+  FROM `zomatoanalytics.Zomato_csv.restaurants_clean`
+)
 SELECT
-  LOWER(TRIM(online_order)) AS online_order_status,
+  booking_status,
   COUNT(*) AS restaurant_listings,
-  ROUND(100 * SAFE_DIVIDE(COUNT(*), SUM(COUNT(*)) OVER ()), 2) AS share_pct
-FROM `zomatoanalytics.Zomato_csv.restaurants_clean`
-GROUP BY online_order_status
+  ROUND(AVG(rating), 2) AS average_rating,
+  ROUND(AVG(approx_cost_cleaned), 0) AS average_cost_for_two
+FROM base
+WHERE booking_status IN ('yes', 'no')
+GROUP BY booking_status
 ORDER BY restaurant_listings DESC;

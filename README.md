@@ -1,18 +1,18 @@
-# Where is online ordering most and least adopted?
+# How available is table booking, and where is dine-in service concentrated?
 
 ## Business problem
-A delivery-focused operator or platform analyst wants to understand online-order availability across Bangalore localities.
+A dine-in operator wants to understand the prevalence of table-booking availability and the localities where it is most common.
 
 ## Business questions
-- What proportion of listings accept online orders?
-- Which localities have the highest and lowest online-order adoption?
-- Are differences driven by the number of listings or the adoption rate?
+- What proportion of listings offer table booking?
+- Which localities have the highest table-booking availability?
+- Do table-booking listings have different average ratings or cost positioning?
 
 ## Method
-Calculate Yes/No counts and adoption percentage by locality. Exclude missing locality values from the ranked locality view, and require a minimum listing count to reduce unstable percentages in very small groups.
+Summarise table-booking status overall and by locality, then compare average rating and approximate cost-for-two by booking status. Exclude unknown status from the Yes/No comparison.
 
 ## Interpretation
-The field records whether online ordering is listed as available; it does not reveal order volume, delivery performance, platform commission, or revenue. Locality adoption rates should be compared alongside sample size.
+Table booking is a service attribute, not a direct measure of dine-in traffic, occupancy or reservation conversion. The rating/cost comparison is observational and should not be presented as evidence that table booking causes higher ratings or prices.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against:
