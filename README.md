@@ -1,74 +1,22 @@
-# Case Study · Next Order Due: Whose Ordering Rhythm Has Slipped
+# Where is restaurant supply concentrated across Bangalore localities?
 
-> **Status: Complete.** Query, validation checks and findings are included. All 6 validation checks pass. Covers reordering customers (3+ orders) to 30 September 2026, with a June-2026 back-test for July reorders.
+## Business problem
+A restaurant operator or market researcher needs to understand where listed restaurant supply is concentrated and which localities have a comparatively smaller listing base.
 
-| | |
-|---|---|
-| **Category** | [Advanced Analytics](../../05_advanced_analytics/) |
-| **Dataset** | `sahyadri_b2b` (Google BigQuery) |
-| **SQL dialect** | BigQuery Standard SQL (multi-statement script) |
-| **Files** | [`analysis.sql`](analysis.sql) · [`validation.sql`](validation.sql) |
-| **Last updated** | 2026-11-11 |
+## Business questions
+- Which localities contain the largest number of restaurant listings?
+- What share of all listings does each locality represent?
+- How many listings have a valid numeric rating in each locality?
 
-## 1. Business problem
+## Method
+Aggregate listings by `location`, calculate each locality's share of the full dataset, and report rating coverage and average rating. Keep missing locality values visible as an explicit group so the denominator is transparent.
 
-Reorder reminders fire on fixed category clocks; field reps work alphabetically. Every reordering customer has its own rhythm — and a slip against that rhythm is the earliest demand signal. Management wants a ranked due-list, proven to predict reorders, not another static segment.
+## Interpretation
+High listing count indicates supply concentration, not automatically demand or profitability. A low-count locality is only a candidate for further research; population, footfall, rents, competition quality and delivery radius are not present in this dataset.
 
-## 2. Business questions
+## Run
+Execute `solution.sql` in BigQuery Standard SQL against:
+`zomatoanalytics.Zomato_csv.restaurants_clean`
 
-1. What is each customer's typical gap and spread between orders?
-2. Who is overdue today against their own rhythm, and by how much?
-3. Does overdue-against-own-rhythm actually predict who reorders next month?
-
-## 3. Dataset and relevant tables
-
-| Table | Grain | Used for |
-|---|---|---|
-| `sales_orders` | Order | Consecutive-order gaps, last date, July reorder label |
-| `customers` | Customer | Name, segment |
-
-## 4. Method and metric definitions
-
-| Term | Definition |
-|---|---|
-| Gap | Days between consecutive non-cancelled orders of the same customer |
-| **Rhythm (median gap)** | p50 of a customer's gaps; spread = p90 − p50 |
-| **Due date** | Last order date + median gap (as of 30 Sep 2026) |
-| **Overdue / far overdue** | Days since last order > median / > p90 |
-| Back-test | Score as of 30 Jun 2026, label = reorder in next 31 days; AUC by Mann–Whitney rank; no look-ahead (only orders ≤ as-of used for rhythm) |
-
-## 5. Analytical approach
-
-1. **Gaps and rhythms** (`sahyadri_b2b.no_gaps`, 3+ orders only).
-2. **Due list** (`no_due`) with days overdue and both flags.
-3. **Back-test AUC** for July-2026 reorders; top-25 overdue list.
-
-## 6. SQL techniques used
-
-- Consecutive gaps via `LAG()` / self-join on `ROW_NUMBER()`
-- `APPROX_QUANTILES(...,100)[OFFSET(50/90)]` for median and p90 in SQL
-- Point-in-time back-test with an as-of cut-off; AUC from `RANK()` (Mann–Whitney)
-
-## 7. Validation and reconciliation
-
-All 6 checks pass: scored-customer count, gaps = orders − 1, due-date identity, flag logic, no nulls, customer uniqueness.
-
-## 8. Findings
-
-Run `analysis.sql`:
-
-- **Headline**: scored customers, overdue and far-overdue counts and share.
-- **Due list**: top-25 by days overdue with rhythm and last date for the call plan.
-- **Proof**: back-test AUC — above 0.5 means overdue rank predicts July reorders; report alongside the reorder base rate.
-
-## 9. Business implications and recommendations
-
-1. **Work the far-overdue list first**, then plain overdue sorted by days overdue — not alphabetically.
-2. **Trigger at due date + 25% of median gap** for routine SKUs; escalate at p90.
-3. **Keep fixed-clock reminders only for 1–2 order customers**; rhythm needs 3+ orders.
-
-## 10. Assumptions and limitations
-
-- Needs 3+ orders; newer customers are unscored by design.
-- Cancelled orders excluded; returns kept as demand.
-- Single-month back-test (July 2026); re-run across months before automating.
+## Output
+The query returns the measures and dimensions needed to answer the business questions. Add the actual result and a concise business recommendation after execution; this package intentionally does not invent query outputs.
