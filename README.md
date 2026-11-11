@@ -1,18 +1,18 @@
-# Where is restaurant supply concentrated across Bangalore localities?
+# Which cuisine categories have the strongest listing presence?
 
 ## Business problem
-A restaurant operator or market researcher needs to understand where listed restaurant supply is concentrated and which localities have a comparatively smaller listing base.
+A food-business operator wants to understand which cuisine categories are most represented in Bangalore listings before assessing potential market-entry opportunities.
 
 ## Business questions
-- Which localities contain the largest number of restaurant listings?
-- What share of all listings does each locality represent?
-- How many listings have a valid numeric rating in each locality?
+- Which individual cuisine labels appear most frequently?
+- How many restaurants are associated with each cuisine?
+- What are the average rating and average cost-for-two for each cuisine?
 
 ## Method
-Aggregate listings by `location`, calculate each locality's share of the full dataset, and report rating coverage and average rating. Keep missing locality values visible as an explicit group so the denominator is transparent.
+Split the comma-separated `cuisines` field into individual labels, trim whitespace, and aggregate at the cuisine level. A restaurant with multiple cuisine labels contributes once to each associated cuisine.
 
 ## Interpretation
-High listing count indicates supply concentration, not automatically demand or profitability. A low-count locality is only a candidate for further research; population, footfall, rents, competition quality and delivery radius are not present in this dataset.
+This measures listing presence, not market share by sales or customer demand. Because restaurants can appear in multiple cuisine categories, cuisine counts are non-additive and should not be summed to estimate unique restaurants. Treat high representation as evidence of competition intensity, not proof that a segment is saturated.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against:
