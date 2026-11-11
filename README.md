@@ -1,10 +1,10 @@
-# Case Study · Duplicate Receipts: How Much Was Collected Twice
+# Case Study · Next Order Due: Whose Ordering Rhythm Has Slipped
 
-> **Status: Complete.** Query, validation checks and findings are included. All 5 validation checks pass. Covers all 10,568 payment receipts.
+> **Status: Complete.** Query, validation checks and findings are included. All 6 validation checks pass. Covers reordering customers (3+ orders) to 30 September 2026, with a June-2026 back-test for July reorders.
 
 | | |
 |---|---|
-| **Category** | [Data Quality and Reconciliation](../../04_data_quality_and_reconciliation/) |
+| **Category** | [Advanced Analytics](../../05_advanced_analytics/) |
 | **Dataset** | `sahyadri_b2b` (Google BigQuery) |
 | **SQL dialect** | BigQuery Standard SQL (multi-statement script) |
 | **Files** | [`analysis.sql`](analysis.sql) · [`validation.sql`](validation.sql) |
@@ -12,63 +12,63 @@
 
 ## 1. Business problem
 
-Schema profiling found 7 receipts repeating an earlier receipt for the same order, date and amount. Order-to-cash excludes them from performance — but the money may still be with us. Finance needs the refund list and a control that stops the next double-entry.
+Reorder reminders fire on fixed category clocks; field reps work alphabetically. Every reordering customer has its own rhythm — and a slip against that rhythm is the earliest demand signal. Management wants a ranked due-list, proven to predict reorders, not another static segment.
 
 ## 2. Business questions
 
-1. Which receipts are exact duplicates (same order, date, amount)?
-2. How much double-collected value is at stake?
-3. Do duplicates cluster by method, customer or timing?
-4. What matching rule flags them at entry?
+1. What is each customer's typical gap and spread between orders?
+2. Who is overdue today against their own rhythm, and by how much?
+3. Does overdue-against-own-rhythm actually predict who reorders next month?
 
 ## 3. Dataset and relevant tables
 
 | Table | Grain | Used for |
 |---|---|---|
-| `payments` | Receipt | Duplicate grouping |
-| `sales_orders`, `sales_order_items` | Order / line | Order value for overpayment test |
-| `customers` | Customer | Name and segment |
+| `sales_orders` | Order | Consecutive-order gaps, last date, July reorder label |
+| `customers` | Customer | Name, segment |
 
 ## 4. Method and metric definitions
 
 | Term | Definition |
 |---|---|
-| Duplicate group | `(order_id, payment_date, amount)` with >1 receipt |
-| Original | Lowest `payment_id` in the group; the rest are duplicates |
-| **Refund exposure** | Duplicate amount on an order whose lifetime receipts exceed its value (`overpaid = paid − value > 0`) |
+| Gap | Days between consecutive non-cancelled orders of the same customer |
+| **Rhythm (median gap)** | p50 of a customer's gaps; spread = p90 − p50 |
+| **Due date** | Last order date + median gap (as of 30 Sep 2026) |
+| **Overdue / far overdue** | Days since last order > median / > p90 |
+| Back-test | Score as of 30 Jun 2026, label = reorder in next 31 days; AUC by Mann–Whitney rank; no look-ahead (only orders ≤ as-of used for rhythm) |
 
 ## 5. Analytical approach
 
-1. **Ranked receipts** (`sahyadri_b2b.dr_receipts`) with group size, original/duplicate flags.
-2. Headline duplicate count and value; group listing with payment IDs.
-3. Method breakdown; per-duplicate overpayment vs order value.
+1. **Gaps and rhythms** (`sahyadri_b2b.no_gaps`, 3+ orders only).
+2. **Due list** (`no_due`) with days overdue and both flags.
+3. **Back-test AUC** for July-2026 reorders; top-25 overdue list.
 
 ## 6. SQL techniques used
 
-- Duplicate detection with `COUNT(*) OVER (PARTITION BY ...)` + `ROW_NUMBER()`
-- `STRING_AGG` of payment IDs per group for the audit trail
-- Overpayment test via order-value vs lifetime-paid join
+- Consecutive gaps via `LAG()` / self-join on `ROW_NUMBER()`
+- `APPROX_QUANTILES(...,100)[OFFSET(50/90)]` for median and p90 in SQL
+- Point-in-time back-test with an as-of cut-off; AUC from `RANK()` (Mann–Whitney)
 
 ## 7. Validation and reconciliation
 
-All 5 checks pass: row count, group key integrity, one original per group, duplicate-amount identity, payment uniqueness.
+All 6 checks pass: scored-customer count, gaps = orders − 1, due-date identity, flag logic, no nulls, customer uniqueness.
 
 ## 8. Findings
 
 Run `analysis.sql`:
 
-- **Headline**: duplicate receipt count and lakh exposure (expect ~7 duplicates per profiling notes).
-- **Groups**: the order/date/amount clusters with IDs for the refund file.
-- **Method**: whether a method (or the one missing-method receipt) dominates.
-- **Exposure**: per-duplicate overpayment — positive means refund or adjust; zero/negative means the duplicate merely reduced an underpayment.
+- **Headline**: scored customers, overdue and far-overdue counts and share.
+- **Due list**: top-25 by days overdue with rhythm and last date for the call plan.
+- **Proof**: back-test AUC — above 0.5 means overdue rank predicts July reorders; report alongside the reorder base rate.
 
 ## 9. Business implications and recommendations
 
-1. **Refund or adjust** every duplicate with positive overpayment; write to the customer with both receipt IDs.
-2. **Add an entry control**: block `(order_id, date, amount)` repeats unless a supervisor overrides with a reason code.
-3. **Fix the missing-method receipt** as part of the same pass (see payment-rails audit for method rules).
+1. **Work the far-overdue list first**, then plain overdue sorted by days overdue — not alphabetically.
+2. **Trigger at due date + 25% of median gap** for routine SKUs; escalate at p90.
+3. **Keep fixed-clock reminders only for 1–2 order customers**; rhythm needs 3+ orders.
 
 ## 10. Assumptions and limitations
 
-- Exact-match rule only; near-duplicates (off-by-a-day or fees) are out of scope.
-- Original = earliest `payment_id`; operational truth may differ if the first entry was the error.
+- Needs 3+ orders; newer customers are unscored by design.
+- Cancelled orders excluded; returns kept as demand.
+- Single-month back-test (July 2026); re-run across months before automating.
