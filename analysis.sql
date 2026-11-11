@@ -1,51 +1,41 @@
 /* =============================================================================
-   Case study · Orders with no salesperson: value, fulfilment and collection
-   Category : Operations and supply chain (coverage) / Sales
-   352 orders have NULL employee_id (schema.md). Every study reports them
-   separately; none analyses them. This study does.
-     1. How much value/margin sits on unassigned orders?
-     2. Do they fulfil, deliver and collect worse?
-     3. Is it a channel (web/phone), a shift, or neglect?
-     4. What coverage rule clears the queue?
-   METHOD: all orders 2024-01-01 to 2026-09-30; value after discount;
-   NULL discount=0%; delivered = order_status Delivered; on-time = delivery
-   <= promise (166 null promises excluded, counted); collected = payments sum.
+   Case study · Duplicate receipts: how much was collected twice
+   7 payments repeat an earlier receipt for same order/date/amount (schema.md)
+   and one has missing method — treated as duplicates in order-to-cash. But
+   finance still needs: which receipts, what refund exposure, and what
+   control stops it?
+     1. Which receipts are exact duplicates (order, date, amount)?
+     2. How much double-collected value is at stake (refund exposure)?
+     3. Do duplicates cluster by method, day, customer or salesperson?
+     4. What matching rule flags them at entry?
+   METHOD: grain one row per payment; duplicate group = (order_id, payment_date,
+   amount) with >1 receipt; keep earliest payment_id as original, rest as
+   duplicate; exposure = duplicate amount (refund owed if order not underpaid).
    ============================================================================= */
-CREATE OR REPLACE TABLE `sahyadri_b2b.un_orders` AS
-WITH value AS (
-  SELECT o.order_id, o.order_date, o.customer_id, o.employee_id, o.order_status, o.promised_delivery_date,
-         SUM(i.quantity*i.unit_price*(1-IFNULL(i.discount_percent,0)/100)) AS order_value
-  FROM `sahyadri_b2b.sales_orders` AS o JOIN `sahyadri_b2b.sales_order_items` AS i USING (order_id)
-  GROUP BY o.order_id, o.order_date, o.customer_id, o.employee_id, o.order_status, o.promised_delivery_date
-),
-paid AS (SELECT order_id, SUM(amount) AS paid FROM `sahyadri_b2b.payments` GROUP BY order_id),
-ship AS (
-  SELECT order_id, MAX(delivery_date) AS delivered_on, SUM(IFNULL(shipping_cost,0)) AS freight
-  FROM `sahyadri_b2b.shipments` GROUP BY order_id
+CREATE OR REPLACE TABLE `sahyadri_b2b.dr_receipts` AS
+WITH ranked AS (
+  SELECT p.*, c.customer_name, c.customer_segment,
+         ROW_NUMBER() OVER (PARTITION BY p.order_id, p.payment_date, p.amount ORDER BY p.payment_id) AS rn,
+         COUNT(*) OVER (PARTITION BY p.order_id, p.payment_date, p.amount) AS grp_n
+  FROM `sahyadri_b2b.payments` AS p LEFT JOIN `sahyadri_b2b.sales_orders` AS o USING (order_id)
+  LEFT JOIN `sahyadri_b2b.customers` AS c USING (customer_id)
 )
-SELECT v.*, c.customer_name, c.customer_segment,
-       v.employee_id IS NULL AS unassigned,
-       IFNULL(p.paid,0) AS paid, v.order_value - IFNULL(p.paid,0) AS balance,
-       s.delivered_on, s.freight,
-       CASE WHEN v.promised_delivery_date IS NULL THEN NULL
-            WHEN s.delivered_on IS NULL THEN NULL
-            ELSE s.delivered_on <= v.promised_delivery_date END AS on_time
-FROM value AS v JOIN `sahyadri_b2b.customers` AS c USING (customer_id)
-LEFT JOIN paid AS p USING (order_id) LEFT JOIN ship AS s USING (order_id);
+SELECT *, grp_n > 1 AS in_dup_group, rn > 1 AS is_duplicate FROM ranked;
 
-SELECT unassigned, COUNT(*) AS orders, ROUND(SUM(order_value)/1e7,2) AS value_cr,
-  ROUND(100*COUNT(*)/SUM(COUNT(*)) OVER (),1) AS share_pct,
-  ROUND(100*COUNTIF(order_status='Delivered')/COUNT(*),1) AS delivered_pct,
-  ROUND(100*COUNTIF(on_time)/COUNTIF(on_time IS NOT NULL),1) AS ontime_of_promised_pct,
-  ROUND(SUM(balance)/1e7,2) AS balance_cr
-FROM `sahyadri_b2b.un_orders` GROUP BY unassigned;
-SELECT customer_segment, unassigned, COUNT(*) AS orders, ROUND(SUM(order_value)/1e5,1) AS value_lakh
-FROM `sahyadri_b2b.un_orders` GROUP BY customer_segment, unassigned ORDER BY customer_segment, unassigned;
-SELECT EXTRACT(YEAR FROM order_date) AS y, EXTRACT(QUARTER FROM order_date) AS q,
-  COUNTIF(unassigned) AS unassigned_orders, COUNT(*) AS total
-FROM `sahyadri_b2b.un_orders` GROUP BY y, q ORDER BY y, q;
-SELECT EXTRACT(DAYOFWEEK FROM order_date) AS dow, COUNTIF(unassigned) AS unassigned, COUNT(*) AS total,
-  ROUND(100*COUNTIF(unassigned)/COUNT(*),1) AS unassigned_pct
-FROM `sahyadri_b2b.un_orders` GROUP BY dow ORDER BY dow;
-SELECT order_id, order_date, customer_name, customer_segment, ROUND(order_value,0) AS value_, order_status, ROUND(balance,0) AS bal
-FROM `sahyadri_b2b.un_orders` WHERE unassigned AND balance > 10000 ORDER BY balance DESC LIMIT 25;
+SELECT COUNT(*) AS receipts, COUNTIF(in_dup_group) AS in_groups, COUNTIF(is_duplicate) AS duplicates,
+  ROUND(SUM(IF(is_duplicate, amount, 0))/1e5,2) AS duplicate_value_lakh
+FROM `sahyadri_b2b.dr_receipts`;
+SELECT order_id, payment_date, amount, COUNT(*) AS n, STRING_AGG(CAST(payment_id AS STRING), ',' ORDER BY payment_id) AS payment_ids
+FROM `sahyadri_b2b.dr_receipts` WHERE in_dup_group GROUP BY order_id, payment_date, amount ORDER BY amount DESC;
+SELECT IFNULL(payment_method,'(missing)') AS method, COUNTIF(is_duplicate) AS dups, COUNT(*) AS receipts
+FROM `sahyadri_b2b.dr_receipts` GROUP BY method ORDER BY dups DESC;
+-- Exposure: duplicate amount on orders that are not underpaid
+WITH val AS (
+  SELECT o.order_id, SUM(i.quantity*i.unit_price*(1-IFNULL(i.discount_percent,0)/100)) AS v
+  FROM `sahyadri_b2b.sales_orders` AS o JOIN `sahyadri_b2b.sales_order_items` AS i USING (order_id) GROUP BY order_id
+),
+paid AS (SELECT order_id, SUM(amount) AS p FROM `sahyadri_b2b.payments` GROUP BY order_id)
+SELECT r.order_id, r.payment_id, r.payment_date, r.amount, r.payment_method, r.customer_name,
+  ROUND(v.v,2) AS order_value, ROUND(p.p,2) AS total_paid, ROUND(p.p - v.v,2) AS overpaid
+FROM `sahyadri_b2b.dr_receipts` AS r JOIN val AS v USING (order_id) JOIN paid AS p USING (order_id)
+WHERE r.is_duplicate ORDER BY overpaid DESC;

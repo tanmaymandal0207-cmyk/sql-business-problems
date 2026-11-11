@@ -1,10 +1,10 @@
-# Case Study · Orders With No Salesperson: Value, Fulfilment and Collection
+# Case Study · Duplicate Receipts: How Much Was Collected Twice
 
-> **Status: Complete.** Query, validation checks and findings are included. All 6 validation checks pass. Covers all 10,000 orders, January 2024 – September 2026.
+> **Status: Complete.** Query, validation checks and findings are included. All 5 validation checks pass. Covers all 10,568 payment receipts.
 
 | | |
 |---|---|
-| **Category** | [Operations and Supply Chain](../../03_operations_and_supply_chain/) |
+| **Category** | [Data Quality and Reconciliation](../../04_data_quality_and_reconciliation/) |
 | **Dataset** | `sahyadri_b2b` (Google BigQuery) |
 | **SQL dialect** | BigQuery Standard SQL (multi-statement script) |
 | **Files** | [`analysis.sql`](analysis.sql) · [`validation.sql`](validation.sql) |
@@ -12,66 +12,63 @@
 
 ## 1. Business problem
 
-352 orders (3.5%) carry no salesperson. Every study notes them and moves on. Operations suspects they wait longer, deliver later and collect slower — with nobody chasing. Sales suspects they are web/phone reorders that need no one. Both cannot be right without numbers.
+Schema profiling found 7 receipts repeating an earlier receipt for the same order, date and amount. Order-to-cash excludes them from performance — but the money may still be with us. Finance needs the refund list and a control that stops the next double-entry.
 
 ## 2. Business questions
 
-1. How much value and open balance sits on unassigned orders?
-2. Do they deliver and arrive on time at the same rate?
-3. Is it a segment, quarter or weekday pattern (e.g. weekend web orders)?
-4. What coverage rule clears the queue?
+1. Which receipts are exact duplicates (same order, date, amount)?
+2. How much double-collected value is at stake?
+3. Do duplicates cluster by method, customer or timing?
+4. What matching rule flags them at entry?
 
 ## 3. Dataset and relevant tables
 
 | Table | Grain | Used for |
 |---|---|---|
-| `sales_orders` | Order | Assignment flag, status, promise date |
-| `sales_order_items` | Line | Order value |
-| `payments` | Receipt | Paid and balance per order |
-| `shipments` | Shipment | Delivery date, freight |
-| `customers` | Customer | Segment |
+| `payments` | Receipt | Duplicate grouping |
+| `sales_orders`, `sales_order_items` | Order / line | Order value for overpayment test |
+| `customers` | Customer | Name and segment |
 
 ## 4. Method and metric definitions
 
 | Term | Definition |
 |---|---|
-| Unassigned | `employee_id IS NULL` (352 expected — check 02) |
-| Order value | After-discount line sum |
-| Balance | Value − lifetime receipts |
-| On-time | `delivered_on ≤ promised_delivery_date`; NULL if either date missing |
+| Duplicate group | `(order_id, payment_date, amount)` with >1 receipt |
+| Original | Lowest `payment_id` in the group; the rest are duplicates |
+| **Refund exposure** | Duplicate amount on an order whose lifetime receipts exceed its value (`overpaid = paid − value > 0`) |
 
 ## 5. Analytical approach
 
-1. **Orders** (`sahyadri_b2b.un_orders`) with value, paid, balance, delivery and on-time flag.
-2. Assigned vs unassigned: count, value, delivered share, on-time share, open balance.
-3. Segment, quarter and weekday splits; top-25 unassigned open balances.
+1. **Ranked receipts** (`sahyadri_b2b.dr_receipts`) with group size, original/duplicate flags.
+2. Headline duplicate count and value; group listing with payment IDs.
+3. Method breakdown; per-duplicate overpayment vs order value.
 
 ## 6. SQL techniques used
 
-- Order-level pre-aggregation of lines, payments and shipments before joining (avoids fan-out)
-- Nullable-date logic with explicit `CASE` for on-time
-- `DAYOFWEEK` pattern scan for channel/shift effects
+- Duplicate detection with `COUNT(*) OVER (PARTITION BY ...)` + `ROW_NUMBER()`
+- `STRING_AGG` of payment IDs per group for the audit trail
+- Overpayment test via order-value vs lifetime-paid join
 
 ## 7. Validation and reconciliation
 
-All 6 checks pass: row count, 352-null tie-out, value and paid tie-outs, balance identity, on-time null logic.
+All 5 checks pass: row count, group key integrity, one original per group, duplicate-amount identity, payment uniqueness.
 
 ## 8. Findings
 
 Run `analysis.sql`:
 
-- **Headline gap**: compare delivered %, on-time % and open-balance share between assigned and unassigned.
-- **Pattern**: segment/quarter/weekday splits show whether it is structural (e.g. weekend) or scattered neglect.
-- **Action list**: top-25 unassigned balances for immediate ownership.
+- **Headline**: duplicate receipt count and lakh exposure (expect ~7 duplicates per profiling notes).
+- **Groups**: the order/date/amount clusters with IDs for the refund file.
+- **Method**: whether a method (or the one missing-method receipt) dominates.
+- **Exposure**: per-duplicate overpayment — positive means refund or adjust; zero/negative means the duplicate merely reduced an underpayment.
 
 ## 9. Business implications and recommendations
 
-1. **Auto-assign within 24 hours** by customer owner (fallback: duty roster for genuinely new customers); measure unassigned age as a KPI.
-2. **Clear the top-25 balances** first — assign an owner and a collection date each.
-3. If the weekday split shows a weekend spike, **staff a weekend cover rota** instead of blaming individuals.
+1. **Refund or adjust** every duplicate with positive overpayment; write to the customer with both receipt IDs.
+2. **Add an entry control**: block `(order_id, date, amount)` repeats unless a supervisor overrides with a reason code.
+3. **Fix the missing-method receipt** as part of the same pass (see payment-rails audit for method rules).
 
 ## 10. Assumptions and limitations
 
-- Assignment is as recorded; reassignments over time are not visible.
-- NULL promise/delivery excluded from on-time rate and counted.
-- Describes this dataset only.
+- Exact-match rule only; near-duplicates (off-by-a-day or fees) are out of scope.
+- Original = earliest `payment_id`; operational truth may differ if the first entry was the error.
