@@ -1,31 +1,15 @@
--- Business Problem 06: Popularity + quality shortlist
--- Screening assumptions: rating >= 4.0 and at least 100 votes.
--- Change the thresholds to test sensitivity.
-
-WITH base AS (
-  SELECT
-    name,
-    location,
-    cuisines,
-    SAFE_CAST(SPLIT(rate_cleaned, '/')[SAFE_OFFSET(0)] AS FLOAT64) AS rating,
-    votes_cleaned AS votes,
-    approx_cost_cleaned AS cost_for_two,
-    online_order,
-    book_table
+-- Repeated-name footprint. Three listings is a screening threshold, not proof of chain ownership.
+WITH normalized AS (
+  SELECT LOWER(TRIM(name)) AS normalized_name, location, url
   FROM `zomatoanalytics.Zomato_csv.restaurants_clean`
+  WHERE name IS NOT NULL AND TRIM(name) != ''
 )
-SELECT
-  name,
-  location,
-  cuisines,
-  rating,
-  votes,
-  cost_for_two,
-  online_order,
-  book_table,
-  DENSE_RANK() OVER (ORDER BY votes DESC, rating DESC) AS engagement_rank
-FROM base
-WHERE rating >= 4.0
-  AND votes >= 100
-ORDER BY votes DESC, rating DESC
-LIMIT 100;
+SELECT normalized_name, COUNT(*) AS listing_count,
+       COUNT(DISTINCT location) AS distinct_localities,
+       COUNT(DISTINCT url) AS distinct_listing_urls,
+       STRING_AGG(DISTINCT location, ', ' ORDER BY location LIMIT 20) AS locality_footprint
+FROM normalized
+GROUP BY normalized_name
+HAVING COUNT(*) >= 3
+ORDER BY listing_count DESC, distinct_localities DESC
+LIMIT 50;
