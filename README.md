@@ -1,18 +1,18 @@
-# How does restaurant price positioning relate to customer ratings?
+# Where is online ordering most and least adopted?
 
 ## Business problem
-A restaurant operator wants to benchmark price positioning against customer ratings and understand whether higher-cost listings consistently receive stronger ratings.
+A delivery-focused operator or platform analyst wants to understand online-order availability across Bangalore localities.
 
 ## Business questions
-- How do average ratings vary across cost-for-two bands?
-- How many listings and votes sit in each band?
-- Does the dataset show a simple positive relationship between price and rating?
+- What proportion of listings accept online orders?
+- Which localities have the highest and lowest online-order adoption?
+- Are differences driven by the number of listings or the adoption rate?
 
 ## Method
-Create transparent cost bands from `approx_cost_cleaned`, calculate average rating, average votes and listing count per band, and calculate a correlation between cost and rating for records with both values.
+Calculate Yes/No counts and adoption percentage by locality. Exclude missing locality values from the ranked locality view, and require a minimum listing count to reduce unstable percentages in very small groups.
 
 ## Interpretation
-Cost is approximate for two people. Correlation is descriptive and does not establish causation. Ratings and votes may be affected by cuisine, locality, restaurant age, brand, service model and selection bias. Do not interpret higher price as better quality.
+The field records whether online ordering is listed as available; it does not reveal order volume, delivery performance, platform commission, or revenue. Locality adoption rates should be compared alongside sample size.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against:
