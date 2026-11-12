@@ -1,9 +1,9 @@
-# Which dishes appear most frequently in customer-liked dish listings?
+# How complete are menu and profile listings across restaurant records?
 
-A menu researcher wants to find dish names recurring across restaurant listings.
-**Questions:** Which dish labels appear most often in `dish_liked`? How many listings mention each? What are the associated average ratings and votes?
-**Method:** Split comma-separated `dish_liked` values, trim tokens and aggregate by dish label. Require at least five mentions.
-**Caveat:** This is a listed-liked-dish signal, not transaction-level sales or a representative customer survey. Commas inside dish names can affect tokenisation; manually inspect top values.
+A marketplace operations team wants to prioritise catalogue-quality improvements.
+**Questions:** What share of listings have menu text and `dish_liked` values? How does coverage vary by locality? Which localities have many listings but weaker menu-field coverage?
+**Method:** Measure presence of `menu_item`, `dish_liked` and `cuisines`; also report average menu-text length.
+**Caveat:** Text length is not a count of menu items and does not measure accuracy or freshness. Missing fields may reflect source capture rather than restaurant behaviour.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against `zomatoanalytics.Zomato_csv.restaurants_clean`.
