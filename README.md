@@ -1,18 +1,18 @@
-# Which cuisine categories have the strongest listing presence?
+# How does restaurant price positioning relate to customer ratings?
 
 ## Business problem
-A food-business operator wants to understand which cuisine categories are most represented in Bangalore listings before assessing potential market-entry opportunities.
+A restaurant operator wants to benchmark price positioning against customer ratings and understand whether higher-cost listings consistently receive stronger ratings.
 
 ## Business questions
-- Which individual cuisine labels appear most frequently?
-- How many restaurants are associated with each cuisine?
-- What are the average rating and average cost-for-two for each cuisine?
+- How do average ratings vary across cost-for-two bands?
+- How many listings and votes sit in each band?
+- Does the dataset show a simple positive relationship between price and rating?
 
 ## Method
-Split the comma-separated `cuisines` field into individual labels, trim whitespace, and aggregate at the cuisine level. A restaurant with multiple cuisine labels contributes once to each associated cuisine.
+Create transparent cost bands from `approx_cost_cleaned`, calculate average rating, average votes and listing count per band, and calculate a correlation between cost and rating for records with both values.
 
 ## Interpretation
-This measures listing presence, not market share by sales or customer demand. Because restaurants can appear in multiple cuisine categories, cuisine counts are non-additive and should not be summed to estimate unique restaurants. Treat high representation as evidence of competition intensity, not proof that a segment is saturated.
+Cost is approximate for two people. Correlation is descriptive and does not establish causation. Ratings and votes may be affected by cuisine, locality, restaurant age, brand, service model and selection bias. Do not interpret higher price as better quality.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against:
