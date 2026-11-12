@@ -1,9 +1,9 @@
-# Do multi-outlet restaurant brands deliver consistent ratings?
+# What is the mix of restaurant operating formats in Bangalore?
 
-After identifying repeated-name groups, assess whether outlet ratings appear consistent or vary substantially.
-**Questions:** Which groups have at least three rated listings? What are their average, minimum and maximum ratings? Which show the widest rating spread?
-**Method:** Group by standardised name and calculate rating statistics from the numeric part of `rate_cleaned`.
-**Caveat:** Names are only a proxy for brand identity. Rating spread is descriptive and can reflect sample size, outlet age, locality and listing quality.
+An operator wants to understand the listing base across source-defined restaurant formats.
+**Questions:** Which `rest_type` labels have the largest counts? What share of listings does each represent? How do average ratings and cost-for-two vary by format?
+**Method:** Aggregate using original `rest_type` labels and calculate listing share, rating and cost.
+**Caveat:** Combined labels are retained as supplied. This is a listing-mix analysis, not a count of physical outlets by standardised industry segment.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against `zomatoanalytics.Zomato_csv.restaurants_clean`.
