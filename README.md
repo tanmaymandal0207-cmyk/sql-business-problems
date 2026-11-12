@@ -1,9 +1,9 @@
-# Which restaurant brands have the widest outlet footprint?
+# Do multi-outlet restaurant brands deliver consistent ratings?
 
-A market analyst wants to identify repeated restaurant names and their geographic reach.
-**Questions:** Which names have the most listings? Across how many localities do they appear? Which have the broadest footprint?
-**Method:** Standardise names for case and whitespace, then count listings, distinct localities and distinct URLs. The query screens names with at least three listings.
-**Caveat:** Repeated names are brand candidates, not proof of common ownership. Validate addresses, URLs and ownership before calling a group a chain. No deduplication is performed.
+After identifying repeated-name groups, assess whether outlet ratings appear consistent or vary substantially.
+**Questions:** Which groups have at least three rated listings? What are their average, minimum and maximum ratings? Which show the widest rating spread?
+**Method:** Group by standardised name and calculate rating statistics from the numeric part of `rate_cleaned`.
+**Caveat:** Names are only a proxy for brand identity. Rating spread is descriptive and can reflect sample size, outlet age, locality and listing quality.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against `zomatoanalytics.Zomato_csv.restaurants_clean`.
