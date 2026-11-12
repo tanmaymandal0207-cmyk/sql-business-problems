@@ -1,31 +1,24 @@
--- Business Problem 01: Locality market concentration
--- Output: locality listing count, share of dataset, rating coverage and average rating.
+-- Business Problem 02: Cuisine market presence
+-- Each restaurant contributes to each cuisine label listed in its cuisines field.
 
-WITH base AS (
+WITH cuisine_rows AS (
   SELECT
-    location,
-    SAFE_CAST(SPLIT(rate_cleaned, '/')[SAFE_OFFSET(0)] AS FLOAT64) AS rating
-  FROM `zomatoanalytics.Zomato_csv.restaurants_clean`
-),
-locality_summary AS (
-  SELECT
-    COALESCE(location, '[Missing location]') AS locality,
-    COUNT(*) AS restaurant_listings,
-    COUNT(rating) AS rated_listings,
-    ROUND(AVG(rating), 2) AS average_rating
-  FROM base
-  GROUP BY locality
+    TRIM(cuisine) AS cuisine,
+    SAFE_CAST(SPLIT(rate_cleaned, '/')[SAFE_OFFSET(0)] AS FLOAT64) AS rating,
+    approx_cost_cleaned
+  FROM `zomatoanalytics.Zomato_csv.restaurants_clean`,
+  UNNEST(SPLIT(cuisines, ',')) AS cuisine
+  WHERE cuisines IS NOT NULL
+    AND TRIM(cuisine) != ''
 )
 SELECT
-  locality,
-  restaurant_listings,
-  ROUND(100 * SAFE_DIVIDE(
-    restaurant_listings,
-    SUM(restaurant_listings) OVER ()
-  ), 2) AS share_of_listings_pct,
-  rated_listings,
-  ROUND(100 * SAFE_DIVIDE(rated_listings, restaurant_listings), 2) AS rating_coverage_pct,
-  average_rating
-FROM locality_summary
-ORDER BY restaurant_listings DESC
+  cuisine,
+  COUNT(*) AS restaurant_listings,
+  COUNT(rating) AS rated_listings,
+  ROUND(AVG(rating), 2) AS average_rating,
+  ROUND(AVG(approx_cost_cleaned), 0) AS average_cost_for_two
+FROM cuisine_rows
+GROUP BY cuisine
+HAVING COUNT(*) >= 25
+ORDER BY restaurant_listings DESC, average_rating DESC
 LIMIT 30;
