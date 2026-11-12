@@ -1,9 +1,9 @@
-# How complete are menu and profile listings across restaurant records?
+# How do customer engagement and ratings combine across restaurant listings?
 
-A marketplace operations team wants to prioritise catalogue-quality improvements.
-**Questions:** What share of listings have menu text and `dish_liked` values? How does coverage vary by locality? Which localities have many listings but weaker menu-field coverage?
-**Method:** Measure presence of `menu_item`, `dish_liked` and `cuisines`; also report average menu-text length.
-**Caveat:** Text length is not a count of menu items and does not measure accuracy or freshness. Missing fields may reflect source capture rather than restaurant behaviour.
+A marketplace analyst wants to segment listings using both rating and vote volume rather than a single ranking.
+**Questions:** How many listings fall into each rating/engagement segment? Which have high ratings but low engagement? Which have high engagement but weaker ratings?
+**Method:** Parse numeric ratings, calculate vote-count quartiles with `NTILE(4)`, then cross-tabulate engagement tiers and rating bands.
+**Caveat:** Votes are an engagement proxy, not sales or unique customers. Quartiles are relative to this dataset, not universal thresholds.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against `zomatoanalytics.Zomato_csv.restaurants_clean`.
