@@ -1,18 +1,18 @@
-# Which restaurants combine strong ratings with meaningful customer engagement?
+# Where is restaurant supply concentrated across Bangalore localities?
 
 ## Business problem
-A market analyst needs a shortlist of restaurants that combine a strong customer rating with meaningful review engagement, rather than ranking listings by rating alone.
+A restaurant operator or market researcher needs to understand where listed restaurant supply is concentrated and which localities have a comparatively smaller listing base.
 
 ## Business questions
-- Which restaurants have high ratings and substantial vote counts?
-- How does the shortlist vary by locality and cuisine?
-- Which candidates have enough votes to make their rating more credible than a very low-volume listing?
+- Which localities contain the largest number of restaurant listings?
+- What share of all listings does each locality represent?
+- How many listings have a valid numeric rating in each locality?
 
 ## Method
-Parse numeric ratings, retain listings with at least 100 votes and a rating of 4.0 or above, and rank by votes then rating. The vote threshold is an explicit screening assumption and can be adjusted.
+Aggregate listings by `location`, calculate each locality's share of the full dataset, and report rating coverage and average rating. Keep missing locality values visible as an explicit group so the denominator is transparent.
 
 ## Interpretation
-Votes are not necessarily unique customers and do not equal review count, orders or revenue. A high vote count may reflect age or visibility as well as popularity. This is a screening shortlist, not a definitive quality ranking. The query preserves restaurant names and locations for manual validation.
+High listing count indicates supply concentration, not automatically demand or profitability. A low-count locality is only a candidate for further research; population, footfall, rents, competition quality and delivery radius are not present in this dataset.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against:

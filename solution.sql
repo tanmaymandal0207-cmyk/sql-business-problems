@@ -1,31 +1,31 @@
--- Business Problem 06: Popularity + quality shortlist
--- Screening assumptions: rating >= 4.0 and at least 100 votes.
--- Change the thresholds to test sensitivity.
+-- Business Problem 01: Locality market concentration
+-- Output: locality listing count, share of dataset, rating coverage and average rating.
 
 WITH base AS (
   SELECT
-    name,
     location,
-    cuisines,
-    SAFE_CAST(SPLIT(rate_cleaned, '/')[SAFE_OFFSET(0)] AS FLOAT64) AS rating,
-    votes_cleaned AS votes,
-    approx_cost_cleaned AS cost_for_two,
-    online_order,
-    book_table
+    SAFE_CAST(SPLIT(rate_cleaned, '/')[SAFE_OFFSET(0)] AS FLOAT64) AS rating
   FROM `zomatoanalytics.Zomato_csv.restaurants_clean`
+),
+locality_summary AS (
+  SELECT
+    COALESCE(location, '[Missing location]') AS locality,
+    COUNT(*) AS restaurant_listings,
+    COUNT(rating) AS rated_listings,
+    ROUND(AVG(rating), 2) AS average_rating
+  FROM base
+  GROUP BY locality
 )
 SELECT
-  name,
-  location,
-  cuisines,
-  rating,
-  votes,
-  cost_for_two,
-  online_order,
-  book_table,
-  DENSE_RANK() OVER (ORDER BY votes DESC, rating DESC) AS engagement_rank
-FROM base
-WHERE rating >= 4.0
-  AND votes >= 100
-ORDER BY votes DESC, rating DESC
-LIMIT 100;
+  locality,
+  restaurant_listings,
+  ROUND(100 * SAFE_DIVIDE(
+    restaurant_listings,
+    SUM(restaurant_listings) OVER ()
+  ), 2) AS share_of_listings_pct,
+  rated_listings,
+  ROUND(100 * SAFE_DIVIDE(rated_listings, restaurant_listings), 2) AS rating_coverage_pct,
+  average_rating
+FROM locality_summary
+ORDER BY restaurant_listings DESC
+LIMIT 30;
