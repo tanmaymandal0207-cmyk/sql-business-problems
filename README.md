@@ -1,9 +1,9 @@
-# What is the mix of restaurant operating formats in Bangalore?
+# Which dishes appear most frequently in customer-liked dish listings?
 
-An operator wants to understand the listing base across source-defined restaurant formats.
-**Questions:** Which `rest_type` labels have the largest counts? What share of listings does each represent? How do average ratings and cost-for-two vary by format?
-**Method:** Aggregate using original `rest_type` labels and calculate listing share, rating and cost.
-**Caveat:** Combined labels are retained as supplied. This is a listing-mix analysis, not a count of physical outlets by standardised industry segment.
+A menu researcher wants to find dish names recurring across restaurant listings.
+**Questions:** Which dish labels appear most often in `dish_liked`? How many listings mention each? What are the associated average ratings and votes?
+**Method:** Split comma-separated `dish_liked` values, trim tokens and aggregate by dish label. Require at least five mentions.
+**Caveat:** This is a listed-liked-dish signal, not transaction-level sales or a representative customer survey. Commas inside dish names can affect tokenisation; manually inspect top values.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against `zomatoanalytics.Zomato_csv.restaurants_clean`.

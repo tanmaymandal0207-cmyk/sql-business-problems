@@ -1,18 +1,15 @@
-WITH base AS (
-  SELECT COALESCE(NULLIF(TRIM(rest_type), ''), '[Missing rest_type]') AS restaurant_format,
+WITH dish_rows AS (
+  SELECT TRIM(dish) AS dish,
          SAFE_CAST(SPLIT(rate_cleaned, '/')[SAFE_OFFSET(0)] AS FLOAT64) AS rating,
-         approx_cost_cleaned AS cost_for_two
-  FROM `zomatoanalytics.Zomato_csv.restaurants_clean`
-),
-summary AS (
-  SELECT restaurant_format, COUNT(*) AS listing_count, COUNT(rating) AS rated_listings,
-         ROUND(AVG(rating), 2) AS average_rating,
-         ROUND(AVG(cost_for_two), 0) AS average_cost_for_two
-  FROM base GROUP BY restaurant_format
+         votes_cleaned AS votes
+  FROM `zomatoanalytics.Zomato_csv.restaurants_clean`,
+  UNNEST(SPLIT(dish_liked, ',')) AS dish
+  WHERE dish_liked IS NOT NULL AND TRIM(dish) != ''
 )
-SELECT restaurant_format, listing_count,
-       ROUND(100 * SAFE_DIVIDE(listing_count, SUM(listing_count) OVER ()), 2) AS dataset_share_pct,
-       rated_listings, average_rating, average_cost_for_two
-FROM summary
-ORDER BY listing_count DESC
-LIMIT 40;
+SELECT dish, COUNT(*) AS restaurant_mentions, COUNT(rating) AS rated_listings,
+       ROUND(AVG(rating), 2) AS average_rating, ROUND(AVG(votes), 0) AS average_votes
+FROM dish_rows
+GROUP BY dish
+HAVING COUNT(*) >= 5
+ORDER BY restaurant_mentions DESC, average_rating DESC
+LIMIT 50;
