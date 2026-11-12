@@ -1,18 +1,18 @@
-# How available is table booking, and where is dine-in service concentrated?
+# Which restaurants combine strong ratings with meaningful customer engagement?
 
 ## Business problem
-A dine-in operator wants to understand the prevalence of table-booking availability and the localities where it is most common.
+A market analyst needs a shortlist of restaurants that combine a strong customer rating with meaningful review engagement, rather than ranking listings by rating alone.
 
 ## Business questions
-- What proportion of listings offer table booking?
-- Which localities have the highest table-booking availability?
-- Do table-booking listings have different average ratings or cost positioning?
+- Which restaurants have high ratings and substantial vote counts?
+- How does the shortlist vary by locality and cuisine?
+- Which candidates have enough votes to make their rating more credible than a very low-volume listing?
 
 ## Method
-Summarise table-booking status overall and by locality, then compare average rating and approximate cost-for-two by booking status. Exclude unknown status from the Yes/No comparison.
+Parse numeric ratings, retain listings with at least 100 votes and a rating of 4.0 or above, and rank by votes then rating. The vote threshold is an explicit screening assumption and can be adjusted.
 
 ## Interpretation
-Table booking is a service attribute, not a direct measure of dine-in traffic, occupancy or reservation conversion. The rating/cost comparison is observational and should not be presented as evidence that table booking causes higher ratings or prices.
+Votes are not necessarily unique customers and do not equal review count, orders or revenue. A high vote count may reflect age or visibility as well as popularity. This is a screening shortlist, not a definitive quality ranking. The query preserves restaurant names and locations for manual validation.
 
 ## Run
 Execute `solution.sql` in BigQuery Standard SQL against:
