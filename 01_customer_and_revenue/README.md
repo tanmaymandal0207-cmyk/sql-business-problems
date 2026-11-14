@@ -41,3 +41,4 @@ Case studies on how revenue is distributed across customers, how it changes over
 | 22 | [Large-order pull-forward](22_large_order_pull_forward/) — after an order of ₹5 lakh or more, does the customer's regular ordering drop by more than random dates would show? | Complete |
 | 23 | [Quiet categories](23_quiet_categories/) — how often does a regularly bought category go quiet at a customer who keeps ordering, and how often does it come back? | Complete |
 | 24 | [MSME 45-day rule](24_msme_45_day_rule/) — how much is paid after 45 days, what statutory interest the law allows, and who owed us past 45 days at their year-end (section 43B(h)) | Complete |
+| 25 | [One-and-done customers](25_one_and_done_customers/) — how many customers never order a second time, what their first orders look like, and when to follow up | In progress |
