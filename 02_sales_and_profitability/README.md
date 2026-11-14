@@ -43,3 +43,5 @@ Case studies on what drives sales value and margin — products, categories, sal
 | 24 | [GST funded before collection](24_gst_funded_before_collection/) — how long the company carries customers' GST, what it costs, and how much was paid on invoices never collected | Complete |
 | 25 | [Quarterly volume rebate](25_quarterly_volume_rebate/) — what a tiered rebate would cost on today's volumes, the extra volume it must buy, and how much could be earned by moving orders | Complete |
 | 26 | [Discount approval matrix](26_discount_approval_matrix/) — how many approvals a title-based matrix would create, what really drives discounts, and the segment caps already in the data | Complete |
+| 27 | [Selling below cost](27_selling_below_cost/) — which lines and orders are sold below cost, and whether the price list or the discount caused it | In progress |
+| 28 | [Small-order economics](28_small_order_economics/) — do small orders still make money after freight and handling, and what minimum order or fee would fix it | In progress |
