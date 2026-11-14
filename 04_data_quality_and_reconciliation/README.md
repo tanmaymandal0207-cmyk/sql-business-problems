@@ -39,3 +39,4 @@ All tables — see [schema](../datasets_and_documentation/schema.md), including 
 | 20 | [TDS on purchase of goods](20_tds_on_purchase_of_goods/) — which customers cross ₹50 lakh, the quarterly TDS credits to expect in Form 26AS, and the 2024-25 TCS exposure | Complete |
 | 21 | [Payment rails audit](21_payment_rails_audit/) — receipts tested against RTGS and UPI limits and cheque clearing days, without the bank statement | Complete |
 | 22 | [Returns and the GST credit-note deadline](22_returns_credit_note_deadline/) — returned orders against the 30 November credit-note deadline, receivables they inflate, and money held for customers | Complete |
+| 23 | [Duplicate receipts](23_duplicate_receipts/) — receipts recorded twice for the same order, date and amount, and the overpayment to refund | In progress |
