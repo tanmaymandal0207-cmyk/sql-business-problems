@@ -1,12 +1,392 @@
-# How do customer engagement and ratings combine across restaurant listings?
+<p align="center">
+  <img src="images/banner.svg" alt="SQL Business Problems — business questions answered with SQL in Google BigQuery" width="100%">
+</p>
 
-A marketplace analyst wants to segment listings using both rating and vote volume rather than a single ranking.
-**Questions:** How many listings fall into each rating/engagement segment? Which have high ratings but low engagement? Which have high engagement but weaker ratings?
-**Method:** Parse numeric ratings, calculate vote-count quartiles with `NTILE(4)`, then cross-tabulate engagement tiers and rating bands.
-**Caveat:** Votes are an engagement proxy, not sales or unique customers. Quartiles are relative to this dataset, not universal thresholds.
+Business problems analysed and answered with SQL — each case study starts from a business question, not from a query.
 
-## Run
-Execute `solution.sql` in BigQuery Standard SQL against `zomatoanalytics.Zomato_csv.restaurants_clean`.
+> **New here?** The [Getting Started Guide](GUIDE.md) explains how the repository is organised, how to read a case study and how to run the SQL in BigQuery.
 
-## Results
-Add actual query output and a concise business recommendation after execution. No numerical findings are pre-filled.
+<p align="center">
+  <img src="https://img.shields.io/badge/SQL-BigQuery%20Standard%20SQL-DCE6F2?labelColor=17283B" alt="SQL: BigQuery Standard SQL">
+  <img src="https://img.shields.io/badge/Categories-5-DCE6F2?labelColor=17283B" alt="Categories: 5">
+  <img src="https://img.shields.io/badge/Case%20studies-131%20complete-DCE6F2?labelColor=17283B" alt="Case studies: 131 complete">
+  <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
+</p>
+
+---
+
+## Start here
+
+Short on time? These five case studies show the full method — business problem, SQL, validation and recommendation — on the problems operations and finance teams meet most often.
+
+| Case study | Business question | Why it is worth reading |
+|---|---|---|
+| [Customer revenue risk](01_customer_and_revenue/01_customer_revenue_risk/) | Is headline revenue hiding one-off orders, concentration and declining accounts? | Revised in a second version after validation; both versions kept for traceability |
+| [Order-to-cash reconciliation](04_data_quality_and_reconciliation/01_order_to_cash_reconciliation/) | Can finance trust the hand-updated payment-status flag, and how much cash is really outstanding? | Reconciles orders to actual receipts before anyone reports on them |
+| [Late delivery root cause](03_operations_and_supply_chain/01_late_delivery_root_cause/) | Which of three competing explanations actually drives late deliveries? | Tests each hypothesis against the data before budget is spent |
+| [Discount and margin erosion](02_sales_and_profitability/01_discount_margin_erosion/) | How much does uncontrolled discounting cost, and what would a limit recover? | Turns a margin complaint into a costed policy recommendation |
+| [Customer master de-duplication](04_data_quality_and_reconciliation/03_customer_master_deduplication/) | Which customer records are duplicates, and which should survive? | Rates match confidence and proposes merges without changing data until reviewed |
+
+---
+
+## 1. Project overview
+
+This repository documents business problems solved using SQL. Each case study follows the same structure: a clearly stated business problem, the data and metrics used to address it, the SQL solution, the checks used to validate the numbers, and the business interpretation of the results.
+
+The focus is on decision support for commercial and operational teams — customer and revenue risk, sales and profitability, operations and supply chain, and data quality — rather than on isolated SQL exercises.
+
+## 2. Objective
+
+The repository is intended to demonstrate:
+
+- **Analytical thinking** — translating an ambiguous business concern into specific, answerable questions and measurable metrics.
+- **SQL proficiency** — structured, readable queries using CTEs, joins, aggregations, window functions and conditional logic.
+- **Data validation** — reconciling totals, testing joins for row inflation, and checking assumptions before results are reported.
+- **Business decision support** — converting verified results into findings and recommendations that a manager can act on.
+
+## 3. Analytical approach
+
+Every case study follows the same workflow:
+
+| Step | Activity | Output |
+|---|---|---|
+| 1 | **Define the business problem** | Problem statement and the decision it supports |
+| 2 | **Identify relevant data and metrics** | Tables, grain, joins and metric definitions |
+| 3 | **Analyse the data using SQL** | Documented, reproducible queries |
+| 4 | **Validate calculations and assumptions** | Reconciliation checks, row counts, null and duplicate tests |
+| 5 | **Interpret findings** | Results stated with their context and limits |
+| 6 | **Develop evidence-based recommendations** | Actions tied directly to verified findings |
+
+## 4. Repository structure
+
+| Category | Focus |
+|---|---|
+| [`01_customer_and_revenue`](01_customer_and_revenue/) | Customer value, revenue concentration, churn and revenue-at-risk |
+| [`02_sales_and_profitability`](02_sales_and_profitability/) | Product, category and salesperson performance; discounts and margin |
+| [`03_operations_and_supply_chain`](03_operations_and_supply_chain/) | Order fulfilment, delivery performance, shipping cost and returns |
+| [`04_data_quality_and_reconciliation`](04_data_quality_and_reconciliation/) | Referential integrity, duplicates, standardisation and order-to-cash reconciliation |
+| [`05_advanced_analytics`](05_advanced_analytics/) | Cohorts, segmentation, time-series patterns and other multi-step analyses |
+| [`datasets_and_documentation`](datasets_and_documentation/) | Dataset schema and shared metric definitions |
+
+```
+sql-business-problems/
+├── README.md
+├── GUIDE.md
+├── CHANGELOG.md
+├── 01_customer_and_revenue/
+│   ├── 01_customer_revenue_risk/
+│   ├── 02_customer_churn_early_warning/
+│   ├── 03_revenue_growth_bridge/
+│   ├── 04_salesperson_relationship_risk/
+│   ├── 05_new_customer_activation/
+│   ├── 06_regional_performance/
+│   ├── 07_customer_lifetime_value/
+│   ├── 08_revenue_concentration_trend/
+│   ├── 09_reactivated_customers/
+│   ├── 10_industry_vertical_scorecard/
+│   ├── 11_net_revenue_retention/
+│   ├── 12_customer_health_score/
+│   ├── 13_cross_sell_stickiness/
+│   ├── 14_key_account_regression_to_mean/
+│   ├── 15_revenue_driver_tree/
+│   ├── 16_gateway_categories/
+│   ├── 17_customer_credit_limits/
+│   ├── 18_order_frequency_vs_size/
+│   ├── 19_march_peak_drivers/
+│   ├── 20_overdue_balances_and_ordering/
+│   ├── 21_industry_diversification/
+│   ├── 22_large_order_pull_forward/
+│   ├── 23_quiet_categories/
+│   ├── 24_msme_45_day_rule/
+│   └── 25_one_and_done_customers/
+├── 02_sales_and_profitability/
+│   ├── 01_discount_margin_erosion/
+│   ├── 02_salesperson_scorecard/
+│   ├── 03_price_volume_mix/
+│   ├── 04_cross_sell_white_space/
+│   ├── 05_sku_rationalisation/
+│   ├── 06_discount_consistency/
+│   ├── 07_period_end_sales_push/
+│   ├── 08_market_basket_affinity/
+│   ├── 09_salesperson_ramp_up/
+│   ├── 10_sales_force_cost_efficiency/
+│   ├── 11_gross_margin_bridge/
+│   ├── 12_price_increase_and_price_discipline/
+│   ├── 13_salesperson_ranking_stability/
+│   ├── 14_commission_plan_simulation/
+│   ├── 15_revenue_volatility_drivers/
+│   ├── 16_salesperson_category_specialisation/
+│   ├── 17_price_elasticity_natural_experiment/
+│   ├── 18_product_cost_to_serve/
+│   ├── 19_salesperson_workload_balancing/
+│   ├── 20_discount_creep/
+│   ├── 21_early_payment_discount/
+│   ├── 22_annual_rate_contracts/
+│   ├── 23_price_ladders/
+│   ├── 24_gst_funded_before_collection/
+│   ├── 25_quarterly_volume_rebate/
+│   ├── 26_discount_approval_matrix/
+│   ├── 27_selling_below_cost/
+│   └── 28_small_order_economics/
+├── 03_operations_and_supply_chain/
+│   ├── 01_late_delivery_root_cause/
+│   ├── 02_freight_cost_to_serve/
+│   ├── 03_open_order_backlog_review/
+│   ├── 04_dispatch_workload_planning/
+│   ├── 05_promise_date_standards/
+│   ├── 06_cancellation_return_leakage/
+│   ├── 07_shipment_consolidation/
+│   ├── 08_safety_stock_reorder_points/
+│   ├── 09_statistical_process_control/
+│   ├── 10_split_shipment_drivers/
+│   ├── 11_dispatch_holds/
+│   ├── 12_warehouse_slotting/
+│   ├── 13_key_account_service_equity/
+│   ├── 14_empirical_bayes_rates/
+│   ├── 15_dispatch_queue_discipline/
+│   ├── 16_littles_law_backlog_planning/
+│   ├── 17_dispatch_capacity_simulation/
+│   ├── 18_deadline_based_dispatch/
+│   ├── 19_second_dispatch_hub/
+│   ├── 20_six_day_dispatch_week/
+│   ├── 21_freight_zone_audit/
+│   ├── 22_eway_bill_exposure/
+│   ├── 23_goods_in_transit_insurance/
+│   ├── 24_liquidated_damages_exposure/
+│   └── 25_orders_without_salesperson/
+├── 04_data_quality_and_reconciliation/
+│   ├── 01_order_to_cash_reconciliation/
+│   ├── 02_data_quality_scorecard/
+│   ├── 03_customer_master_deduplication/
+│   ├── 04_revenue_cutoff_reconciliation/
+│   ├── 05_receivables_rollforward/
+│   ├── 06_order_anomaly_screen/
+│   ├── 07_benford_forensic_test/
+│   ├── 08_ship_to_bill_to_reconciliation/
+│   ├── 09_freight_invoice_audit/
+│   ├── 10_monetary_unit_sampling/
+│   ├── 11_order_splitting_test/
+│   ├── 12_order_to_cash_process_mining/
+│   ├── 13_data_drift_monitoring/
+│   ├── 14_weekend_holiday_postings/
+│   ├── 15_cash_application_matching/
+│   ├── 16_missing_data_mechanism/
+│   ├── 17_data_quality_materiality/
+│   ├── 18_kpi_revisions_after_month_end/
+│   ├── 19_dso_formula_comparison/
+│   ├── 20_tds_on_purchase_of_goods/
+│   ├── 21_payment_rails_audit/
+│   ├── 22_returns_credit_note_deadline/
+│   └── 23_duplicate_receipts/
+├── 05_advanced_analytics/
+│   ├── 01_abc_xyz_product_classification/
+│   ├── 02_customer_payment_behaviour/
+│   ├── 03_rfm_customer_segmentation/
+│   ├── 04_revenue_forecast_baseline/
+│   ├── 05_customer_profitability_whale_curve/
+│   ├── 06_reorder_reminders/
+│   ├── 07_time_to_reorder_survival/
+│   ├── 08_customer_state_markov/
+│   ├── 09_cost_of_late_delivery/
+│   ├── 10_customer_momentum/
+│   ├── 11_discount_volume_response/
+│   ├── 12_category_breadth_retention/
+│   ├── 13_kmeans_customer_segmentation/
+│   ├── 14_intermittent_demand_forecasting/
+│   ├── 15_late_payment_scorecard/
+│   ├── 16_collaborative_filtering_recommender/
+│   ├── 17_monte_carlo_collections_forecast/
+│   ├── 18_logistic_regression_churn/
+│   ├── 19_expected_credit_loss_provision/
+│   ├── 20_kpi_change_point_detection/
+│   ├── 21_hierarchical_forecast_reconciliation/
+│   ├── 22_order_timing_regularity/
+│   ├── 23_pilot_design_power_cuped/
+│   ├── 24_revenue_at_risk_churn_simulation/
+│   ├── 25_month_end_revenue_nowcast/
+│   ├── 26_time_to_cash_kaplan_meier/
+│   ├── 27_salesperson_handover_did/
+│   ├── 28_conformal_forecast_intervals/
+│   ├── 29_working_day_adjustment/
+│   ├── 30_fy_target_monte_carlo/
+│   ├── 31_order_size_extreme_value/
+│   ├── 32_customer_dropout_bgnbd/
+│   ├── 33_trade_credit_insurance/
+│   ├── 34_gratuity_liability/
+│   ├── 35_inventory_pooling_second_hub/
+│   └── 36_next_order_due/
+├── datasets_and_documentation/
+│   ├── schema.md
+│   └── metric_definitions.md
+└── images/
+```
+
+## 5. Technical stack
+
+- **Google BigQuery** — Standard SQL
+
+Additional tools will be listed here only when they are used in a published case study.
+
+## 6. Case studies
+
+| # | Case study | Category | Status |
+|---|---|---|---|
+| 1 | [Customer revenue risk](01_customer_and_revenue/01_customer_revenue_risk/) | Customer and revenue | Complete (version 2) |
+| 2 | [Order-to-cash reconciliation](04_data_quality_and_reconciliation/01_order_to_cash_reconciliation/) | Data quality and reconciliation | Complete |
+| 3 | [Late delivery root cause](03_operations_and_supply_chain/01_late_delivery_root_cause/) | Operations and supply chain | Complete |
+| 4 | [Customer churn early warning](01_customer_and_revenue/02_customer_churn_early_warning/) | Customer and revenue | Complete |
+| 5 | [Discount and margin erosion](02_sales_and_profitability/01_discount_margin_erosion/) | Sales and profitability | Complete |
+| 6 | [Freight cost-to-serve and minimum order value](03_operations_and_supply_chain/02_freight_cost_to_serve/) | Operations and supply chain | Complete |
+| 7 | [Data quality scorecard](04_data_quality_and_reconciliation/02_data_quality_scorecard/) | Data quality and reconciliation | Complete |
+| 8 | [ABC-XYZ product classification](05_advanced_analytics/01_abc_xyz_product_classification/) | Advanced analytics | Complete |
+| 9 | [Revenue growth bridge](01_customer_and_revenue/03_revenue_growth_bridge/) | Customer and revenue | Complete |
+| 10 | [Salesperson performance scorecard](02_sales_and_profitability/02_salesperson_scorecard/) | Sales and profitability | Complete |
+| 11 | [Customer payment behaviour and credit terms](05_advanced_analytics/02_customer_payment_behaviour/) | Advanced analytics | Complete |
+| 12 | [Open order backlog review](03_operations_and_supply_chain/03_open_order_backlog_review/) | Operations and supply chain | Complete |
+| 13 | [Customer master de-duplication](04_data_quality_and_reconciliation/03_customer_master_deduplication/) | Data quality and reconciliation | Complete |
+| 14 | [Price-volume-mix analysis](02_sales_and_profitability/03_price_volume_mix/) | Sales and profitability | Complete |
+| 15 | [Dispatch workload and capacity planning](03_operations_and_supply_chain/04_dispatch_workload_planning/) | Operations and supply chain | Complete |
+| 16 | [RFM customer segmentation](05_advanced_analytics/03_rfm_customer_segmentation/) | Advanced analytics | Complete |
+| 17 | [Cross-sell white-space analysis](02_sales_and_profitability/04_cross_sell_white_space/) | Sales and profitability | Complete |
+| 18 | [City-wise delivery promise standards](03_operations_and_supply_chain/05_promise_date_standards/) | Operations and supply chain | Complete |
+| 19 | [Revenue cut-off reconciliation](04_data_quality_and_reconciliation/04_revenue_cutoff_reconciliation/) | Data quality and reconciliation | Complete |
+| 20 | [Baseline revenue forecast with backtesting](05_advanced_analytics/04_revenue_forecast_baseline/) | Advanced analytics | Complete |
+| 21 | [Salesperson relationship risk](01_customer_and_revenue/04_salesperson_relationship_risk/) | Customer and revenue | Complete |
+| 22 | [New customer onboarding and activation](01_customer_and_revenue/05_new_customer_activation/) | Customer and revenue | Complete |
+| 23 | [SKU rationalisation](02_sales_and_profitability/05_sku_rationalisation/) | Sales and profitability | Complete |
+| 24 | [Cancellation and return leakage](03_operations_and_supply_chain/06_cancellation_return_leakage/) | Operations and supply chain | Complete |
+| 25 | [Receivables roll-forward reconciliation](04_data_quality_and_reconciliation/05_receivables_rollforward/) | Data quality and reconciliation | Complete |
+| 26 | [Customer profitability and the whale curve](05_advanced_analytics/05_customer_profitability_whale_curve/) | Advanced analytics | Complete |
+| 27 | [Regional performance and market coverage](01_customer_and_revenue/06_regional_performance/) | Customer and revenue | Complete |
+| 28 | [Discount consistency and price leakage](02_sales_and_profitability/06_discount_consistency/) | Sales and profitability | Complete |
+| 29 | [Period-end sales push](02_sales_and_profitability/07_period_end_sales_push/) | Sales and profitability | Complete |
+| 30 | [Shipment consolidation opportunity](03_operations_and_supply_chain/07_shipment_consolidation/) | Operations and supply chain | Complete |
+| 31 | [Order anomaly screen](04_data_quality_and_reconciliation/06_order_anomaly_screen/) | Data quality and reconciliation | Complete |
+| 32 | [Replenishment reorder reminders](05_advanced_analytics/06_reorder_reminders/) | Advanced analytics | Complete |
+| 33 | [Customer lifetime value](01_customer_and_revenue/07_customer_lifetime_value/) | Customer and revenue | Complete |
+| 34 | [Market basket affinity with significance testing](02_sales_and_profitability/08_market_basket_affinity/) | Sales and profitability | Complete |
+| 35 | [Safety stock and reorder points](03_operations_and_supply_chain/08_safety_stock_reorder_points/) | Operations and supply chain | Complete |
+| 36 | [Statistical process control](03_operations_and_supply_chain/09_statistical_process_control/) | Operations and supply chain | Complete |
+| 37 | [Benford's law forensic test](04_data_quality_and_reconciliation/07_benford_forensic_test/) | Data quality and reconciliation | Complete |
+| 38 | [Time-to-reorder survival analysis](05_advanced_analytics/07_time_to_reorder_survival/) | Advanced analytics | Complete |
+| 39 | [Customer state transitions (Markov chain)](05_advanced_analytics/08_customer_state_markov/) | Advanced analytics | Complete |
+| 40 | [Revenue concentration trend](01_customer_and_revenue/08_revenue_concentration_trend/) | Customer and revenue | Complete |
+| 41 | [Reactivated customers](01_customer_and_revenue/09_reactivated_customers/) | Customer and revenue | Complete |
+| 42 | [Salesperson ramp-up](02_sales_and_profitability/09_salesperson_ramp_up/) | Sales and profitability | Complete |
+| 43 | [Split shipment drivers](03_operations_and_supply_chain/10_split_shipment_drivers/) | Operations and supply chain | Complete |
+| 44 | [Ship-to vs bill-to reconciliation](04_data_quality_and_reconciliation/08_ship_to_bill_to_reconciliation/) | Data quality and reconciliation | Complete |
+| 45 | [Cost of a late delivery](05_advanced_analytics/09_cost_of_late_delivery/) | Advanced analytics | Complete |
+| 46 | [Customer momentum](05_advanced_analytics/10_customer_momentum/) | Advanced analytics | Complete |
+| 47 | [Industry vertical scorecard](01_customer_and_revenue/10_industry_vertical_scorecard/) | Customer and revenue | Complete |
+| 48 | [Net and gross revenue retention](01_customer_and_revenue/11_net_revenue_retention/) | Customer and revenue | Complete |
+| 49 | [Sales force cost efficiency](02_sales_and_profitability/10_sales_force_cost_efficiency/) | Sales and profitability | Complete |
+| 50 | [Dispatch holds](03_operations_and_supply_chain/11_dispatch_holds/) | Operations and supply chain | Complete |
+| 51 | [Freight invoice audit](04_data_quality_and_reconciliation/09_freight_invoice_audit/) | Data quality and reconciliation | Complete |
+| 52 | [Does discount buy volume?](05_advanced_analytics/11_discount_volume_response/) | Advanced analytics | Complete |
+| 53 | [Category breadth and retention](05_advanced_analytics/12_category_breadth_retention/) | Advanced analytics | Complete |
+| 54 | [Customer health score](01_customer_and_revenue/12_customer_health_score/) | Customer and revenue | Complete |
+| 55 | [Gross margin bridge](02_sales_and_profitability/11_gross_margin_bridge/) | Sales and profitability | Complete |
+| 56 | [Warehouse slotting by pick frequency](03_operations_and_supply_chain/12_warehouse_slotting/) | Operations and supply chain | Complete |
+| 57 | [Monetary unit sampling for the receivables audit](04_data_quality_and_reconciliation/10_monetary_unit_sampling/) | Data quality and reconciliation | Complete |
+| 58 | [Order splitting test](04_data_quality_and_reconciliation/11_order_splitting_test/) | Data quality and reconciliation | Complete |
+| 59 | [k-means customer segmentation](05_advanced_analytics/13_kmeans_customer_segmentation/) | Advanced analytics | Complete |
+| 60 | [Intermittent demand forecasting (Croston and SBA)](05_advanced_analytics/14_intermittent_demand_forecasting/) | Advanced analytics | Complete |
+| 61 | [Late payment scorecard](05_advanced_analytics/15_late_payment_scorecard/) | Advanced analytics | Complete |
+| 62 | [Cross-sell stickiness](01_customer_and_revenue/13_cross_sell_stickiness/) | Customer and revenue | Complete |
+| 63 | [January price increase and price discipline](02_sales_and_profitability/12_price_increase_and_price_discipline/) | Sales and profitability | Complete |
+| 64 | [Salesperson ranking stability (bootstrap)](02_sales_and_profitability/13_salesperson_ranking_stability/) | Sales and profitability | Complete |
+| 65 | [Key-account service: better service or easier promises?](03_operations_and_supply_chain/13_key_account_service_equity/) | Operations and supply chain | Complete |
+| 66 | [Order-to-cash process mining](04_data_quality_and_reconciliation/12_order_to_cash_process_mining/) | Data quality and reconciliation | Complete |
+| 67 | [Data drift monitoring (PSI)](04_data_quality_and_reconciliation/13_data_drift_monitoring/) | Data quality and reconciliation | Complete |
+| 68 | [Collaborative filtering vs best sellers](05_advanced_analytics/16_collaborative_filtering_recommender/) | Advanced analytics | Complete |
+| 69 | [Monte Carlo collections forecast](05_advanced_analytics/17_monte_carlo_collections_forecast/) | Advanced analytics | Complete |
+| 70 | [Key-account selection and regression to the mean](01_customer_and_revenue/14_key_account_regression_to_mean/) | Customer and revenue | Complete |
+| 71 | [Sales commission plan simulation](02_sales_and_profitability/14_commission_plan_simulation/) | Sales and profitability | Complete |
+| 72 | [Weekend and holiday postings test](04_data_quality_and_reconciliation/14_weekend_holiday_postings/) | Data quality and reconciliation | Complete |
+| 73 | [Logistic regression churn model, trained in SQL](05_advanced_analytics/18_logistic_regression_churn/) | Advanced analytics | Complete |
+| 74 | [Real differences or noise? Empirical Bayes for operational rates](03_operations_and_supply_chain/14_empirical_bayes_rates/) | Operations and supply chain | Complete |
+| 75 | [Revenue driver tree (LMDI decomposition)](01_customer_and_revenue/15_revenue_driver_tree/) | Customer and revenue | Complete |
+| 76 | [Dispatch queue discipline: is it first come, first served?](03_operations_and_supply_chain/15_dispatch_queue_discipline/) | Operations and supply chain | Complete |
+| 77 | [Cash application matching](04_data_quality_and_reconciliation/15_cash_application_matching/) | Data quality and reconciliation | Complete |
+| 78 | [Expected credit loss: a roll-rate provision matrix](05_advanced_analytics/19_expected_credit_loss_provision/) | Advanced analytics | Complete |
+| 79 | [KPI change-point detection](05_advanced_analytics/20_kpi_change_point_detection/) | Advanced analytics | Complete |
+| 80 | [Gateway categories: does the first order predict customer value?](01_customer_and_revenue/16_gateway_categories/) | Customer and revenue | Complete |
+| 81 | [Customer credit limits: which rule would have stopped the losses?](01_customer_and_revenue/17_customer_credit_limits/) | Customer and revenue | Complete |
+| 82 | [Revenue volatility: how much of a monthly miss is predictable?](02_sales_and_profitability/15_revenue_volatility_drivers/) | Sales and profitability | Complete |
+| 83 | [Salesperson category specialisation](02_sales_and_profitability/16_salesperson_category_specialisation/) | Sales and profitability | Complete |
+| 84 | [Little's Law: backlog, throughput and lead time](03_operations_and_supply_chain/16_littles_law_backlog_planning/) | Operations and supply chain | Complete |
+| 85 | [Hierarchical forecast reconciliation](05_advanced_analytics/21_hierarchical_forecast_reconciliation/) | Advanced analytics | Complete |
+| 86 | [Order timing: clockwork or random?](05_advanced_analytics/22_order_timing_regularity/) | Advanced analytics | Complete |
+| 87 | [Order frequency vs order size: do customers batch their orders?](01_customer_and_revenue/18_order_frequency_vs_size/) | Customer and revenue | Complete |
+| 88 | [Price elasticity from a natural experiment](02_sales_and_profitability/17_price_elasticity_natural_experiment/) | Sales and profitability | Complete |
+| 89 | [Dispatch capacity simulation](03_operations_and_supply_chain/17_dispatch_capacity_simulation/) | Operations and supply chain | Complete |
+| 90 | [Missing data: random, structural or systematic?](04_data_quality_and_reconciliation/16_missing_data_mechanism/) | Data quality and reconciliation | Complete |
+| 91 | [Designing a sales pilot: power analysis and CUPED](05_advanced_analytics/23_pilot_design_power_cuped/) | Advanced analytics | Complete |
+| 92 | [Revenue at risk from customer churn (Monte Carlo)](05_advanced_analytics/24_revenue_at_risk_churn_simulation/) | Advanced analytics | Complete |
+| 93 | [Who drives the March peak?](01_customer_and_revenue/19_march_peak_drivers/) | Customer and revenue | Complete |
+| 94 | [Product profitability after cost to serve](02_sales_and_profitability/18_product_cost_to_serve/) | Sales and profitability | Complete |
+| 95 | [Salesperson workload balancing with the fewest account moves](02_sales_and_profitability/19_salesperson_workload_balancing/) | Sales and profitability | Complete |
+| 96 | [Dispatch by deadline: the capacity needed to keep every promise](03_operations_and_supply_chain/18_deadline_based_dispatch/) | Operations and supply chain | Complete |
+| 97 | [Nowcasting month-end revenue](05_advanced_analytics/25_month_end_revenue_nowcast/) | Advanced analytics | Complete |
+| 98 | [Time to cash with Kaplan–Meier](05_advanced_analytics/26_time_to_cash_kaplan_meier/) | Advanced analytics | Complete |
+| 99 | [Do overdue balances slow a customer's ordering?](01_customer_and_revenue/20_overdue_balances_and_ordering/) | Customer and revenue | Complete |
+| 100 | [Discount creep: do customers get bigger discounts the longer they buy?](02_sales_and_profitability/20_discount_creep/) | Sales and profitability | Complete |
+| 101 | [A second dispatch hub: where would it cut delivery times most?](03_operations_and_supply_chain/19_second_dispatch_hub/) | Operations and supply chain | Complete |
+| 102 | [Data quality materiality: which issues move the board KPIs?](04_data_quality_and_reconciliation/17_data_quality_materiality/) | Data quality and reconciliation | Complete |
+| 103 | [Does a salesperson handover cost revenue? (difference in differences)](05_advanced_analytics/27_salesperson_handover_did/) | Advanced analytics | Complete |
+| 104 | [Honest forecast ranges: conformal intervals for product demand](05_advanced_analytics/28_conformal_forecast_intervals/) | Advanced analytics | Complete |
+| 105 | [Industry diversification: which verticals steady revenue and which make it swing?](01_customer_and_revenue/21_industry_diversification/) | Customer and revenue | Complete |
+| 106 | [Early-payment discount: would "2/10 net 60" pay for itself?](02_sales_and_profitability/21_early_payment_discount/) | Sales and profitability | Complete |
+| 107 | [Can the warehouse close on Sundays?](03_operations_and_supply_chain/20_six_day_dispatch_week/) | Operations and supply chain | Complete |
+| 108 | [Working-day adjustment: how much of each month's change is just the calendar?](05_advanced_analytics/29_working_day_adjustment/) | Advanced analytics | Complete |
+| 109 | [Do large orders steal next quarter's demand?](01_customer_and_revenue/22_large_order_pull_forward/) | Customer and revenue | Complete |
+| 110 | [Annual rate contracts: who to offer them to, and what volume to ask for](02_sales_and_profitability/22_annual_rate_contracts/) | Sales and profitability | Complete |
+| 111 | [Freight zone audit: does the carrier's zone map match distance?](03_operations_and_supply_chain/21_freight_zone_audit/) | Operations and supply chain | Complete |
+| 112 | [Quiet categories: are customers moving categories to competitors?](01_customer_and_revenue/23_quiet_categories/) | Customer and revenue | Complete |
+| 113 | [Will we hit the full-year target? A Monte Carlo of the rest of the year](05_advanced_analytics/30_fy_target_monte_carlo/) | Advanced analytics | Complete |
+| 114 | [How big can one order get? Extreme value analysis for approval limits](05_advanced_analytics/31_order_size_extreme_value/) | Advanced analytics | Complete |
+| 115 | [Why do last month's KPIs change after the pack goes out?](04_data_quality_and_reconciliation/18_kpi_revisions_after_month_end/) | Data quality and reconciliation | Complete |
+| 116 | [Price ladders: are size variants priced consistently?](02_sales_and_profitability/23_price_ladders/) | Sales and profitability | Complete |
+| 117 | [E-way bills: how many consignments need one, and how many outlive it?](03_operations_and_supply_chain/22_eway_bill_exposure/) | Operations and supply chain | Complete |
+| 118 | [Are silent customers lost? A "buy till you die" test of customer dropout](05_advanced_analytics/32_customer_dropout_bgnbd/) | Advanced analytics | Complete |
+| 119 | [Which DSO should the board see? Four formulas against the age of receivables](04_data_quality_and_reconciliation/19_dso_formula_comparison/) | Data quality and reconciliation | Complete |
+| 120 | [TDS on purchase of goods: what customers should deduct, and what to reconcile](04_data_quality_and_reconciliation/20_tds_on_purchase_of_goods/) | Data quality and reconciliation | Complete |
+| 121 | [GST paid before the customer pays: how much cash it ties up](02_sales_and_profitability/24_gst_funded_before_collection/) | Sales and profitability | Complete |
+| 122 | [The MSME 45-day rule: late receipts, statutory interest and year-end exposure](01_customer_and_revenue/24_msme_45_day_rule/) | Customer and revenue | Complete |
+| 123 | [A quarterly volume rebate: cost, break-even volume and timing games](02_sales_and_profitability/25_quarterly_volume_rebate/) | Sales and profitability | Complete |
+| 124 | [Goods in transit: value on the road, per-conveyance limit and sum insured](03_operations_and_supply_chain/23_goods_in_transit_insurance/) | Operations and supply chain | Complete |
+| 125 | [Would trade credit insurance have paid our bad debts?](05_advanced_analytics/33_trade_credit_insurance/) | Advanced analytics | Complete |
+| 126 | [A discount approval matrix: who should approve which discounts?](02_sales_and_profitability/26_discount_approval_matrix/) | Sales and profitability | Complete |
+| 127 | [Liquidated damages: what a delay-penalty clause would cost on our late deliveries](03_operations_and_supply_chain/24_liquidated_damages_exposure/) | Operations and supply chain | Complete |
+| 128 | [Payment rails audit: do receipts fit the rules of the rail they claim?](04_data_quality_and_reconciliation/21_payment_rails_audit/) | Data quality and reconciliation | Complete |
+| 129 | [Returned goods and the GST credit-note deadline](04_data_quality_and_reconciliation/22_returns_credit_note_deadline/) | Data quality and reconciliation | Complete |
+| 130 | [Gratuity liability under the new labour codes (projected unit credit)](05_advanced_analytics/34_gratuity_liability/) | Advanced analytics | Complete |
+| 131 | [Inventory pooling: the safety stock cost of a second hub](05_advanced_analytics/35_inventory_pooling_second_hub/) | Advanced analytics | Complete |
+| 132 | [One-and-done customers: how many never order again, and what it costs](01_customer_and_revenue/25_one_and_done_customers/) | Customer and revenue | In progress |
+| 133 | [Selling below cost: which orders lose money and why](02_sales_and_profitability/27_selling_below_cost/) | Sales and profitability | In progress |
+| 134 | [Small-order economics: do small orders pay after freight?](02_sales_and_profitability/28_small_order_economics/) | Sales and profitability | In progress |
+| 135 | [Orders with no salesperson: value, fulfilment and collection](03_operations_and_supply_chain/25_orders_without_salesperson/) | Operations and supply chain | In progress |
+| 136 | [Duplicate receipts: how much was collected twice](04_data_quality_and_reconciliation/23_duplicate_receipts/) | Data quality and reconciliation | In progress |
+| 137 | [Next order due: whose ordering rhythm has slipped](05_advanced_analytics/36_next_order_due/) | Advanced analytics | In progress |
+
+Case studies are listed as complete only once their SQL, validation and findings have been added to the repository. A dated record of every addition and change is kept in [`CHANGELOG.md`](CHANGELOG.md).
+
+## 7. Data and methodology
+
+Case studies initially use the **`sahyadri_b2b`** dataset — transactional data for a B2B industrial products distributor covering customers, products, sales orders, order line items, payments, shipments and employees. The table structure, keys and known data characteristics are documented in [`datasets_and_documentation/schema.md`](datasets_and_documentation/schema.md).
+
+For each analysis, the following are documented alongside the SQL:
+
+- **Assumptions** — how statuses, nulls, partial payments and edge cases are treated.
+- **Metric definitions** — the exact formula and grain of every reported metric, referencing [`metric_definitions.md`](datasets_and_documentation/metric_definitions.md).
+- **Validation methods** — the checks used to confirm that totals reconcile and joins do not duplicate or drop records.
+
+## 8. Limitations
+
+- Results depend on the completeness and accuracy of the underlying data. Known data quality issues are documented and their treatment is stated in each analysis.
+- Findings describe the dataset analysed; they are not generalised beyond it.
+- Recommendations are grounded only in verified findings. Where the data cannot support a conclusion, that is stated rather than inferred.
+
+---
+
+**Author:** Tanmay Mandal — Business Analysis, Operations & ERP
