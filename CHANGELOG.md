@@ -6,6 +6,17 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-14
+
+### Fixed
+- **Repository structure restored.** Uploads on 11–12 November had replaced the root `README.md` with single case-study READMEs and added `analysis.sql`, `validation.sql` and `solution.sql` at the repository root, each upload overwriting the last. The root `README.md` is restored to its 9 November version (including the "Start here" section), and the root SQL files are removed.
+- **Zomato Bangalore files removed.** Twelve uploads belonged to the separate Zomato Bangalore SQL project, not to this repository; they remain in this repository's git history.
+
+### Added (in progress)
+- Six case studies drafted on 11 November are moved from the repository root into their category folders: [one-and-done customers](01_customer_and_revenue/25_one_and_done_customers/), [selling below cost](02_sales_and_profitability/27_selling_below_cost/), [small-order economics](02_sales_and_profitability/28_small_order_economics/), [orders with no salesperson](03_operations_and_supply_chain/25_orders_without_salesperson/), [duplicate receipts](04_data_quality_and_reconciliation/23_duplicate_receipts/) and [next order due](05_advanced_analytics/36_next_order_due/). Their SQL and validation checks are in place; findings will be added once the queries have been run, so they are listed as in progress. 131 case studies remain complete.
+
+---
+
 ## 2026-11-09
 
 ### Added
