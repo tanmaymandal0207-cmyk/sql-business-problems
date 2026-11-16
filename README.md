@@ -387,6 +387,12 @@ For each analysis, the following are documented alongside the SQL:
 - Findings describe the dataset analysed; they are not generalised beyond it.
 - Recommendations are grounded only in verified findings. Where the data cannot support a conclusion, that is stated rather than inferred.
 
+## 9. Related projects
+
+- [Zomato Bangalore Analysis](https://github.com/tanmaymandal0207-cmyk/zomato-bangalore-sql-analysis): BigQuery profiling, cleaning and restaurant-grain reconciliation of 51,717 listings
+- [IPL Match Intelligence](https://github.com/tanmaymandal0207-cmyk/IPL-Match-Intelligence-Player-Impact-Analysis): MySQL pipeline with data-quality checks and a live dashboard
+- [Inventory Reconciliation](https://github.com/tanmaymandal0207-cmyk/inventory-reconciliation): the same reconcile-before-reporting approach applied to 11 years of real challans in Excel and Power Query
+
 ---
 
 **Author:** Tanmay Mandal — Business Analysis, Operations & ERP

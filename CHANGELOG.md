@@ -6,6 +6,13 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-16
+
+### Changed
+- README: added section 9, *Related projects*, linking the Zomato Bangalore, IPL Match Intelligence and Inventory Reconciliation repositories.
+
+---
+
 ## 2026-11-14
 
 ### Fixed
