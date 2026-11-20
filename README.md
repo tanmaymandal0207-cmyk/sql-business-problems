@@ -13,6 +13,15 @@ Business problems analysed and answered with SQL — each case study starts from
   <img src="https://img.shields.io/badge/Validation-before%20reporting-E1F0E7?labelColor=17283B" alt="Validation: before reporting">
 </p>
 
+<p align="center">
+  <a href="#start-here">Start here</a> ·
+  <a href="#3-analytical-approach">Approach</a> ·
+  <a href="#4-repository-structure">Structure</a> ·
+  <a href="#6-case-studies">Case studies</a> ·
+  <a href="#8-limitations">Limitations</a> ·
+  <a href="#10-changelog">Changelog</a>
+</p>
+
 ---
 
 ## Start here
