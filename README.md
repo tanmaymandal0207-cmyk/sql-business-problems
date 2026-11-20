@@ -393,6 +393,10 @@ For each analysis, the following are documented alongside the SQL:
 - [IPL Match Intelligence](https://github.com/tanmaymandal0207-cmyk/IPL-Match-Intelligence-Player-Impact-Analysis): MySQL pipeline with data-quality checks and a live dashboard
 - [Inventory Reconciliation](https://github.com/tanmaymandal0207-cmyk/inventory-reconciliation): the same reconcile-before-reporting approach applied to 11 years of real challans in Excel and Power Query
 
+## 10. Changelog
+
+Release notes are in [CHANGELOG.md](CHANGELOG.md), newest first.
+
 ---
 
 **Author:** Tanmay Mandal — Business Analysis, Operations & ERP
