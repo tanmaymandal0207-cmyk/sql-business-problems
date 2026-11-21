@@ -6,6 +6,14 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-21
+
+### Changed
+- README: section navigation bar below the badges, and section 10, *Changelog*, linking this file (2026-11-20).
+- README: GitHub and LinkedIn links on the author line.
+
+---
+
 ## 2026-11-16
 
 ### Changed
