@@ -408,4 +408,4 @@ Release notes are in [CHANGELOG.md](CHANGELOG.md), newest first.
 
 ---
 
-**Author:** Tanmay Mandal — Business Analysis, Operations & ERP
+**Author:** Tanmay Mandal — Business Analysis, Operations & ERP · [GitHub](https://github.com/tanmaymandal0207-cmyk) · [LinkedIn](https://www.linkedin.com/in/tanmay-mandal-286623247)
