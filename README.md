@@ -406,6 +406,8 @@ For each analysis, the following are documented alongside the SQL:
 
 Release notes are in [CHANGELOG.md](CHANGELOG.md), newest first.
 
+<p align="right"><a href="#top">↑ Back to top</a></p>
+
 ---
 
 **Author:** Tanmay Mandal — Business Analysis, Operations & ERP · [GitHub](https://github.com/tanmaymandal0207-cmyk) · [LinkedIn](https://www.linkedin.com/in/tanmay-mandal-286623247)
