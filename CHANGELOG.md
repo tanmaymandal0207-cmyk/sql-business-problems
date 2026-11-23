@@ -6,6 +6,13 @@ Each entry lists case studies **added**, existing documents **changed**, and **f
 
 ---
 
+## 2026-11-23
+
+### Changed
+- README: back-to-top link above the author line.
+
+---
+
 ## 2026-11-21
 
 ### Changed
